@@ -18,7 +18,7 @@ interface IProps {
 const NotFoundComponent: FC<Readonly<IProps>> = (props) => {
   const { title, description, buttonText, className } = props
 
-  const t = useTranslations()
+  const t = useTranslations('notFound')
 
   const router = useRouter()
 
@@ -26,12 +26,12 @@ const NotFoundComponent: FC<Readonly<IProps>> = (props) => {
     <div className={cn('flex flex-col items-center gap-4', className)}>
       <CircleAlert className='text-primary size-10' />
 
-      <h1 className='text-2xl font-bold'>{title || t('not_found_title')}</h1>
+      <h1 className='text-2xl font-bold'>{title || t('title')}</h1>
 
-      <p className='text-foreground/70 text-sm'>{description || t('not_found_description')}</p>
+      <p className='text-foreground/70 text-sm'>{description || t('description')}</p>
 
       <Button variant='default' className='w-fit' onClick={() => router.back()}>
-        {buttonText || t('not_found_button')}
+        {buttonText || t('button')}
       </Button>
     </div>
   )

@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -36,6 +37,8 @@ interface IProps extends React.ComponentProps<typeof Card> {}
 const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
   const { className, ...rest } = props
 
+  const t = useTranslations('registerForm')
+
   const { mutateAsync: register, isPending } = useMutation(registerMutationOptions())
 
   const [isSubmitting, startTransition] = useTransition()
@@ -56,6 +59,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
     startTransition(async () => {
       try {
         const response = await register(data)
+
         if (response.success) {
           router.push('/')
         }
@@ -64,12 +68,15 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
       }
     })
   }
+
+  const isRegisterProcessing = isPending || isSubmitting
+
   return (
     <Card className={cn('flex w-full max-w-sm flex-col gap-6', className)} {...rest}>
       <CardHeader>
-        <CardTitle>Create an account</CardTitle>
+        <CardTitle>{t('title')}</CardTitle>
 
-        <CardDescription>Enter your information below to create your account</CardDescription>
+        <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -81,10 +88,10 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
                 name='name'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t('name')}</FormLabel>
 
                     <FormControl>
-                      <Input placeholder='Name' {...field} />
+                      <Input placeholder={t('namePlaceholder')} {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -97,15 +104,13 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
                 name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t('email')}</FormLabel>
 
                     <FormControl>
-                      <Input placeholder='Email' {...field} />
+                      <Input placeholder={t('emailPlaceholder')} {...field} />
                     </FormControl>
 
-                    <FieldDescription>
-                      We&apos;ll use this to contact you. We will not share your email with anyone else.
-                    </FieldDescription>
+                    <FieldDescription>{t('emailDescription')}</FieldDescription>
 
                     <FormMessage />
                   </FormItem>
@@ -117,10 +122,10 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
                 name='password'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t('password')}</FormLabel>
 
                     <FormControl>
-                      <Input placeholder='Password' {...field} />
+                      <Input type='password' placeholder={t('passwordPlaceholder')} {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -133,10 +138,10 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
                 name='confirmPassword'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
+                    <FormLabel>{t('confirmPassword')}</FormLabel>
 
                     <FormControl>
-                      <Input placeholder='Confirm Password' {...field} />
+                      <Input type='password' placeholder={t('confirmPasswordPlaceholder')} {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -146,16 +151,16 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
 
               <FieldGroup>
                 <Field>
-                  <Button type='submit' disabled={isPending || isSubmitting}>
-                    {isPending ? <Spinner /> : 'Create Account'}
+                  <Button type='submit' disabled={isRegisterProcessing}>
+                    {isRegisterProcessing ? <Spinner /> : t('createAccountButton')}
                   </Button>
 
                   <Button variant='outline' type='button'>
-                    Sign up with Google
+                    {t('googleSignUpButton')}
                   </Button>
 
                   <FieldDescription className='px-6 text-center'>
-                    Already have an account? <Link href='/login'>Sign in</Link>
+                    {t('hasAccount')} <Link href='/login'>{t('signIn')}</Link>
                   </FieldDescription>
                 </Field>
               </FieldGroup>

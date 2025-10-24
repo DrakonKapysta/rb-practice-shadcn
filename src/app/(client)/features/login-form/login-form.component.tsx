@@ -1,4 +1,5 @@
 'use client'
+import { useTranslations } from 'next-intl'
 import { FC, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -10,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Spinner
 import { Button } from '@/app/(client)/shared/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/(client)/shared/ui/card'
 import { Field, FieldDescription, FieldGroup } from '@/app/(client)/shared/ui/field'
-import { Input } from '@/app/(client)/shared/ui/input'
+import { Input } from '@/app/(client)/shared/ui/input/input'
 import { Link, useRouter } from '@/pkg/libraries/locale'
 import { loggerUtil } from '@/pkg/utils/logger'
 import { cn } from '@/pkg/utils/ui'
@@ -21,6 +22,7 @@ interface IProps extends React.ComponentProps<typeof Card> {}
 const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
   const { className, ...rest } = props
   const { mutateAsync: login, isPending } = useMutation(loginMutationOptions())
+  const t = useTranslations('loginForm')
 
   const [isSubmitting, startTransition] = useTransition()
 
@@ -47,13 +49,15 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
     })
   }
 
+  const isLoginProcessing = isPending || isSubmitting
+
   return (
     <div className={cn('flex w-full max-w-sm flex-col gap-6', className)} {...rest}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>{t('title')}</CardTitle>
 
-          <CardDescription>Enter your email below to login to your account</CardDescription>
+          <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -65,10 +69,10 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{t('email')}</FormLabel>
 
                       <FormControl>
-                        <Input placeholder='Email' {...field} />
+                        <Input placeholder={t('emailPlaceholder')} {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -81,10 +85,10 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
                   name='password'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t('password')}</FormLabel>
 
                       <FormControl>
-                        <Input placeholder='Password' {...field} />
+                        <Input type='password' placeholder={t('passwordPlaceholder')} {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -93,16 +97,16 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
                 />
 
                 <Field>
-                  <Button type='submit' disabled={isPending || isSubmitting}>
-                    {isPending ? <Spinner /> : 'Login'}
+                  <Button type='submit' disabled={isLoginProcessing}>
+                    {isLoginProcessing ? <Spinner /> : t('loginButton')}
                   </Button>
 
                   <Button variant='outline' type='button'>
-                    Login with Google
+                    {t('googleLoginButton')}
                   </Button>
 
                   <FieldDescription className='text-center'>
-                    Don&apos;t have an account? <Link href='/register'>Sign up</Link>
+                    {t('noAccount')} <Link href='/register'>{t('signUp')}</Link>
                   </FieldDescription>
                 </Field>
               </FieldGroup>

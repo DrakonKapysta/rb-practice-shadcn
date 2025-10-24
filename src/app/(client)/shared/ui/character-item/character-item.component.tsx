@@ -1,5 +1,6 @@
 import { ArrowRightIcon } from 'lucide-react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import type { FC } from 'react'
 
 import { ICharacter } from '@/app/(client)/entities/models'
@@ -13,6 +14,7 @@ interface IProps {
 
 const CharacterItemComponent: FC<Readonly<IProps>> = (props) => {
   const { character } = props
+  const t = useTranslations('characterItem')
 
   return (
     <Card>
@@ -35,25 +37,25 @@ const CharacterItemComponent: FC<Readonly<IProps>> = (props) => {
       <CardContent>
         <div className='space-y-2 text-sm'>
           <div className='flex items-center gap-2'>
-            <span>Status: </span>
+            <span>{t('status')}: </span>
 
             <span className={cn('font-medium', getCharacterStatusColorUtil(character.status))}>{character.status}</span>
           </div>
 
           <div className='flex items-center gap-2'>
-            <span>Species: </span>
+            <span>{t('species')}: </span>
 
             <span className='font-medium'>{character.species}</span>
           </div>
 
           <div className='flex items-center gap-2'>
-            <span>Gender: </span>
+            <span>{t('gender')}: </span>
 
             <span className='font-medium'>{character.gender}</span>
           </div>
 
           <div className='flex items-center gap-2'>
-            <span>Origin: </span>
+            <span>{t('origin')}: </span>
 
             <span className='line-clamp-1 font-medium'>{character.origin.name}</span>
           </div>
@@ -63,7 +65,7 @@ const CharacterItemComponent: FC<Readonly<IProps>> = (props) => {
       <CardFooter className='flex'>
         <Link href={`/character/${character.id}`}>
           <Button variant='ghost' className='text-primary'>
-            <span className='text-sm underline'>View Details</span> <ArrowRightIcon />
+            <span className='text-sm underline'>{t('viewDetails')}</span> <ArrowRightIcon />
           </Button>
         </Link>
       </CardFooter>

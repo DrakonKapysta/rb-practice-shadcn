@@ -1,6 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import * as qs from 'qs-esm'
 import type { FC } from 'react'
 
@@ -15,6 +16,8 @@ interface IProps {}
 const CharacterListComponent: FC<Readonly<IProps>> = () => {
   const searchParams = useSearchParams()
 
+  const t = useTranslations('characterList')
+
   const filters = qs.parse(searchParams.toString())
 
   const { data: characters, isLoading } = useQuery(charactersQueryOptions(filters))
@@ -22,7 +25,11 @@ const CharacterListComponent: FC<Readonly<IProps>> = () => {
   if (characters && characters.error) {
     return (
       <div className='flex flex-1 items-center justify-center'>
-        <NotFoundComponent title={characters?.error || 'Error'} description='Error' buttonText='Go back' />
+        <NotFoundComponent
+          title={characters?.error || t('error')}
+          description={t('errorDescription')}
+          buttonText={t('goBack')}
+        />
       </div>
     )
   }

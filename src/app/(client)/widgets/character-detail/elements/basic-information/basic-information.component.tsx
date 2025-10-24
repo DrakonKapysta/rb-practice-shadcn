@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import { ICharacter } from '@/app/(client)/entities/models'
@@ -12,27 +13,28 @@ interface IProps {
 
 const BasicInformationComponent: FC<Readonly<IProps>> = (props) => {
   const { character } = props
+  const t = useTranslations('characterDetail.basicInformation')
 
   return (
     <Card className='text-secondary-500'>
       <CardHeader>
-        <h3 className='text-xl font-semibold'>Basic Information</h3>
+        <h3 className='text-xl font-semibold'>{t('title')}</h3>
       </CardHeader>
       <CardContent className='space-y-3'>
         <div className='flex justify-between'>
-          <span className='text-default-500'>Status:</span>
+          <span className='text-default-500'>{t('status')}:</span>
           <span className={`font-medium ${getCharacterStatusColorUtil(character.status)}`}>{character.status}</span>
         </div>
         <div className='flex justify-between'>
-          <span className='text-default-500'>Species:</span>
+          <span className='text-default-500'>{t('species')}:</span>
           <span className='font-medium'>{character.species}</span>
         </div>
         <div className='flex justify-between'>
-          <span className='text-default-500'>Type:</span>
-          <span className='font-medium'>{character.type || 'Unknown'}</span>
+          <span className='text-default-500'>{t('type')}:</span>
+          <span className='font-medium'>{character.type || t('unknown')}</span>
         </div>
         <div className='flex justify-between'>
-          <span className='text-default-500'>Gender:</span>
+          <span className='text-default-500'>{t('gender')}:</span>
           <span className='font-medium'>{character.gender}</span>
         </div>
       </CardContent>

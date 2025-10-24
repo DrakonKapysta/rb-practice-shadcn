@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
@@ -21,6 +22,7 @@ interface IProps {
 
 const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
   const { characterId } = props
+  const t = useTranslations('characterDetail')
 
   const { data: character, isLoading } = useQuery(characterByIdQueryOptions(characterId))
 
@@ -29,12 +31,12 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
   }
 
   if (!character) {
-    return <NotFoundComponent title={'Character not found'} />
+    return <NotFoundComponent title={t('notFound')} />
   }
 
   return (
     <div className='mx-auto mt-8 w-full max-w-4xl space-y-6'>
-      <CharacterHeaderComponent character={character} backToMessage={'Back to characters'} />
+      <CharacterHeaderComponent character={character} backToMessage={t('backToCharacters')} />
 
       <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
         <CharacterImageComponent character={character} />

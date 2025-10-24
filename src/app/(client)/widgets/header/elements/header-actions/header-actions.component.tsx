@@ -1,5 +1,5 @@
 'use client'
-import { FC } from 'react'
+import { FC, useTransition } from 'react'
 
 import { Button, Spinner } from '@/app/(client)/shared/ui'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
@@ -10,15 +10,21 @@ interface IProps {}
 const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
   const { data: session, isPending } = authClient.useSession()
 
+  const [isSubmitting, startTransition] = useTransition()
+
   const router = useRouter()
 
-  const handleLogout = async () => {
-    await authClient.signOut()
+  const handleLogout = () => {
+    startTransition(async () => {
+      await authClient.signOut()
 
-    router.push('/login')
+      router.push('/login')
+    })
   }
 
-  if (isPending) {
+  const isLogoutProcessing = isPending || isSubmitting
+
+  if (isLogoutProcessing) {
     return <Spinner />
   }
 
@@ -36,8 +42,8 @@ const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
         </>
       ) : (
         <>
-          <Button onClick={handleLogout} variant='outline'>
-            Logout
+          <Button disabled={isLogoutProcessing} onClick={handleLogout} variant='outline'>
+            {isLogoutProcessing ? <Spinner /> : 'Logout'}
           </Button>
         </>
       )}

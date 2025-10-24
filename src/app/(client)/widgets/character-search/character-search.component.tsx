@@ -1,5 +1,6 @@
 'use client'
 import { useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import * as qs from 'qs-esm'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -32,6 +33,7 @@ interface IProps {}
 const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const t = useTranslations('characterSearch')
 
   const filters = qs.parse(searchParams.toString()) as ICharacterSearch
 
@@ -70,10 +72,10 @@ const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
             name='name'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>{t('name')}</FormLabel>
 
                 <FormControl>
-                  <Input placeholder='Name' {...field} />
+                  <Input placeholder={t('namePlaceholder')} {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -86,23 +88,23 @@ const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
             name='status'
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor='status'>Status</FormLabel>
+                <FormLabel htmlFor='status'>{t('status')}</FormLabel>
 
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className='w-[180px]' id='status'>
-                      <SelectValue placeholder='Status' />
+                      <SelectValue placeholder={t('statusPlaceholder')} />
                     </SelectTrigger>
 
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>Status</SelectLabel>
+                        <SelectLabel>{t('status')}</SelectLabel>
 
-                        <SelectItem value='alive'>Alive</SelectItem>
+                        <SelectItem value='alive'>{t('statusOptions.alive')}</SelectItem>
 
-                        <SelectItem value='dead'>Dead</SelectItem>
+                        <SelectItem value='dead'>{t('statusOptions.dead')}</SelectItem>
 
-                        <SelectItem value='unknown'>unknown</SelectItem>
+                        <SelectItem value='unknown'>{t('statusOptions.unknown')}</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -118,10 +120,10 @@ const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
             name='species'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Species</FormLabel>
+                <FormLabel>{t('species')}</FormLabel>
 
                 <FormControl>
-                  <Input placeholder='Species' {...field} />
+                  <Input placeholder={t('speciesPlaceholder')} {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -134,25 +136,25 @@ const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
             name='gender'
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor='gender'>Gender</FormLabel>
+                <FormLabel htmlFor='gender'>{t('gender')}</FormLabel>
 
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className='w-[180px]' id='gender'>
-                      <SelectValue placeholder='Gender' />
+                      <SelectValue placeholder={t('genderPlaceholder')} />
                     </SelectTrigger>
 
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>Gender</SelectLabel>
+                        <SelectLabel>{t('gender')}</SelectLabel>
 
-                        <SelectItem value='Female'>Female</SelectItem>
+                        <SelectItem value='Female'>{t('genderOptions.female')}</SelectItem>
 
-                        <SelectItem value='Male'>Male</SelectItem>
+                        <SelectItem value='Male'>{t('genderOptions.male')}</SelectItem>
 
-                        <SelectItem value='Genderless'>Genderless</SelectItem>
+                        <SelectItem value='Genderless'>{t('genderOptions.genderless')}</SelectItem>
 
-                        <SelectItem value='unknown'>unknown</SelectItem>
+                        <SelectItem value='unknown'>{t('genderOptions.unknown')}</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -165,10 +167,10 @@ const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
         </div>
 
         <div className='flex gap-2'>
-          <Button type='submit'>Search</Button>
+          <Button type='submit'>{t('searchButton')}</Button>
 
           <Button type='button' variant='outline' onClick={handleClear}>
-            Clear
+            {t('clearButton')}
           </Button>
         </div>
       </form>

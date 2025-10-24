@@ -20,6 +20,107 @@ declare const messages: {
     "clear": "Clear",
     "unknown": "Unknown",
     "all": "All"
+  },
+  "characterList": {
+    "error": "Error",
+    "errorDescription": "Something went wrong while loading characters",
+    "goBack": "Go back"
+  },
+  "loginForm": {
+    "title": "Login to your account",
+    "description": "Enter your email below to login to your account",
+    "email": "Email",
+    "emailPlaceholder": "Email",
+    "password": "Password",
+    "passwordPlaceholder": "Password",
+    "loginButton": "Login",
+    "googleLoginButton": "Login with Google",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "validation": {
+      "invalidEmail": "Invalid email address",
+      "passwordMinLength": "Password must be at least 8 characters long"
+    }
+  },
+  "registerForm": {
+    "title": "Create an account",
+    "description": "Enter your information below to create your account",
+    "name": "Name",
+    "namePlaceholder": "Name",
+    "email": "Email",
+    "emailPlaceholder": "Email",
+    "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
+    "password": "Password",
+    "passwordPlaceholder": "Password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm Password",
+    "createAccountButton": "Create Account",
+    "googleSignUpButton": "Sign up with Google",
+    "hasAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "validation": {
+      "nameMinLength": "Name must be at least 2 characters long",
+      "invalidEmail": "Invalid email address",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "confirmPasswordMinLength": "Password must be at least 8 characters long",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
+  "characterSearch": {
+    "name": "Name",
+    "namePlaceholder": "Name",
+    "status": "Status",
+    "statusPlaceholder": "Status",
+    "species": "Species",
+    "speciesPlaceholder": "Species",
+    "gender": "Gender",
+    "genderPlaceholder": "Gender",
+    "searchButton": "Search",
+    "clearButton": "Clear",
+    "statusOptions": {
+      "alive": "Alive",
+      "dead": "Dead",
+      "unknown": "Unknown"
+    },
+    "genderOptions": {
+      "female": "Female",
+      "male": "Male",
+      "genderless": "Genderless",
+      "unknown": "Unknown"
+    }
+  },
+  "characterItem": {
+    "status": "Status",
+    "species": "Species",
+    "gender": "Gender",
+    "origin": "Origin",
+    "viewDetails": "View Details"
+  },
+  "characterDetail": {
+    "notFound": "Character not found",
+    "backToCharacters": "Back to characters",
+    "basicInformation": {
+      "title": "Basic Information",
+      "status": "Status",
+      "species": "Species",
+      "type": "Type",
+      "gender": "Gender",
+      "unknown": "Unknown"
+    },
+    "locationInformation": {
+      "title": "Location Information",
+      "origin": "Origin",
+      "location": "Location"
+    },
+    "episodesInformation": {
+      "title": "Episodes",
+      "episodeCount": "Episode count"
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "button": "Go Back"
   }
 };
 export default messages;

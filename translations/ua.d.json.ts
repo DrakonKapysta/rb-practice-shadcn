@@ -20,6 +20,107 @@ declare const messages: {
     "clear": "Очистити",
     "unknown": "Невідомо",
     "all": "Всі"
+  },
+  "characterList": {
+    "error": "Помилка",
+    "errorDescription": "Щось пішло не так при завантаженні персонажів",
+    "goBack": "Повернутися"
+  },
+  "loginForm": {
+    "title": "Увійдіть до свого облікового запису",
+    "description": "Введіть свою електронну пошту нижче, щоб увійти до облікового запису",
+    "email": "Електронна пошта",
+    "emailPlaceholder": "Електронна пошта",
+    "password": "Пароль",
+    "passwordPlaceholder": "Пароль",
+    "loginButton": "Увійти",
+    "googleLoginButton": "Увійти через Google",
+    "noAccount": "Немає облікового запису?",
+    "signUp": "Зареєструватися",
+    "validation": {
+      "invalidEmail": "Невірна адреса електронної пошти",
+      "passwordMinLength": "Пароль повинен містити принаймні 8 символів"
+    }
+  },
+  "registerForm": {
+    "title": "Створити обліковий запис",
+    "description": "Введіть свої дані нижче, щоб створити обліковий запис",
+    "name": "Ім'я",
+    "namePlaceholder": "Ім'я",
+    "email": "Електронна пошта",
+    "emailPlaceholder": "Електронна пошта",
+    "emailDescription": "Ми використаємо це для зв'язку з вами. Ми не будемо ділитися вашою електронною поштою з кимось іншим.",
+    "password": "Пароль",
+    "passwordPlaceholder": "Пароль",
+    "confirmPassword": "Підтвердіть пароль",
+    "confirmPasswordPlaceholder": "Підтвердіть пароль",
+    "createAccountButton": "Створити обліковий запис",
+    "googleSignUpButton": "Зареєструватися через Google",
+    "hasAccount": "Вже є обліковий запис?",
+    "signIn": "Увійти",
+    "validation": {
+      "nameMinLength": "Ім'я повинно містити принаймні 2 символи",
+      "invalidEmail": "Невірна адреса електронної пошти",
+      "passwordMinLength": "Пароль повинен містити принаймні 8 символів",
+      "confirmPasswordMinLength": "Пароль повинен містити принаймні 8 символів",
+      "passwordsDoNotMatch": "Паролі не співпадають"
+    }
+  },
+  "characterSearch": {
+    "name": "Ім'я",
+    "namePlaceholder": "Ім'я",
+    "status": "Статус",
+    "statusPlaceholder": "Статус",
+    "species": "Вид",
+    "speciesPlaceholder": "Вид",
+    "gender": "Стать",
+    "genderPlaceholder": "Стать",
+    "searchButton": "Пошук",
+    "clearButton": "Очистити",
+    "statusOptions": {
+      "alive": "Живий",
+      "dead": "Мертвий",
+      "unknown": "Невідомо"
+    },
+    "genderOptions": {
+      "female": "Жіноча",
+      "male": "Чоловіча",
+      "genderless": "Без статі",
+      "unknown": "Невідомо"
+    }
+  },
+  "characterItem": {
+    "status": "Статус",
+    "species": "Вид",
+    "gender": "Стать",
+    "origin": "Походження",
+    "viewDetails": "Переглянути деталі"
+  },
+  "characterDetail": {
+    "notFound": "Персонаж не знайдено",
+    "backToCharacters": "Повернутися до персонажів",
+    "basicInformation": {
+      "title": "Основна інформація",
+      "status": "Статус",
+      "species": "Вид",
+      "type": "Тип",
+      "gender": "Стать",
+      "unknown": "Невідомо"
+    },
+    "locationInformation": {
+      "title": "Інформація про локацію",
+      "origin": "Походження",
+      "location": "Локація"
+    },
+    "episodesInformation": {
+      "title": "Епізоди",
+      "episodeCount": "Кількість епізодів"
+    }
+  },
+  "notFound": {
+    "title": "Сторінку не знайдено",
+    "description": "Сторінка, яку ви шукаєте, не існує або була переміщена.",
+    "button": "Повернутися"
   }
 };
 export default messages;

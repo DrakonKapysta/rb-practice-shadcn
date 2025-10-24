@@ -1,1 +1,1 @@
-export * from './shadcn.util'
+export * from './ui.util'

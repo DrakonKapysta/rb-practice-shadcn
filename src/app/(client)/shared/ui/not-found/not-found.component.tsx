@@ -4,24 +4,26 @@ import { CircleAlert } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { useRouter } from '@/pkg/libraries/locale'
 import { Button } from '@/app/(client)/shared/ui'
+import { useRouter } from '@/pkg/libraries/locale'
+import { cn } from '@/pkg/utils/ui'
 
 interface IProps {
   title?: string
   description?: string
   buttonText?: string
+  className?: string
 }
 
 const NotFoundComponent: FC<Readonly<IProps>> = (props) => {
-  const { title, description, buttonText } = props
+  const { title, description, buttonText, className } = props
 
   const t = useTranslations()
 
   const router = useRouter()
 
   return (
-    <div className='grid h-fit w-fit place-items-center items-center gap-4'>
+    <div className={cn('flex flex-col items-center gap-4', className)}>
       <CircleAlert className='text-primary size-10' />
 
       <h1 className='text-2xl font-bold'>{title || t('not_found_title')}</h1>

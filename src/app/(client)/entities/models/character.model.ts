@@ -33,6 +33,7 @@ export interface ICharactersResponse {
     prev: string | null
   }
   results: ICharacter[]
+  error?: string
 }
 
 export interface ICharacterFilters {

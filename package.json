@@ -9,14 +9,13 @@
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss}\"",
     "type-check": "tsc --noEmit",
-    "format": "npm run type-check && npm run lint && npm run prettier",
-    "create-component": "node scripts/create-component.js",
-    "create-shadcn-component": "node scripts/create-shadcn-component.js",
-    "create-shadcn-local": "node scripts/create-shadcn-component-local.js",
-    "create-shadcn-simple": "node scripts/create-shadcn-component-simple.js"
+    "format": "npm run type-check && npm run lint && npm run prettier"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-navigation-menu": "^1.2.14",
+    "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
     "@t3-oss/env-nextjs": "^0.13.8",
     "@tanstack/react-query": "^5.90.5",
@@ -42,6 +41,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

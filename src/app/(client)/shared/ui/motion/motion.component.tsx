@@ -109,9 +109,8 @@ const MotionOl: FC<Readonly<IProps>> = (props) => {
 }
 
 export {
+  MotionButton,
   MotionDiv,
-  MotionSpan,
-  MotionP,
   MotionH1,
   MotionH2,
   MotionH3,
@@ -119,11 +118,12 @@ export {
   MotionH5,
   MotionH6,
   MotionImg,
-  MotionButton,
   MotionInput,
-  MotionSelect,
   MotionLabel,
   MotionLink,
-  MotionUl,
   MotionOl,
+  MotionP,
+  MotionSelect,
+  MotionSpan,
+  MotionUl,
 }

@@ -1,10 +1,10 @@
-import { ICharacter } from '@/app/(client)/entities/models'
-
-import type { FC } from 'react'
-import { Button, Card, CardContent, CardFooter, CardHeader } from '@/app/(client)/shared/ui'
-import Image from 'next/image'
-import { Link } from '@/pkg/libraries/locale'
 import { ArrowRightIcon } from 'lucide-react'
+import Image from 'next/image'
+import type { FC } from 'react'
+
+import { ICharacter } from '@/app/(client)/entities/models'
+import { Button, Card, CardContent, CardFooter, CardHeader } from '@/app/(client)/shared/ui'
+import { Link } from '@/pkg/libraries/locale'
 
 interface IProps {
   character: ICharacter
@@ -27,7 +27,7 @@ const CharacterItemComponent: FC<Readonly<IProps>> = (props) => {
         </div>
 
         <div className='flex items-center gap-2'>
-          <h4 className='text-large line-clamp-2 font-bold'>{character.name}</h4>
+          <h4 className='text-large line-clamp-2 scroll-m-20 text-xl font-semibold tracking-tight'>{character.name}</h4>
         </div>
       </CardHeader>
 
@@ -60,7 +60,7 @@ const CharacterItemComponent: FC<Readonly<IProps>> = (props) => {
       </CardContent>
 
       <CardFooter className='flex'>
-        <Link href={`/characters/${character.id}`}>
+        <Link href={`/character/${character.id}`}>
           <Button variant='ghost' className='text-primary'>
             <span className='text-sm underline'>View Details</span> <ArrowRightIcon />
           </Button>

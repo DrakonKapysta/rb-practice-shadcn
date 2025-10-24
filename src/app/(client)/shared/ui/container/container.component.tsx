@@ -1,5 +1,6 @@
-import { cn } from '@/pkg/utils/ui'
 import type { FC, ReactNode } from 'react'
+
+import { cn } from '@/pkg/utils/ui'
 
 interface IProps {
   children: ReactNode

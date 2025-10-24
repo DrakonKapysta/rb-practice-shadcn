@@ -1,30 +1,25 @@
-"use client";
+'use client'
 
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import type { FC, ReactNode } from "react";
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import type { FC, ReactNode } from 'react'
 
-import { Toaster } from "@/app/(client)/shared/ui/sonner";
+import { Toaster } from '@/app/(client)/shared/ui/sonner'
 
 interface IProps {
-  children: ReactNode;
-  locale?: string;
+  children: ReactNode
+  locale?: string
 }
 
 const UiProvider: FC<Readonly<IProps>> = (props) => {
-  const { children } = props;
+  const { children } = props
 
   return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
+    <NextThemesProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
       {children}
 
       <Toaster />
     </NextThemesProvider>
-  );
-};
+  )
+}
 
-export default UiProvider;
+export default UiProvider

@@ -1,106 +1,105 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import js from '@eslint/js'
+import tseslint from 'typescript-eslint'
+import nextPlugin from '@next/eslint-plugin-next'
+import reactPlugin from 'eslint-plugin-react'
+import prettier from 'eslint-plugin-prettier'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 
-import prettierPlugin from "eslint-plugin-prettier";
-import react from "eslint-plugin-react";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
+export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
 
-import { FlatCompat } from "@eslint/eslintrc";
-import js from "@eslint/js";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-const eslintConfig = [
-  ...compat.extends(
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "next/core-web-vitals",
-    "prettier"
-  ),
   {
+    name: 'next',
     plugins: {
-      "@typescript-eslint": typescriptEslint,
-      "simple-import-sort": simpleImportSort,
-      prettier: prettierPlugin,
-      react,
-    },
-    languageOptions: {
-      parser: tsParser,
+      '@next/next': nextPlugin,
     },
     rules: {
-      "prettier/prettier": "warn",
-      "simple-import-sort/imports": [
-        "warn",
+      ...nextPlugin.configs['core-web-vitals'].rules,
+    },
+  },
+
+  {
+    name: 'react',
+    plugins: {
+      react: reactPlugin,
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    rules: {
+      ...reactPlugin.configs.recommended.rules,
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'error',
+      'react/jsx-uses-vars': 'error',
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
+
+  {
+    name: 'custom',
+    plugins: {
+      prettier,
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'prettier/prettier': 'warn',
+      'simple-import-sort/imports': [
+        'warn',
         {
-          groups: [
-            ["^node:"],
-            ["^\\w"],
-            ["^@(?!/)\\w"],
-            ["^@/"],
-            ["^\\./"],
-            ["^.+\\.?(css)$"],
-          ],
+          groups: [['^node:'], ['^\\w'], ['^@(?!/)\\w'], ['^@/'], ['^\\./'], ['^.+\\.?(css)$']],
         },
       ],
-      "no-console": "warn",
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/no-empty-object-type": "off",
-      "react-hooks/exhaustive-deps": "off",
-      "simple-import-sort/exports": "warn",
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-uses-react": "error",
-      "react/jsx-uses-vars": "error",
-      "@typescript-eslint/ban-ts-comment": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
+      'simple-import-sort/exports': 'warn',
+
+      'no-console': 'warn',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/ban-ts-comment': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
         {
-          vars: "all",
-          args: "after-used",
+          vars: 'all',
+          args: 'after-used',
           ignoreRestSiblings: false,
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-          destructuredArrayIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^(_|ignore)",
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^(_|ignore)',
         },
       ],
-      "no-restricted-imports": [
-        "error",
+
+      'no-restricted-imports': [
+        'error',
         {
-          name: "next/link",
-          message: "Please import from `@/pkg/libraries/locale` instead.",
+          name: 'next/link',
+          message: 'Please import from `@/pkg/libraries/locale` instead.',
         },
         {
-          name: "next/navigation",
-          importNames: [
-            "redirect",
-            "permanentRedirect",
-            "useRouter",
-            "usePathname",
-          ],
-          message: "Please import from `@/pkg/libraries/locale` instead.",
+          name: 'next/navigation',
+          importNames: ['redirect', 'permanentRedirect', 'useRouter', 'usePathname'],
+          message: 'Please import from `@/pkg/libraries/locale` instead.',
         },
       ],
     },
   },
+
   {
     ignores: [
-      "node_modules/",
-      ".next/",
-      "./src/app/(payload)/(app)/admin/**",
-      "./src/app/(payload)/migrations/**",
-      "./src/app/(payload)/payload-types.ts",
+      'node_modules/',
+      '.next/',
+      './src/app/(payload)/(app)/admin/**',
+      './src/app/(payload)/migrations/**',
+      './src/app/(payload)/payload-types.ts',
     ],
   },
-];
-
-export default eslintConfig;
+]

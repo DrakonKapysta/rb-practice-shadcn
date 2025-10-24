@@ -1,6 +1,7 @@
-import { Link } from '@/pkg/libraries/locale'
 import { CogIcon } from 'lucide-react'
+
 import { Button } from '@/app/(client)/shared/ui'
+import { Link } from '@/pkg/libraries/locale'
 
 const HeaderComponent = async () => {
   return (

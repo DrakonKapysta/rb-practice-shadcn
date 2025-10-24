@@ -1,0 +1,5 @@
+export * from './basic-information'
+export * from './character-header'
+export * from './character-image'
+export * from './episodes-information'
+export * from './location-information'

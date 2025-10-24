@@ -3,10 +3,14 @@ import { FC } from 'react'
 
 import { RegisterFormComponent } from '@/app/(client)/features/register-form'
 import { ContainerComponent } from '@/app/(client)/shared/ui'
+import { cacheLife } from 'next/cache'
 
 interface IProps extends PageProps<'/[locale]/register'> {}
 
 const Page: FC<Readonly<IProps>> = async (props) => {
+  'use cache'
+  cacheLife('default')
+
   const { locale } = await props.params
 
   setRequestLocale(locale)

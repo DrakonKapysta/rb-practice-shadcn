@@ -14,9 +14,11 @@ const LayoutModule: FC<IProps> = async (props) => {
   return (
     <>
       <HeaderComponent />
+
       <ContainerComponent className='bg-secondary relative pt-18' variant='main'>
         {children}
       </ContainerComponent>
+
       <FooterComponent />
     </>
   )

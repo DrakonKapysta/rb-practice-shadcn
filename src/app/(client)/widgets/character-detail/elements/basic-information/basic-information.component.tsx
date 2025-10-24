@@ -20,19 +20,23 @@ const BasicInformationComponent: FC<Readonly<IProps>> = (props) => {
       <CardHeader>
         <h3 className='text-xl font-semibold'>{t('title')}</h3>
       </CardHeader>
+
       <CardContent className='space-y-3'>
         <div className='flex justify-between'>
           <span className='text-default-500'>{t('status')}:</span>
           <span className={`font-medium ${getCharacterStatusColorUtil(character.status)}`}>{character.status}</span>
         </div>
+
         <div className='flex justify-between'>
           <span className='text-default-500'>{t('species')}:</span>
           <span className='font-medium'>{character.species}</span>
         </div>
+
         <div className='flex justify-between'>
           <span className='text-default-500'>{t('type')}:</span>
           <span className='font-medium'>{character.type || t('unknown')}</span>
         </div>
+
         <div className='flex justify-between'>
           <span className='text-default-500'>{t('gender')}:</span>
           <span className='font-medium'>{character.gender}</span>

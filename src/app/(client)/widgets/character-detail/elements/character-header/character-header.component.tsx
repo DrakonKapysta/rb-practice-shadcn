@@ -19,6 +19,7 @@ const CharacterHeaderComponent: FC<Readonly<IProps>> = (props) => {
       >
         {backToMessage}
       </Link>
+
       <h1 className='text-3xl font-bold'>{character.name}</h1>
     </div>
   )

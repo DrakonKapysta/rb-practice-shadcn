@@ -18,6 +18,7 @@ const EpisodesInformationComponent: FC<Readonly<IProps>> = (props) => {
       <CardHeader>
         <h3 className='text-xl font-semibold'>{t('title')}</h3>
       </CardHeader>
+
       <CardContent>
         <p className='text-default-500'>
           {t('episodeCount')}: {character.episode.length}

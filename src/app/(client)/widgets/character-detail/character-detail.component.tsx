@@ -43,7 +43,9 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
 
         <div className='space-y-4'>
           <BasicInformationComponent character={character} />
+
           <LocationInformationComponent character={character} />
+
           <EpisodesInformationComponent character={character} />
         </div>
       </div>

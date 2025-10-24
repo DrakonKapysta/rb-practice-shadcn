@@ -11,7 +11,7 @@ export const makeRedirect = (
   headerLocale: string | null,
   req: NextRequest,
   IntlHeaders: Headers,
-  status: number = 302,
+  status: number = 307,
 ) => {
   const redirectPath = isLocaleProvided ? `/${headerLocale}${path}` : path
   return withIntlHeaders(NextResponse.redirect(new URL(redirectPath, req.url), status), IntlHeaders)

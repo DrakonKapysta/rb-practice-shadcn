@@ -1,9 +1,9 @@
+import { cacheLife } from 'next/cache'
 import { setRequestLocale } from 'next-intl/server'
 import { FC } from 'react'
 
 import { RegisterFormComponent } from '@/app/(client)/features/register-form'
 import { ContainerComponent } from '@/app/(client)/shared/ui'
-import { cacheLife } from 'next/cache'
 
 interface IProps extends PageProps<'/[locale]/register'> {}
 

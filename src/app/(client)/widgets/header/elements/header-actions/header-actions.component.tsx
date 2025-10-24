@@ -1,10 +1,10 @@
 'use client'
 import { FC, useTransition } from 'react'
 
+import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
 import { Button, Spinner } from '@/app/(client)/shared/ui'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { Link, useRouter } from '@/pkg/libraries/locale'
-import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
 
 interface IProps {}
 

@@ -152,7 +152,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
                     {isRegisterProcessing ? <Spinner /> : t('createAccountButton')}
                   </Button>
 
-                  <Button variant='outline' type='button'>
+                  <Button variant='outline' type='button' disabled={true}>
                     {t('googleSignUpButton')}
                   </Button>
 

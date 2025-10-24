@@ -98,7 +98,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
                     {isLoginProcessing ? <Spinner /> : t('loginButton')}
                   </Button>
 
-                  <Button variant='outline' type='button'>
+                  <Button variant='outline' type='button' disabled={true}>
                     {t('googleLoginButton')}
                   </Button>
 

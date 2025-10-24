@@ -38,7 +38,8 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
     try {
       const response = await login(data)
       if (response.success) {
-        router.push('/')
+        router.refresh()
+        router.replace('/')
       }
     } catch (error) {
       loggerUtil({ text: 'LoginFormComponent', value: (error as Error).message, level: 'error' })

@@ -58,7 +58,8 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
       const response = await register(data)
 
       if (response.success) {
-        router.push('/')
+        router.refresh()
+        router.replace('/')
       }
     } catch (error) {
       loggerUtil({ text: 'RegisterFormComponent', value: (error as Error).message, level: 'error' })

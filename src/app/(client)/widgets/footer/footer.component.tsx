@@ -28,19 +28,19 @@ const FooterComponent: FC<Readonly<IProps>> = async () => {
                 </li>
 
                 <li>
-                  <Link href='/about' className='text-muted-foreground hover:text-foreground transition-colors'>
+                  <Link href='/' className='text-muted-foreground hover:text-foreground transition-colors'>
                     About
                   </Link>
                 </li>
 
                 <li>
-                  <Link href='/services' className='text-muted-foreground hover:text-foreground transition-colors'>
+                  <Link href='/' className='text-muted-foreground hover:text-foreground transition-colors'>
                     Services
                   </Link>
                 </li>
 
                 <li>
-                  <Link href='/contact' className='text-muted-foreground hover:text-foreground transition-colors'>
+                  <Link href='/' className='text-muted-foreground hover:text-foreground transition-colors'>
                     Contact
                   </Link>
                 </li>
@@ -52,31 +52,25 @@ const FooterComponent: FC<Readonly<IProps>> = async () => {
 
               <ul className='space-y-2 text-sm'>
                 <li>
-                  <Link href='/documentation' className='text-muted-foreground hover:text-foreground transition-colors'>
+                  <Link href='/' className='text-muted-foreground hover:text-foreground transition-colors'>
                     Documentation
                   </Link>
                 </li>
 
                 <li>
-                  <Link href='/help-center' className='text-muted-foreground hover:text-foreground transition-colors'>
+                  <Link href='/' className='text-muted-foreground hover:text-foreground transition-colors'>
                     Help Center
                   </Link>
                 </li>
 
                 <li>
-                  <Link
-                    href='/privacy-policy'
-                    className='text-muted-foreground hover:text-foreground transition-colors'
-                  >
+                  <Link href='/' className='text-muted-foreground hover:text-foreground transition-colors'>
                     Privacy Policy
                   </Link>
                 </li>
 
                 <li>
-                  <Link
-                    href='/terms-of-service'
-                    className='text-muted-foreground hover:text-foreground transition-colors'
-                  >
+                  <Link href='/' className='text-muted-foreground hover:text-foreground transition-colors'>
                     Terms of Service
                   </Link>
                 </li>

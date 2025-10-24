@@ -1,37 +1,37 @@
 import { getSessionCookie } from 'better-auth/cookies'
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 
 import { routing } from '@/pkg/libraries/locale/routing'
 
-import { makeRedirect } from './pkg/utils/locale'
+const publicRoutes = ['/login', '/register', '/auth', '/error']
 
-const authRoutes = ['/login', '/register']
+const intlMiddleware = createMiddleware(routing)
 
 export async function proxy(req: NextRequest) {
-  const sessionCookie = getSessionCookie(req)
-  const i18nRes = createMiddleware(routing)(req)
-  const headers = i18nRes.headers
+  const intlResponse = intlMiddleware(req)
+  const locale = intlResponse.headers.get('x-middleware-request-x-next-intl-locale')
 
-  const headerLocale = headers.get('x-middleware-request-x-next-intl-locale')
-
-  const [_, predefinedLocale, ...segments] = req.nextUrl.pathname.split('/')
+  const pathname = req.nextUrl.pathname
+  const [, _, ...segments] = pathname.split('/')
   const pathWithoutLocale = '/' + segments.join('/')
 
-  const isLocaleProvided = headerLocale === predefinedLocale
+  const isPublic = publicRoutes.includes(pathname) || publicRoutes.includes(pathWithoutLocale)
 
-  const isAuthRoute = authRoutes.includes(req.nextUrl.pathname) || authRoutes.includes(pathWithoutLocale)
+  const session = getSessionCookie(req)
 
-  if (!sessionCookie) {
-    if (isAuthRoute) return i18nRes
-    return makeRedirect('/login', isLocaleProvided, headerLocale, req, headers)
+  if (!session && !isPublic) {
+    const loginUrl = new URL(`/${locale ?? 'en'}/login`, req.url)
+    loginUrl.searchParams.set('redirectedFrom', pathname)
+    return NextResponse.redirect(loginUrl)
   }
 
-  if (sessionCookie && isAuthRoute) {
-    return makeRedirect('/', isLocaleProvided, headerLocale, req, headers)
+  if (session && (pathname.endsWith('/login') || pathWithoutLocale === '/login')) {
+    const homeUrl = new URL(`/${locale ?? 'en'}`, req.url)
+    return NextResponse.redirect(homeUrl)
   }
 
-  return i18nRes
+  return intlResponse
 }
 
 export const config = {

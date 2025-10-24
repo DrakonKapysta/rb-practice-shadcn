@@ -1,5 +1,5 @@
 'use client'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -13,7 +13,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app
 import { Field, FieldDescription, FieldGroup } from '@/app/(client)/shared/ui/field'
 import { Input } from '@/app/(client)/shared/ui/input/input'
 import { Link, useRouter } from '@/pkg/libraries/locale'
-import { loggerUtil } from '@/pkg/utils/logger'
 import { cn } from '@/pkg/utils/ui'
 
 import { ILoginForm, LoginFormSchema } from './login-form.interface'
@@ -24,11 +23,9 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const { mutateAsync: login, isPending } = useMutation(loginMutationOptions())
 
-  const locale = useLocale()
+  const router = useRouter()
 
   const t = useTranslations('loginForm')
-
-  const router = useRouter()
 
   const form = useForm<ILoginForm>({
     defaultValues: {
@@ -39,13 +36,11 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
   })
 
   const onSubmit = async (data: ILoginForm) => {
-    try {
-      const response = await login(data)
-      if (response.success) {
-        router.replace('/', { locale })
-      }
-    } catch (error) {
-      loggerUtil({ text: 'LoginFormComponent', value: (error as Error).message, level: 'error' })
+    const response = await login(data)
+    if (response.success) {
+      await new Promise((r) => setTimeout(r, 100))
+
+      router.push('/')
     }
   }
 

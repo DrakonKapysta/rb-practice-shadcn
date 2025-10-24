@@ -1,6 +1,6 @@
 'use client'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -28,7 +28,6 @@ import {
   Spinner,
 } from '@/app/(client)/shared/ui'
 import { Link, useRouter } from '@/pkg/libraries/locale'
-import { loggerUtil } from '@/pkg/utils/logger'
 import { cn } from '@/pkg/utils/ui'
 
 import { IRegisterForm, RegisterFormSchema } from './register-form.interface'
@@ -43,8 +42,6 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const router = useRouter()
 
-  const locale = useLocale()
-
   const form = useForm<IRegisterForm>({
     defaultValues: {
       name: '',
@@ -56,14 +53,12 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
   })
 
   const onSubmit = async (data: IRegisterForm) => {
-    try {
-      const response = await register(data)
+    const response = await register(data)
 
-      if (response.success) {
-        router.replace('/', { locale })
-      }
-    } catch (error) {
-      loggerUtil({ text: 'RegisterFormComponent', value: (error as Error).message, level: 'error' })
+    if (response.success) {
+      await new Promise((r) => setTimeout(r, 100))
+
+      router.push('/')
     }
   }
 

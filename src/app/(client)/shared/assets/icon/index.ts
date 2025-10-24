@@ -1,0 +1,7 @@
+export * from './available-tests'
+export * from './common'
+export * from './communication'
+export * from './how-it-works'
+export * from './payment'
+export * from './presentation'
+export * from './social'

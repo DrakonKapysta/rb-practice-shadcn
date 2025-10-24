@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { FC, useTransition } from 'react'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -41,8 +41,6 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const { mutateAsync: register, isPending } = useMutation(registerMutationOptions())
 
-  const [isSubmitting, startTransition] = useTransition()
-
   const router = useRouter()
 
   const form = useForm<IRegisterForm>({
@@ -55,21 +53,19 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
     resolver: zodResolver(RegisterFormSchema),
   })
 
-  const onSubmit = (data: IRegisterForm) => {
-    startTransition(async () => {
-      try {
-        const response = await register(data)
+  const onSubmit = async (data: IRegisterForm) => {
+    try {
+      const response = await register(data)
 
-        if (response.success) {
-          router.push('/')
-        }
-      } catch (error) {
-        loggerUtil({ text: 'RegisterFormComponent', value: (error as Error).message, level: 'error' })
+      if (response.success) {
+        router.push('/')
       }
-    })
+    } catch (error) {
+      loggerUtil({ text: 'RegisterFormComponent', value: (error as Error).message, level: 'error' })
+    }
   }
 
-  const isRegisterProcessing = isPending || isSubmitting
+  const isRegisterProcessing = isPending
 
   return (
     <Card className={cn('flex w-full max-w-sm flex-col gap-6', className)} {...rest}>

@@ -1,6 +1,6 @@
 'use client'
 import { useTranslations } from 'next-intl'
-import { FC, useTransition } from 'react'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,8 +24,6 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
   const { mutateAsync: login, isPending } = useMutation(loginMutationOptions())
   const t = useTranslations('loginForm')
 
-  const [isSubmitting, startTransition] = useTransition()
-
   const router = useRouter()
 
   const form = useForm<ILoginForm>({
@@ -37,19 +35,17 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
   })
 
   const onSubmit = async (data: ILoginForm) => {
-    startTransition(async () => {
-      try {
-        const response = await login(data)
-        if (response.success) {
-          router.push('/')
-        }
-      } catch (error) {
-        loggerUtil({ text: 'LoginFormComponent', value: (error as Error).message, level: 'error' })
+    try {
+      const response = await login(data)
+      if (response.success) {
+        router.push('/')
       }
-    })
+    } catch (error) {
+      loggerUtil({ text: 'LoginFormComponent', value: (error as Error).message, level: 'error' })
+    }
   }
 
-  const isLoginProcessing = isPending || isSubmitting
+  const isLoginProcessing = isPending
 
   return (
     <div className={cn('flex w-full max-w-sm flex-col gap-6', className)} {...rest}>

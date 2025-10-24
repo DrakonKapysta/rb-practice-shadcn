@@ -63,7 +63,7 @@ const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 px-6'>
         <div className='flex flex-col gap-8 md:flex-row md:items-center'>
           <FormField
             control={form.control}
@@ -86,11 +86,11 @@ const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
             name='status'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Status</FormLabel>
+                <FormLabel htmlFor='status'>Status</FormLabel>
 
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className='w-[180px]'>
+                    <SelectTrigger className='w-[180px]' id='status'>
                       <SelectValue placeholder='Status' />
                     </SelectTrigger>
 
@@ -134,11 +134,11 @@ const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
             name='gender'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Gender</FormLabel>
+                <FormLabel htmlFor='gender'>Gender</FormLabel>
 
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className='w-[180px]'>
+                    <SelectTrigger className='w-[180px]' id='gender'>
                       <SelectValue placeholder='Gender' />
                     </SelectTrigger>
 

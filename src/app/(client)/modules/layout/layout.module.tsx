@@ -3,7 +3,6 @@ import type { FC, ReactNode } from 'react'
 import { ContainerComponent } from '@/app/(client)/shared/ui'
 import { FooterComponent } from '@/app/(client)/widgets/footer'
 import { HeaderComponent } from '@/app/(client)/widgets/header'
-import { setRequestLocale } from 'next-intl/server'
 
 interface IProps {
   children: ReactNode

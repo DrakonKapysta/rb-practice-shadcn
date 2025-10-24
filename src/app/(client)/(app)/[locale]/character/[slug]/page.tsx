@@ -1,4 +1,5 @@
 import { cacheLife } from 'next/cache'
+import { setRequestLocale } from 'next-intl/server'
 import { FC, Suspense } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
@@ -7,7 +8,6 @@ import { characterByIdQueryOptions, getCharacters } from '@/app/(client)/entitie
 import { Spinner } from '@/app/(client)/shared/ui'
 import { CharacterDetailComponent } from '@/app/(client)/widgets/character-detail'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
-import { setRequestLocale } from 'next-intl/server'
 
 interface IProps extends PageProps<'/[locale]/character/[slug]'> {}
 

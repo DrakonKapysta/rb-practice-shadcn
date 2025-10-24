@@ -10,12 +10,13 @@ interface IProps {}
 
 const HeaderComponent: FC<Readonly<IProps>> = async () => {
   return (
-    <nav className='tablet:px-4 desktop:px-6 bg-background/65 fixed z-10 flex h-16 w-full items-center justify-between border-t px-2 shadow-md backdrop-blur-sm'>
+    <nav className='desktop:px-6 bg-background/65 fixed z-10 flex h-16 w-full items-center justify-between border-t px-4 shadow-md backdrop-blur-sm'>
       <div>
         <Link href='/'>
           <CogIcon size={48} />
         </Link>
       </div>
+
       <Suspense fallback={<Spinner />}>
         <HeaderActionsComponent />
       </Suspense>

@@ -6,7 +6,7 @@ export const envServer = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'production']).optional().default('development'),
     BETTER_AUTH_SECRET: z.string().min(1, { message: 'BETTER_AUTH_SECRET is required' }),
-    BETTER_AUTH_URL: z.string().min(1, { message: 'BETTER_AUTH_URL is required' }),
+    BETTER_AUTH_URL: z.string().min(1, { message: 'BETTER_AUTH_URL is required' }).optional(),
 
     // GROWTHBOOK_API_HOST: z.string().optional(),
     // GROWTHBOOK_CLIENT_KEY: z.string().optional(),

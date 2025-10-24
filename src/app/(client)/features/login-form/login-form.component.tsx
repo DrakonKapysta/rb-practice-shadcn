@@ -1,5 +1,5 @@
 'use client'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -21,7 +21,11 @@ import { ILoginForm, LoginFormSchema } from './login-form.interface'
 interface IProps extends React.ComponentProps<typeof Card> {}
 const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
   const { className, ...rest } = props
+
   const { mutateAsync: login, isPending } = useMutation(loginMutationOptions())
+
+  const locale = useLocale()
+
   const t = useTranslations('loginForm')
 
   const router = useRouter()
@@ -38,8 +42,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
     try {
       const response = await login(data)
       if (response.success) {
-        router.refresh()
-        router.replace('/')
+        router.replace('/', { locale })
       }
     } catch (error) {
       loggerUtil({ text: 'LoginFormComponent', value: (error as Error).message, level: 'error' })

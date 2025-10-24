@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -43,6 +43,8 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const router = useRouter()
 
+  const locale = useLocale()
+
   const form = useForm<IRegisterForm>({
     defaultValues: {
       name: '',
@@ -58,8 +60,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
       const response = await register(data)
 
       if (response.success) {
-        router.refresh()
-        router.replace('/')
+        router.replace('/', { locale })
       }
     } catch (error) {
       loggerUtil({ text: 'RegisterFormComponent', value: (error as Error).message, level: 'error' })

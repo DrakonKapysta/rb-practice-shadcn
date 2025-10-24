@@ -7,6 +7,7 @@ import { characterByIdQueryOptions, getCharacters } from '@/app/(client)/entitie
 import { Spinner } from '@/app/(client)/shared/ui'
 import { CharacterDetailComponent } from '@/app/(client)/widgets/character-detail'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
+import { setRequestLocale } from 'next-intl/server'
 
 interface IProps extends PageProps<'/[locale]/character/[slug]'> {}
 
@@ -23,6 +24,10 @@ export async function generateStaticParams() {
 const Page: FC<Readonly<IProps>> = async (props) => {
   'use cache'
   cacheLife('default')
+
+  const { locale } = await props.params
+
+  setRequestLocale(locale)
 
   const characterId = parseInt((await props.params).slug)
 

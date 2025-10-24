@@ -5,6 +5,7 @@ import type { FC } from 'react'
 import { ICharacter } from '@/app/(client)/entities/models'
 import { Button, Card, CardContent, CardFooter, CardHeader } from '@/app/(client)/shared/ui'
 import { Link } from '@/pkg/libraries/locale'
+import { cn, getCharacterStatusColorUtil } from '@/pkg/utils/ui'
 
 interface IProps {
   character: ICharacter
@@ -36,7 +37,7 @@ const CharacterItemComponent: FC<Readonly<IProps>> = (props) => {
           <div className='flex items-center gap-2'>
             <span>Status: </span>
 
-            <span className='font-medium'>{character.status}</span>
+            <span className={cn('font-medium', getCharacterStatusColorUtil(character.status))}>{character.status}</span>
           </div>
 
           <div className='flex items-center gap-2'>

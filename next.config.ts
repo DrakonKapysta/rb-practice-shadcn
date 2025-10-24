@@ -1,20 +1,17 @@
-import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
+import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
 
-import { envServer } from "@/config/env";
+import { envServer } from '@/config/env'
 
 const withNextIntl = createNextIntlPlugin({
-  requestConfig: "./src/pkg/libraries/locale/request.ts",
+  requestConfig: './src/pkg/libraries/locale/request.ts',
   experimental: {
-    createMessagesDeclaration: [
-      "./translations/en.json",
-      "./translations/ua.json",
-    ],
+    createMessagesDeclaration: ['./translations/en.json', './translations/ua.json'],
   },
-});
+})
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: 'standalone',
 
   cacheComponents: true,
 
@@ -23,55 +20,55 @@ const nextConfig: NextConfig = {
 
   logging: {
     fetches: {
-      fullUrl: envServer.NODE_ENV !== "production",
+      fullUrl: envServer.NODE_ENV !== 'production',
     },
   },
 
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "**" }],
+    remotePatterns: [{ protocol: 'https', hostname: '**' }],
     minimumCacheTTL: 3600,
-    formats: ["image/webp", "image/avif"],
+    formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 1080, 1920, 3840],
     imageSizes: [16, 64, 128, 384],
   },
 
-  serverExternalPackages: ["pino", "pino-pretty"],
+  serverExternalPackages: ['pino', 'pino-pretty'],
 
   experimental: {
     turbopackFileSystemCacheForDev: true,
 
     optimizeServerReact: true,
     optimizePackageImports: [
-      "zod",
-      "luxon",
-      "react-hook-form",
-      "usehooks-ts",
-      "@heroui/react",
-      "@heroui/accordion",
-      "@heroui/autocomplete",
-      "@heroui/avatar",
-      "@heroui/badge",
-      "@heroui/button",
-      "@heroui/card",
-      "@heroui/chip",
-      "@heroui/divider",
-      "@heroui/dropdown",
-      "@heroui/input",
-      "@heroui/link",
-      "@heroui/modal",
-      "@heroui/navbar",
-      "@heroui/radio",
-      "@heroui/scroll-shadow",
-      "@heroui/select",
-      "@heroui/skeleton",
-      "@heroui/spinner",
-      "@heroui/system",
-      "@heroui/table",
-      "@heroui/tabs",
-      "@heroui/theme",
-      "@heroui/tooltip",
-      "zustand",
-      "framer-motion",
+      'zod',
+      'luxon',
+      'react-hook-form',
+      'usehooks-ts',
+      '@heroui/react',
+      '@heroui/accordion',
+      '@heroui/autocomplete',
+      '@heroui/avatar',
+      '@heroui/badge',
+      '@heroui/button',
+      '@heroui/card',
+      '@heroui/chip',
+      '@heroui/divider',
+      '@heroui/dropdown',
+      '@heroui/input',
+      '@heroui/link',
+      '@heroui/modal',
+      '@heroui/navbar',
+      '@heroui/radio',
+      '@heroui/scroll-shadow',
+      '@heroui/select',
+      '@heroui/skeleton',
+      '@heroui/spinner',
+      '@heroui/system',
+      '@heroui/table',
+      '@heroui/tabs',
+      '@heroui/theme',
+      '@heroui/tooltip',
+      'zustand',
+      'framer-motion',
     ],
     staticGenerationRetryCount: 1,
     staticGenerationMaxConcurrency: 2,
@@ -80,9 +77,9 @@ const nextConfig: NextConfig = {
 
   turbopack: {
     rules: {
-      "*.svg": {
-        loaders: ["@svgr/webpack"],
-        as: "*.js",
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
@@ -90,21 +87,21 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/i,
-      use: ["@svgr/webpack"],
-    });
+      use: ['@svgr/webpack'],
+    })
 
-    return config;
+    return config
   },
 
   redirects: async () => {
     return [
       {
         source: `/:locale/admin/:path*`,
-        destination: "/admin/:path*",
+        destination: '/admin/:path*',
         permanent: true,
       },
-    ];
+    ]
   },
-};
+}
 
-export default withNextIntl(nextConfig);
+export default withNextIntl(nextConfig)

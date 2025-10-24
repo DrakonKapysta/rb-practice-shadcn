@@ -121,6 +121,9 @@ declare const messages: {
     "title": "Сторінку не знайдено",
     "description": "Сторінка, яку ви шукаєте, не існує або була переміщена.",
     "button": "Повернутися"
+  },
+  "header": {
+    "language": "Мова"
   }
 };
 export default messages;

@@ -10,14 +10,6 @@
   --breakpoint-widescreen: 1400px;
   --breakpoint-fullhd: 1600px;
 
-  --container-max-width: 1200px;
-  --container-max-width-mobile: 480px;
-  --container-max-width-table: 768px;
-  --container-max-width-screen: 1024px;
-  --container-max-width-desktop: 1200px;
-  --container-max-width-widescreen: 1400px;
-  --container-max-width-fullhd: 1600px;
-
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

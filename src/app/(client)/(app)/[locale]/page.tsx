@@ -5,6 +5,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { cacheLife } from 'next/cache'
+import { HomeModule } from '@/app/(client)/modules/home'
 
 interface IProps extends PageProps<'/[locale]'> {}
 
@@ -20,7 +21,7 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div>Locale page: {locale}</div>
+      <HomeModule />
     </HydrationBoundary>
   )
 }

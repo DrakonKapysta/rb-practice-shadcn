@@ -4,7 +4,7 @@ import { FC, useTransition } from 'react'
 import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
 import { Button, Spinner } from '@/app/(client)/shared/ui'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
-import { Link, useRouter } from '@/pkg/libraries/locale'
+import { useRouter } from '@/pkg/libraries/locale'
 
 interface IProps {}
 
@@ -15,15 +15,15 @@ const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
 
   const router = useRouter()
 
-  const handleLogout = () => {
-    startTransition(async () => {
-      await authClient.signOut({
-        fetchOptions: {
-          onSuccess: () => {
+  const handleLogout = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          startTransition(async () => {
             router.push('/login')
-          },
+          })
         },
-      })
+      },
     })
   }
 
@@ -36,17 +36,7 @@ const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
   return (
     <div className='flex items-center gap-2'>
       <LanguageSwitcherComponent />
-      {!session ? (
-        <>
-          <Link href='/login'>
-            <Button variant='outline'>Login</Button>
-          </Link>
-
-          <Link href='/register'>
-            <Button variant='outline'>Register</Button>
-          </Link>
-        </>
-      ) : (
+      {session && (
         <>
           <Button disabled={isLogoutProcessing} onClick={handleLogout} variant='outline'>
             {isLogoutProcessing ? <Spinner /> : 'Logout'}

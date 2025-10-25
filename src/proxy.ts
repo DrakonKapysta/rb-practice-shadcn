@@ -26,13 +26,13 @@ export async function proxy(req: NextRequest) {
       return i18nRes
     }
 
-    return NextResponse.redirect(new URL(isLocaleProvided ? `${predefinedLocale}/login` : '/login', req.url), {
+    return NextResponse.redirect(new URL(isLocaleProvided ? `/${predefinedLocale}/login` : '/login', req.url), {
       headers: i18nRes.headers,
     })
   }
 
   if (isAuthRoute) {
-    return NextResponse.redirect(new URL(isLocaleProvided ? `${predefinedLocale}/` : '/', req.url), {
+    return NextResponse.redirect(new URL(isLocaleProvided ? `/${predefinedLocale}/` : '/', req.url), {
       headers: i18nRes.headers,
     })
   }

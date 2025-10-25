@@ -38,6 +38,7 @@ export async function credentialsRegister(registerData: IRegister): Promise<IReg
         email: registerData.credentials.email,
         password: registerData.credentials.password,
       },
+
       {
         onSuccess: () => {
           registerData.successCallback?.()

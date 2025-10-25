@@ -17,9 +17,13 @@ const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
 
   const handleLogout = () => {
     startTransition(async () => {
-      await authClient.signOut()
-
-      router.push('/login')
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.push('/login')
+          },
+        },
+      })
     })
   }
 

@@ -1,7 +1,9 @@
 'use client'
+import { ErrorContext } from 'better-auth/react'
 import { useTranslations } from 'next-intl'
-import { FC } from 'react'
+import { FC, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -23,6 +25,8 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const { mutateAsync: login, isPending } = useMutation(loginMutationOptions())
 
+  const [isTransition, startTransition] = useTransition()
+
   const router = useRouter()
 
   const t = useTranslations('loginForm')
@@ -36,15 +40,27 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
   })
 
   const onSubmit = async (data: ILoginForm) => {
-    const response = await login(data)
-    if (response.success) {
-      await new Promise((r) => setTimeout(r, 100))
+    await login({
+      credentials: {
+        email: data.email,
+        password: data.password,
+      },
 
-      router.push('/')
-    }
+      successCallback: () => {
+        startTransition(() => {
+          router.push('/')
+
+          router.refresh()
+        })
+      },
+
+      errorCallback: (error: ErrorContext) => {
+        toast.error(error.error.message || t('errors.generic'))
+      },
+    })
   }
 
-  const isLoginProcessing = isPending
+  const isLoginProcessing = isPending || isTransition
 
   return (
     <div className={cn('flex w-full max-w-sm flex-col gap-6', className)} {...rest}>

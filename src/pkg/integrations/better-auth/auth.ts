@@ -2,7 +2,7 @@ import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { nextCookies } from 'better-auth/next-js'
 
-import { envClient } from '@/config/env'
+import { envServer } from '@/config/env'
 import { db } from '@/pkg/libraries/drizzle'
 
 export const auth = betterAuth({
@@ -11,6 +11,8 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [nextCookies()],
-  baseURL: envClient.NEXT_PUBLIC_CLIENT_WEB_URL,
-  allowedOrigins: [envClient.NEXT_PUBLIC_CLIENT_WEB_URL],
+  baseURL: envServer.BETTER_AUTH_URL,
+  allowedOrigins: [envServer.BETTER_AUTH_URL],
 })
+
+export type Session = typeof auth.$Infer.Session

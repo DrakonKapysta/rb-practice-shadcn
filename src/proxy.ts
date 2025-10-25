@@ -4,34 +4,40 @@ import createMiddleware from 'next-intl/middleware'
 
 import { routing } from '@/pkg/libraries/locale/routing'
 
-const publicRoutes = ['/login', '/register', '/auth', '/error']
-
-const intlMiddleware = createMiddleware(routing)
+const authRoutes = ['/login', '/register', '/auth', '/error']
 
 export async function proxy(req: NextRequest) {
-  const intlResponse = intlMiddleware(req)
-  const locale = intlResponse.headers.get('x-middleware-request-x-next-intl-locale')
+  const i18nRes = createMiddleware(routing)(req)
 
-  const pathname = req.nextUrl.pathname
-  const [, _, ...segments] = pathname.split('/')
+  const headerLocale = i18nRes.headers.get('x-middleware-request-x-next-intl-locale')
+
+  const [_, predefinedLocale, ...segments] = req.nextUrl.pathname.split('/')
+
   const pathWithoutLocale = '/' + segments.join('/')
 
-  const isPublic = publicRoutes.includes(pathname) || publicRoutes.includes(pathWithoutLocale)
+  const isLocaleProvided = headerLocale == predefinedLocale
 
   const session = getSessionCookie(req)
 
-  if (!session && !isPublic) {
-    const loginUrl = new URL(`/${locale ?? 'en'}/login`, req.url)
-    loginUrl.searchParams.set('redirectedFrom', pathname)
-    return NextResponse.redirect(loginUrl)
+  const isAuthRoute = authRoutes.includes(isLocaleProvided ? pathWithoutLocale : req.nextUrl.pathname)
+
+  if (!session) {
+    if (isAuthRoute) {
+      return i18nRes
+    }
+
+    return NextResponse.redirect(new URL(isLocaleProvided ? `${predefinedLocale}/login` : '/login', req.url), {
+      headers: i18nRes.headers,
+    })
   }
 
-  if (session && (pathname.endsWith('/login') || pathWithoutLocale === '/login')) {
-    const homeUrl = new URL(`/${locale ?? 'en'}`, req.url)
-    return NextResponse.redirect(homeUrl)
+  if (isAuthRoute) {
+    return NextResponse.redirect(new URL(isLocaleProvided ? `${predefinedLocale}/` : '/', req.url), {
+      headers: i18nRes.headers,
+    })
   }
 
-  return intlResponse
+  return i18nRes
 }
 
 export const config = {

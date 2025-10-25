@@ -1,8 +1,10 @@
 'use client'
 
+import { ErrorContext } from 'better-auth/react'
 import { useTranslations } from 'next-intl'
-import { FC } from 'react'
+import { FC, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -40,6 +42,8 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const { mutateAsync: register, isPending } = useMutation(registerMutationOptions())
 
+  const [isTransition, startTransition] = useTransition()
+
   const router = useRouter()
 
   const form = useForm<IRegisterForm>({
@@ -53,16 +57,28 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
   })
 
   const onSubmit = async (data: IRegisterForm) => {
-    const response = await register(data)
+    await register({
+      credentials: {
+        email: data.email,
+        password: data.password,
+        name: data.name,
+      },
 
-    if (response.success) {
-      await new Promise((r) => setTimeout(r, 100))
+      successCallback: () => {
+        startTransition(() => {
+          router.push('/')
 
-      router.push('/')
-    }
+          router.refresh()
+        })
+      },
+
+      errorCallback: (error: ErrorContext) => {
+        toast.error(error.error.message || t('errors.generic'))
+      },
+    })
   }
 
-  const isRegisterProcessing = isPending
+  const isRegisterProcessing = isPending || isTransition
 
   return (
     <Card className={cn('flex w-full max-w-sm flex-col gap-6', className)} {...rest}>

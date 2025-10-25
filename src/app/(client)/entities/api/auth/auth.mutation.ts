@@ -7,7 +7,7 @@ import { credentialsLogin, credentialsRegister } from './auth.api'
 
 export const loginMutationOptions = () => {
   return mutationOptions({
-    mutationFn: (loginData: ILogin) => credentialsLogin(loginData),
+    mutationFn: (data: ILogin) => credentialsLogin(data),
 
     onError: (error) => {
       loggerUtil({ text: 'LoginMutationOptions', value: error.message, level: 'error' })

@@ -16,7 +16,7 @@
     "auth:secret": "npx @better-auth/cli@latest secret",
     "db:generate": "drizzle-kit generate --config src/pkg/libraries/drizzle/drizzle.config.ts",
     "db:migrate": "drizzle-kit migrate --config src/pkg/libraries/drizzle/drizzle.config.ts",
-    "db:studio": "drizzle-kit studio --config src/pkg/libraries/drizzle/drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --port=3001 --config src/pkg/libraries/drizzle/drizzle.config.ts",
     "db:push": "drizzle-kit push --config src/pkg/libraries/drizzle/drizzle.config.ts",
     "db:pull": "drizzle-kit pull --config src/pkg/libraries/drizzle/drizzle.config.ts",
     "db:check": "drizzle-kit check --config src/pkg/libraries/drizzle/drizzle.config.ts"

@@ -1,5 +1,5 @@
 {
-  "id": "f4dd6a10-b171-4b5a-a114-1bd1831cdde7",
+  "id": "ec6e9424-d73a-45ae-b6fa-62a5944b57ac",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -335,7 +335,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -356,11 +356,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "comment_user_id_users_id_fk": {
-          "name": "comment_user_id_users_id_fk",
+        "comment_user_id_user_id_fk": {
+          "name": "comment_user_id_user_id_fk",
           "tableFrom": "comment",
-          "tableTo": "users",
-          "schemaTo": "auth",
+          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],

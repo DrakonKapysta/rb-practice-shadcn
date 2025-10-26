@@ -123,7 +123,8 @@ declare const messages: {
     "button": "Повернутися"
   },
   "header": {
-    "language": "Мова"
+    "language": "Мова",
+    "logout": "Вийти"
   }
 };
 export default messages;

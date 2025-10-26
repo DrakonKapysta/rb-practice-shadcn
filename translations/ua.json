@@ -120,6 +120,7 @@
     "button": "Повернутися"
   },
   "header": {
-    "language": "Мова"
+    "language": "Мова",
+    "logout": "Вийти"
   }
 }

@@ -120,6 +120,7 @@
     "button": "Go Back"
   },
   "header": {
-    "language": "Language"
+    "language": "Language",
+    "logout": "Logout"
   }
 }

@@ -13,9 +13,8 @@ import { UiProvider } from '@/pkg/libraries/ui'
 
 import '@/config/styles/global.css'
 
-interface IProps {
+interface IProps extends LayoutProps<'/[locale]'> {
   children: ReactNode
-  params: Promise<{ locale: string }>
 }
 
 export async function generateStaticParams() {
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
 }
 
 const RootLayout: FC<Readonly<IProps>> = async (props) => {
-  const { children, params } = await props
+  const { children, params } = props
 
   const locale = (await params).locale
   if (!hasLocale(routing.locales, locale)) {

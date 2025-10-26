@@ -19,7 +19,7 @@ import { loggerUtil } from '@/pkg/utils/logger'
 
 export async function getCommentById(commentId: number) {
   'use cache'
-  cacheLife('max')
+  cacheLife('hours')
   cacheTag(`comments-id-${commentId}`)
 
   try {
@@ -35,7 +35,7 @@ export async function getCommentById(commentId: number) {
 
 export async function getCommentsByCharacterId(characterId: number, filters?: ICommentsFilters) {
   'use cache'
-  cacheLife('max')
+  cacheLife('hours')
   cacheTag(`comments-character-id-${characterId}`)
 
   try {
@@ -91,7 +91,7 @@ export async function createComment(commentData: ICreateComment): Promise<IComme
 
 export async function getComments(filters?: ICommentsFilters) {
   'use cache'
-  cacheLife('max')
+  cacheLife('hours')
   cacheTag(`comments-list`, JSON.stringify(filters))
 
   try {

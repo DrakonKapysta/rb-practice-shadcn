@@ -1,8 +1,10 @@
 'use client'
+
+import { useTranslations } from 'next-intl'
 import { FC, useTransition } from 'react'
 
 import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
-import { Button, Spinner } from '@/app/(client)/shared/ui'
+import { Button } from '@/app/(client)/shared/ui'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { useRouter } from '@/pkg/libraries/locale'
 
@@ -12,6 +14,8 @@ const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
   const { data: session, isPending } = authClient.useSession()
 
   const [isSubmitting, startTransition] = useTransition()
+
+  const tHeader = useTranslations('header')
 
   const router = useRouter()
 
@@ -29,17 +33,14 @@ const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
 
   const isLogoutProcessing = isPending || isSubmitting
 
-  if (isLogoutProcessing) {
-    return <Spinner />
-  }
-
   return (
     <div className='flex items-center gap-2'>
       <LanguageSwitcherComponent />
+
       {session && (
         <>
           <Button disabled={isLogoutProcessing} onClick={handleLogout} variant='outline'>
-            {isLogoutProcessing ? <Spinner /> : 'Logout'}
+            {tHeader('logout')}
           </Button>
         </>
       )}

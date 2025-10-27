@@ -15,9 +15,7 @@ export async function getCharacters(
   const url = queryString ? `character?${queryString}` : 'character'
 
   try {
-    const data = await restApiFetcher
-      .get(url, { prefixUrl: envClient.NEXT_PUBLIC_EXTERNAL_API_URL, signal: options?.signal })
-      .json<ICharactersResponse>()
+    const data = await restApiFetcher.get(url, { signal: options?.signal }).json<ICharactersResponse>()
 
     return data
   } catch (error) {
@@ -28,9 +26,7 @@ export async function getCharacters(
 }
 export async function getCharacterById(id: number, options?: QueryFunctionContext): Promise<ICharacter> {
   try {
-    const data = await restApiFetcher
-      .get(`character/${id}`, { prefixUrl: envClient.NEXT_PUBLIC_EXTERNAL_API_URL, signal: options?.signal })
-      .json<ICharacter>()
+    const data = await restApiFetcher.get(`character/${id}`, { signal: options?.signal }).json<ICharacter>()
 
     return data
   } catch (error) {

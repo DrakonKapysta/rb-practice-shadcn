@@ -117,6 +117,18 @@ declare const messages: {
       "episodeCount": "Кількість епізодів"
     }
   },
+  "characterComment": {
+    "commentForm": {
+      "content": "Залиште коментар",
+      "contentPlaceholder": "Введіть ваш коментар",
+      "submitButton": "Відправити",
+      "clearButton": "Очистити"
+    },
+    "commentField": {
+      "noComments": "Поки що немає коментарів",
+      "userName": "Анонім"
+    }
+  },
   "notFound": {
     "title": "Сторінку не знайдено",
     "description": "Сторінка, яку ви шукаєте, не існує або була переміщена.",

@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { nextCookies } from 'better-auth/next-js'
+import { openAPI } from 'better-auth/plugins'
 
 import { envServer } from '@/config/env'
 import { db } from '@/pkg/libraries/drizzle'
@@ -10,7 +11,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  plugins: [nextCookies()],
+  plugins: [nextCookies(), openAPI()],
   baseURL: envServer.BETTER_AUTH_URL,
   allowedOrigins: [envServer.BETTER_AUTH_URL],
 })

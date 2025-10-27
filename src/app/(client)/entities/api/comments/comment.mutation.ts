@@ -1,6 +1,6 @@
 import { mutationOptions } from '@tanstack/react-query'
 
-import { ECommentQueryKey, ICreateComment, IUpdateCommnent } from '@/app/(client)/entities/models'
+import { ECommentQueryKey, ICreateComment, IUpdateComment } from '@/app/(client)/entities/models'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
 
@@ -30,7 +30,7 @@ export const createCommentMutationOptions = () => {
   })
 }
 
-export const deleteCommentMutatationOptions = () => {
+export const deleteCommentMutationOptions = () => {
   return mutationOptions({
     mutationFn: ({ commentId, characterId }: { commentId: number; characterId?: number }) =>
       deleteComment(commentId, characterId),
@@ -59,7 +59,7 @@ export const deleteCommentMutatationOptions = () => {
 
 export const updateCommentMutationOptions = () => {
   return mutationOptions({
-    mutationFn: ({ commentId, comment }: { commentId: number; comment: IUpdateCommnent }) =>
+    mutationFn: ({ commentId, comment }: { commentId: number; comment: IUpdateComment }) =>
       updateComment(commentId, comment),
 
     onSuccess: async (comment) => {

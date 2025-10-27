@@ -117,6 +117,18 @@ declare const messages: {
       "episodeCount": "Episode count"
     }
   },
+  "characterComment": {
+    "commentForm": {
+      "content": "Leave a comment",
+      "contentPlaceholder": "Enter your comment",
+      "submitButton": "Submit",
+      "clearButton": "Clear"
+    },
+    "commentField": {
+      "noComments": "No comments yet",
+      "userName": "Anonymous"
+    }
+  },
   "notFound": {
     "title": "Page Not Found",
     "description": "The page you are looking for does not exist or has been moved.",

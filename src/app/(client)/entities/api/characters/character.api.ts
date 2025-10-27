@@ -3,7 +3,6 @@ import * as qs from 'qs-esm'
 import { QueryFunctionContext } from '@tanstack/react-query'
 
 import { ICharacter, ICharacterFilters, ICharactersResponse } from '@/app/(client)/entities/models'
-import { envClient } from '@/config/env'
 import { restApiFetcher } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
 
@@ -12,6 +11,7 @@ export async function getCharacters(
   options?: QueryFunctionContext,
 ): Promise<ICharactersResponse> {
   const queryString = filters ? qs.stringify(filters) : ''
+
   const url = queryString ? `character?${queryString}` : 'character'
 
   try {

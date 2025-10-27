@@ -56,6 +56,6 @@ export async function credentialsRegister(registerData: IRegister): Promise<IReg
 
     return { success: true }
   } catch (error) {
-    return { success: false, error: { message: (error as Error).message, statusCode: 400 } }
+    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
   }
 }

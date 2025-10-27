@@ -115,12 +115,18 @@ declare const messages: {
     "episodesInformation": {
       "title": "Episodes",
       "episodeCount": "Episode count"
-    },
+    }
+  },
+  "characterComment": {
     "commentForm": {
       "content": "Leave a comment",
       "contentPlaceholder": "Enter your comment",
       "submitButton": "Submit",
       "clearButton": "Clear"
+    },
+    "commentField": {
+      "noComments": "No comments yet",
+      "userName": "Anonymous"
     }
   },
   "notFound": {

@@ -31,7 +31,7 @@ const CharacterCommentFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const { mutateAsync: createComment, isPending, error } = useMutation(createCommentMutationOptions())
 
-  const t = useTranslations('characterDetail.commentForm')
+  const t = useTranslations('characterComment.commentForm')
 
   const form = useForm<ICreateCommentForm>({
     defaultValues: {
@@ -50,7 +50,6 @@ const CharacterCommentFormComponent: FC<Readonly<IProps>> = (props) => {
       toast.error(result.error?.message || 'An error occurred while creating the comment')
       return
     }
-    console.log(result)
     toast.success('Comment created successfully')
     form.reset()
   }

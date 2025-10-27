@@ -115,12 +115,18 @@ declare const messages: {
     "episodesInformation": {
       "title": "Епізоди",
       "episodeCount": "Кількість епізодів"
-    },
+    }
+  },
+  "characterComment": {
     "commentForm": {
       "content": "Залиште коментар",
       "contentPlaceholder": "Введіть ваш коментар",
       "submitButton": "Відправити",
       "clearButton": "Очистити"
+    },
+    "commentField": {
+      "noComments": "Поки що немає коментарів",
+      "userName": "Анонім"
     }
   },
   "notFound": {

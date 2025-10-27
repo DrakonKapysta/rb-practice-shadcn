@@ -1,18 +1,16 @@
 'use client'
 
-import { Edit, MessageSquare, Save, Trash2, X } from 'lucide-react'
-import { FC, useRef, useState } from 'react'
-import { toast } from 'sonner'
+import { Edit, MessageSquare } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { FC, useState } from 'react'
 
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
-import {
-  commentsByCharacterIdQueryOptions,
-  deleteCommentMutationOptions,
-  updateCommentMutationOptions,
-} from '@/app/(client)/entities/api'
+import { commentsByCharacterIdQueryOptions } from '@/app/(client)/entities/api'
 import { IComment } from '@/app/(client)/entities/models'
-import { Button, Card, CardContent, CardHeader, StatusCardComponent, Textarea } from '@/app/(client)/shared/ui'
+import DeleteCommentComponent from '@/app/(client)/features/delete-comment/delete-comment.component'
+import { UpdateCommentComponent } from '@/app/(client)/features/update-comment'
+import { Button, Card, CardContent, CardHeader, StatusCardComponent } from '@/app/(client)/shared/ui'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { cn } from '@/pkg/utils/ui'
 
@@ -23,10 +21,9 @@ interface IProps {
 const CharacterCommentFieldComponent: FC<Readonly<IProps>> = (props) => {
   const { characterId } = props
 
-  const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null)
-  const [editCommentId, setEditCommentId] = useState<number | null>(null)
+  const t = useTranslations('characterComment.commentField')
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const [editCommentId, setEditCommentId] = useState<number | null>(null)
 
   const { data: session } = authClient.useSession()
 
@@ -35,33 +32,6 @@ const CharacterCommentFieldComponent: FC<Readonly<IProps>> = (props) => {
     isLoading,
     error,
   } = useQuery(commentsByCharacterIdQueryOptions(characterId, { orderDirection: 'asc' }))
-
-  const {
-    mutateAsync: updateComment,
-    isPending: isUpdatingComment,
-    error: updateCommentError,
-  } = useMutation(updateCommentMutationOptions())
-
-  const {
-    mutateAsync: deleteComment,
-    isPending: isDeletingComment,
-    error: deleteCommentError,
-  } = useMutation(deleteCommentMutationOptions())
-
-  const handleDeleteComment = async (commentId: number) => {
-    setDeleteCommentId(commentId)
-
-    const result = await deleteComment({ commentId, characterId })
-
-    if (!result.success || deleteCommentError) {
-      setDeleteCommentId(null)
-      return toast.error(result.error?.message || 'An error occurred while deleting the comment')
-    }
-
-    toast.success('Comment deleted successfully')
-
-    setDeleteCommentId(null)
-  }
 
   const handleStartEditComment = (commentId: number) => {
     setEditCommentId(commentId)
@@ -73,22 +43,6 @@ const CharacterCommentFieldComponent: FC<Readonly<IProps>> = (props) => {
 
   const isCommentOwner = (comment: IComment) => {
     return session?.user?.id && comment.userId === session.user.id
-  }
-
-  const handleSaveEditComment = async (comment: IComment) => {
-    const result = await updateComment({
-      commentId: comment.id,
-      comment: { content: textareaRef.current?.value || comment.content, characterId: comment.characterId },
-    })
-
-    if (!result.success || updateCommentError) {
-      setEditCommentId(null)
-      return toast.error(result.error?.message || 'An error occurred while updating the comment')
-    }
-
-    toast.success('Comment updated successfully')
-
-    setEditCommentId(null)
   }
 
   if (isLoading) {
@@ -120,7 +74,6 @@ const CharacterCommentFieldComponent: FC<Readonly<IProps>> = (props) => {
                 key={comment.id}
                 className={cn(
                   'border-default-200 bg-default-50 hover:bg-default-100 relative rounded-lg border p-4 transition-colors',
-                  isDeletingComment && comment.id === deleteCommentId ? 'pointer-events-none opacity-50' : '',
                 )}
               >
                 <div className='mb-2 flex items-start justify-between'>
@@ -129,12 +82,11 @@ const CharacterCommentFieldComponent: FC<Readonly<IProps>> = (props) => {
                       {comment.userId.substring(0, 2).toUpperCase()}
                     </div>
 
-                    <span className='text-default-500 text-sm'>Anonymous</span>
+                    <span className='text-default-500 text-sm'>{t('userName')}</span>
                   </div>
                   {isCommentOwner(comment) && (
                     <div className='flex items-center justify-center gap-3 overflow-hidden rounded-full'>
                       <Button
-                        disabled={isDeletingComment}
                         onClick={() => handleStartEditComment(comment.id)}
                         className={cn('text-default-500', editCommentId === comment.id && 'hidden')}
                         variant='secondary'
@@ -144,48 +96,7 @@ const CharacterCommentFieldComponent: FC<Readonly<IProps>> = (props) => {
                         <Edit className='h-6 w-6' />
                       </Button>
 
-                      {editCommentId === comment.id && (
-                        <div className='flex items-center gap-2'>
-                          <Button
-                            disabled={isUpdatingComment}
-                            onClick={() => handleSaveEditComment(comment)}
-                            className={cn(
-                              'text-default-500 rounded-full',
-                              editCommentId === comment.id ? 'text-primary-500 border-2 p-1' : '',
-                            )}
-                            variant='secondary'
-                            color='primary'
-                            size='sm'
-                          >
-                            <Save className='h-6 w-6' />
-                          </Button>
-
-                          <Button
-                            disabled={isUpdatingComment}
-                            onClick={handleCancelEditComment}
-                            className={cn(
-                              'text-default-500 rounded-full',
-                              editCommentId === comment.id ? 'text-primary-500 border-2 p-1' : '',
-                            )}
-                            variant='secondary'
-                            color='primary'
-                            size='sm'
-                          >
-                            <X className='h-6 w-6' />
-                          </Button>
-                        </div>
-                      )}
-
-                      <Button
-                        onClick={() => handleDeleteComment(comment.id)}
-                        disabled={isDeletingComment || editCommentId === comment.id}
-                        variant='secondary'
-                        color='danger'
-                        size='sm'
-                        className='rounded-full'
-                      >
-                        <Trash2 className='h-6 w-6' />
-                      </Button>
+                      <DeleteCommentComponent commentId={comment.id} characterId={characterId} />
                     </div>
                   )}
                 </div>
@@ -194,11 +105,14 @@ const CharacterCommentFieldComponent: FC<Readonly<IProps>> = (props) => {
                   {comment.content}
                 </p>
 
-                <Textarea
-                  className={cn('w-full', editCommentId === comment.id ? '' : 'hidden')}
-                  defaultValue={comment.content}
-                  ref={textareaRef}
-                />
+                {editCommentId === comment.id && (
+                  <UpdateCommentComponent
+                    commentId={comment.id}
+                    comment={comment.content}
+                    characterId={characterId}
+                    onCancel={() => handleCancelEditComment()}
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -206,7 +120,7 @@ const CharacterCommentFieldComponent: FC<Readonly<IProps>> = (props) => {
           <div className='py-8 text-center'>
             <MessageSquare className='text-default-300 mx-auto mb-2 h-12 w-12' />
 
-            <p className='text-default-500'>No comments yet.</p>
+            <p className='text-default-500'>{t('noComments')}</p>
           </div>
         )}
       </CardContent>

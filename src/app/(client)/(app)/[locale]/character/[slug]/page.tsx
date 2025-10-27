@@ -1,12 +1,11 @@
 import { cacheLife } from 'next/cache'
 import { setRequestLocale } from 'next-intl/server'
-import { FC, Suspense } from 'react'
+import { FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { characterByIdQueryOptions, getCharacters } from '@/app/(client)/entities/api'
-import { Spinner } from '@/app/(client)/shared/ui'
-import { CharacterDetailComponent } from '@/app/(client)/widgets/character-detail'
+import { CharacterModule } from '@/app/(client)/modules/character'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 
 interface IProps extends PageProps<'/[locale]/character/[slug]'> {}
@@ -37,9 +36,7 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<Spinner />}>
-        <CharacterDetailComponent characterId={characterId} />
-      </Suspense>
+      <CharacterModule characterId={characterId} />
     </HydrationBoundary>
   )
 }

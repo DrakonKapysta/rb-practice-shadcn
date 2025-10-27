@@ -99,7 +99,7 @@ const FooterComponent: FC<Readonly<IProps>> = async () => {
 
         <div className='border-border mt-8 border-t pt-8'>
           <div className='flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0'>
-            <p className='text-muted-foreground text-sm'>© 2024 Your Brand. All rights reserved.</p>
+            <p className='text-muted-foreground text-sm'>© 2025 Your Brand. All rights reserved.</p>
 
             <div className='flex space-x-4'>
               <Button variant='ghost' size='sm'>

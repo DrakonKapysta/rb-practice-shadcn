@@ -10,7 +10,7 @@ import {
   ICommentMutationUpdateResult,
   ICommentsFilters,
   ICreateComment,
-  IUpdateCommnent,
+  IUpdateComment,
 } from '@/app/(client)/entities/models'
 import { auth } from '@/pkg/integrations/better-auth'
 import { comment, db } from '@/pkg/libraries/drizzle'
@@ -79,7 +79,7 @@ export async function createComment(commentData: ICreateComment): Promise<IComme
       })
       .returning()
 
-    updateTag(`comments-character-id-${comment.characterId}`)
+    updateTag(`comments-character-id-${commentData.characterId}`)
 
     return { success: true, result: result[0] }
   } catch (error) {
@@ -146,22 +146,22 @@ export async function deleteComment(commentId: number, characterId?: number): Pr
 
 export async function updateComment(
   commentId: number,
-  commentData: IUpdateCommnent,
+  commentData: IUpdateComment,
 ): Promise<ICommentMutationUpdateResult> {
   try {
-    const updatedCommnet = await db
+    const updatedComment = await db
       .update(comment)
       .set({ ...commentData, updatedAt: sql`NOW()` })
       .where(eq(comment.id, commentId))
       .returning()
 
-    if (!updatedCommnet || updatedCommnet.length === 0) {
+    if (!updatedComment || updatedComment.length === 0) {
       return { success: false, error: { message: 'Failed to update comment', statusCode: 500 } }
     }
 
-    updateTag(`comments-character-id-${comment.characterId}`)
+    updateTag(`comments-character-id-${commentData.characterId}`)
 
-    return { success: true, result: updatedCommnet[0] }
+    return { success: true, result: updatedComment[0] }
   } catch (error) {
     loggerUtil({ text: 'CommentApi.updateComment', value: (error as Error).message, level: 'error' })
     return { success: false, error: { message: 'Failed to update comment', statusCode: 500 } }

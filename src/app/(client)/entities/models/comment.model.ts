@@ -41,7 +41,7 @@ export interface ICommentMutationUpdateResult extends IResult<IComment> {
   result?: IComment
 }
 
-export interface IUpdateCommnent extends Partial<ICreateComment> {}
+export interface IUpdateComment extends Partial<ICreateComment> {}
 
 export interface ICommentsFilters {
   characterId?: number

@@ -17,7 +17,7 @@ const UiProvider: FC<Readonly<IProps>> = (props) => {
     <NextThemesProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
       {children}
 
-      <Toaster />
+      <Toaster richColors={true} />
     </NextThemesProvider>
   )
 }

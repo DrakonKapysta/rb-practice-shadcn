@@ -23,7 +23,11 @@ const StatusCardComponent: FC<Readonly<IProps>> = (props) => {
       </CardHeader>
 
       <CardContent>
-        {showLoader ? <Spinner /> : errorMessage && <p className='text-red-500'>{errorMessage}</p>}
+        {showLoader ? (
+          <Spinner className='mx-auto h-10 w-10 flex-1 items-center' />
+        ) : (
+          errorMessage && <p className='text-red-500'>{errorMessage}</p>
+        )}
       </CardContent>
     </Card>
   )

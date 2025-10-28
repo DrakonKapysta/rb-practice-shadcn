@@ -13,7 +13,7 @@ const CharacterModule: FC<Readonly<IProps>> = (props) => {
 
   return (
     <ContainerComponent className='mt-5 flex max-w-7xl flex-1 flex-col' variant='section'>
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Spinner className='mx-auto h-10 w-10 flex-1 items-center' />}>
         <CharacterDetailComponent characterId={characterId} />
       </Suspense>
 

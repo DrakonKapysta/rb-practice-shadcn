@@ -1,4 +1,5 @@
-import { cacheLife } from 'next/cache'
+'use cache'
+
 import { setRequestLocale } from 'next-intl/server'
 import { FC } from 'react'
 
@@ -21,9 +22,6 @@ export async function generateStaticParams() {
 }
 
 const Page: FC<Readonly<IProps>> = async (props) => {
-  'use cache'
-  cacheLife('default')
-
   const { locale } = await props.params
 
   setRequestLocale(locale)

@@ -6,6 +6,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { HomeModule } from '@/app/(client)/modules/home'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
+import { charactersQueryOptions } from '@/app/(client)/entities/api'
 
 interface IProps extends PageProps<'/[locale]'> {}
 
@@ -18,6 +19,8 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   setRequestLocale(locale)
 
   const queryClient = getQueryClient()
+
+  await queryClient.prefetchQuery(charactersQueryOptions({}))
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

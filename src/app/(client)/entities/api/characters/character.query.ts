@@ -7,6 +7,7 @@ import { getCharacterById, getCharacters } from './character.api'
 export const charactersQueryOptions = (filters?: ICharacterFilters) => {
   return queryOptions<ICharactersResponse>({
     queryKey: [ECharacterQueryKey.CHARACTERS, filters],
+
     queryFn: (params) => getCharacters(filters, params),
   })
 }
@@ -14,6 +15,7 @@ export const charactersQueryOptions = (filters?: ICharacterFilters) => {
 export const characterByIdQueryOptions = (id: number) => {
   return queryOptions<ICharacter>({
     queryKey: [ECharacterQueryKey.CHARACTER_ID, id],
-    queryFn: () => getCharacterById(id),
+
+    queryFn: (params) => getCharacterById(id, params),
   })
 }

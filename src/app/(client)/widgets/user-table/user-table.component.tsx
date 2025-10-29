@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/app/(client)/shared/ui'
 import { auth } from '@/pkg/integrations/better-auth'
 
-import { UserActionsComponent } from './elements'
+import { EditableUserFieldComponent, UserActionsComponent, UserRoleSelector } from './elements'
 
 interface IProps {}
 
@@ -41,11 +41,15 @@ const UserTable: FC<Readonly<IProps>> = async () => {
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id}>
-              <TableCell>{user.name}</TableCell>
+              <TableCell>
+                <EditableUserFieldComponent field='name' userId={user.id} defaultValue={user.name} />
+              </TableCell>
 
               <TableCell>{user.email}</TableCell>
 
-              <TableCell>{user.role}</TableCell>
+              <TableCell>
+                <UserRoleSelector userId={user.id} defaultValue={user.role || 'unknown'} />
+              </TableCell>
 
               <TableCell>{user.emailVerified ? 'Yes' : 'No'}</TableCell>
 

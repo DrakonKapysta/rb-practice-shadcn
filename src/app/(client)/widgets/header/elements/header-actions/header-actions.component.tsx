@@ -6,7 +6,7 @@ import { FC, useTransition } from 'react'
 import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
 import { Button } from '@/app/(client)/shared/ui'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
-import { useRouter } from '@/pkg/libraries/locale'
+import { Link, useRouter } from '@/pkg/libraries/locale'
 
 interface IProps {}
 
@@ -36,6 +36,12 @@ const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
   return (
     <div className='flex items-center gap-2'>
       <LanguageSwitcherComponent />
+
+      {session && session.user?.role === 'admin' && (
+        <Link href='/admin-dashboard'>
+          <Button variant='outline'>Admin</Button>
+        </Link>
+      )}
 
       {session && (
         <>

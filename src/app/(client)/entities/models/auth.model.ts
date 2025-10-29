@@ -1,19 +1,13 @@
-import { ErrorContext } from 'better-auth/react'
+import { ICallbackResult, IResult } from '@/app/(client)/shared/interfaces'
 
-import { IResult } from '@/app/(client)/shared/interfaces'
-
-export interface IRegisterCredentials {
+export interface IRegisterCredentials extends ICallbackResult {
   name: string
   email: string
   password: string
   callbackURL?: string
 }
-export interface IRegister {
+export interface IRegister extends ICallbackResult {
   credentials: IRegisterCredentials
-
-  successCallback?: () => void
-  errorCallback?: (error: ErrorContext) => void
-  requestCallback?: () => void
 }
 
 export interface IRegisterResponse extends IResult<void> {}
@@ -24,12 +18,8 @@ export interface ILoginCredentials {
   callbackURL?: string
 }
 
-export interface ILogin {
+export interface ILogin extends ICallbackResult {
   credentials: ILoginCredentials
-
-  successCallback?: () => void
-  errorCallback?: (error: ErrorContext) => void
-  requestCallback?: () => void
 }
 
 export interface ILoginResponse extends IResult<void> {}

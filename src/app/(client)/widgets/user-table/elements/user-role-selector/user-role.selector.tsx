@@ -1,9 +1,12 @@
 'use client'
 
 import { FC } from 'react'
+import { toast } from 'sonner'
 
+import { useMutation } from '@tanstack/react-query'
+
+import { setRoleMutationOptions } from '@/app/(client)/entities/api'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/app/(client)/shared/ui'
-import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 
 interface IProps {
   defaultValue: string
@@ -13,10 +16,19 @@ interface IProps {
 const UserRoleSelector: FC<Readonly<IProps>> = (props) => {
   const { defaultValue, userId } = props
 
+  const { mutateAsync: setRole } = useMutation(setRoleMutationOptions())
+
   const handleChange = async (value: 'admin' | 'user') => {
-    await authClient.admin.setRole({
+    await setRole({
       userId,
       role: value,
+
+      successCallback: () => {
+        toast.success('User role updated successfully')
+      },
+      errorCallback: (error) => {
+        toast.error(error.error.message || 'Failed to update user role')
+      },
     })
   }
 

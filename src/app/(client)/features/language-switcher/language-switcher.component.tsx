@@ -18,6 +18,7 @@ const LanguageSwitcherComponent = () => {
 
   const handleLanguageChange = (newLocale: string) => {
     const pathnameWithoutLocale = pathname.replace(/^\/(en|ua)/, '')
+
     router.replace(pathnameWithoutLocale, { locale: newLocale })
   }
 

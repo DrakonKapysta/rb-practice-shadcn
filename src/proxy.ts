@@ -13,7 +13,7 @@ const adminRoutes = ['/admin-dashboard']
 export async function proxy(req: NextRequest) {
   const i18nRes = createMiddleware(routing)(req)
 
-  const headerLocale = i18nRes.headers.get('x-middleware-request-x-next-intl-locale')
+  const headerLocale = i18nRes.headers.get('x-middleware-request-x-next-intl-locale') ?? routing.defaultLocale
 
   const [_, predefinedLocale, ...segments] = req.nextUrl.pathname.split('/')
 

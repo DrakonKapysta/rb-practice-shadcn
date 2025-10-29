@@ -1,7 +1,11 @@
 'use client'
 import { UserWithRole } from 'better-auth/plugins'
 import { FC } from 'react'
+import { toast } from 'sonner'
 
+import { useMutation } from '@tanstack/react-query'
+
+import { banUserMutationOptions, unbanUserMutationOptions } from '@/app/(client)/entities/api'
 import {
   Button,
   DropdownMenu,
@@ -11,8 +15,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/app/(client)/shared/ui'
-import { authClient } from '@/pkg/integrations/better-auth/auth-client'
-import { useRouter } from '@/pkg/libraries/locale'
 
 interface IProps {
   user: UserWithRole
@@ -20,23 +22,35 @@ interface IProps {
 
 const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
   const { user } = props
-
-  const router = useRouter()
+  const { mutateAsync: banUser } = useMutation(banUserMutationOptions())
+  const { mutateAsync: unbanUser } = useMutation(unbanUserMutationOptions())
 
   const handleBanUser = async () => {
-    await authClient.admin.banUser({
+    await banUser({
       userId: user.id,
       banReason: 'Banned by admin',
       banExpiresIn: 1000 * 60 * 60 * 24 * 30,
+
+      successCallback: () => {
+        toast.success('User banned successfully')
+      },
+      errorCallback: (error) => {
+        toast.error(error.error.message || 'Failed to fetch users')
+      },
     })
-    router.refresh()
   }
 
   const handleUnbanUser = async () => {
-    await authClient.admin.unbanUser({
+    await unbanUser({
       userId: user.id,
+
+      successCallback: () => {
+        toast.success('User unbanned successfully')
+      },
+      errorCallback: (error) => {
+        toast.error(error.error.message || 'Failed to fetch users')
+      },
     })
-    router.refresh()
   }
 
   return (

@@ -15,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/app/(client)/shared/ui'
+import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 
 interface IProps {
   user: UserWithRole
@@ -25,7 +26,14 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
   const { mutateAsync: banUser } = useMutation(banUserMutationOptions())
   const { mutateAsync: unbanUser } = useMutation(unbanUserMutationOptions())
 
+  const session = authClient.useSession()
+
   const handleBanUser = async () => {
+    if (session.data?.user?.role === 'admin' && session.data?.user?.id === user.id) {
+      toast.error('You cannot ban yourself')
+      return
+    }
+
     await banUser({
       userId: user.id,
       banReason: 'Banned by admin',
@@ -41,6 +49,11 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
   }
 
   const handleUnbanUser = async () => {
+    if (session.data?.user?.role === 'admin' && session.data?.user?.id === user.id) {
+      toast.error('You cannot unban yourself')
+      return
+    }
+
     await unbanUser({
       userId: user.id,
 

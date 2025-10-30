@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import { setRoleMutationOptions } from '@/app/(client)/entities/api'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/app/(client)/shared/ui'
+import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 
 interface IProps {
   defaultValue: string
@@ -18,7 +19,14 @@ const UserRoleSelector: FC<Readonly<IProps>> = (props) => {
 
   const { mutateAsync: setRole } = useMutation(setRoleMutationOptions())
 
+  const session = authClient.useSession()
+
   const handleChange = async (value: 'admin' | 'user') => {
+    if (session.data?.user?.role === 'admin' && session.data?.user?.id === userId) {
+      toast.error('You cannot change your own role')
+      return
+    }
+
     await setRole({
       userId,
       role: value,

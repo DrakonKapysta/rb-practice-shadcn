@@ -8,6 +8,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { characterByIdQueryOptions, getCharacters } from '@/app/(client)/entities/api'
 import { CharacterModule } from '@/app/(client)/modules/character'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
+import { cacheLife } from 'next/cache'
 
 interface IProps extends PageProps<'/[locale]/character/[slug]'> {}
 
@@ -22,6 +23,8 @@ export async function generateStaticParams() {
 }
 
 const Page: FC<Readonly<IProps>> = async (props) => {
+  cacheLife('minutes')
+
   const { locale } = await props.params
 
   setRequestLocale(locale)

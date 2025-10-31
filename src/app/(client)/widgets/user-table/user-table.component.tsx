@@ -68,7 +68,7 @@ const UserTable: FC<Readonly<IProps>> = () => {
                 <TableCell>{user.email}</TableCell>
 
                 <TableCell>
-                  <UserRoleSelector userId={user.id} defaultValue={user.role || 'unknown'} />
+                  <UserRoleSelector userId={user.id} role={user.role || 'unknown'} />
                 </TableCell>
 
                 <TableCell>{user.emailVerified ? 'Yes' : 'No'}</TableCell>

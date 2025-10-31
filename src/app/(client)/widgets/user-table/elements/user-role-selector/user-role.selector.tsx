@@ -7,16 +7,22 @@ import { useMutation } from '@tanstack/react-query'
 
 import { setRoleMutationOptions } from '@/app/(client)/entities/api'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/app/(client)/shared/ui'
+import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 
 interface IProps {
-  defaultValue: string
+  role: string
   userId: string
 }
 
 const UserRoleSelector: FC<Readonly<IProps>> = (props) => {
-  const { defaultValue, userId } = props
+  const { role, userId } = props
 
   const { mutateAsync: setRole } = useMutation(setRoleMutationOptions())
+
+  const session = authClient.useSession()
+
+  const isUserAdmin = role === 'admin'
+  const isSelf = session.data?.user?.id === userId
 
   const handleChange = async (value: 'admin' | 'user') => {
     await setRole({
@@ -33,8 +39,8 @@ const UserRoleSelector: FC<Readonly<IProps>> = (props) => {
   }
 
   return (
-    <Select defaultValue={defaultValue} onValueChange={handleChange}>
-      <SelectTrigger className='w-[180px]'>
+    <Select defaultValue={role} onValueChange={handleChange}>
+      <SelectTrigger disabled={isSelf || isUserAdmin} className='w-[180px]'>
         <SelectValue placeholder='Select a role' />
       </SelectTrigger>
 

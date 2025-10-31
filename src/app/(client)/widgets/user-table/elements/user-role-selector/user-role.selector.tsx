@@ -24,6 +24,11 @@ const UserRoleSelector: FC<Readonly<IProps>> = (props) => {
   const hasPermission = AuthUtil.canPerformActionByRole(currentRole, role)
 
   const handleChange = async (value: 'admin' | 'user') => {
+    if (session.data?.user?.role === 'admin' && session.data?.user?.id === userId) {
+      toast.error('You cannot change your own role')
+      return
+    }
+
     await setRole({
       userId,
       role: value,

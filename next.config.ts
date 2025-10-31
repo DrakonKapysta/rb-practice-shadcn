@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
 
   cacheComponents: true,
 
+  reactCompiler: true,
+
   poweredByHeader: false,
   cacheMaxMemorySize: 100 * 1024 * 1024,
 

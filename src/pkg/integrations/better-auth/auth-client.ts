@@ -5,7 +5,9 @@ import { createAuthClient } from 'better-auth/react'
 
 import { envClient } from '@/config/env'
 
+import { accessControl, admin, super_admin, user } from './permissions'
+
 export const authClient = createAuthClient({
   baseURL: envClient.NEXT_PUBLIC_CLIENT_WEB_URL,
-  plugins: [adminClient()],
+  plugins: [adminClient({ ac: accessControl, roles: { super_admin, admin, user } })],
 })

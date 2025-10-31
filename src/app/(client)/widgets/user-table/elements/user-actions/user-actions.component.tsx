@@ -1,5 +1,5 @@
 'use client'
-import { UserWithRole } from 'better-auth/plugins'
+import { EllipsisIcon } from 'lucide-react'
 import { FC } from 'react'
 import { toast } from 'sonner'
 
@@ -15,31 +15,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/app/(client)/shared/ui'
-import { authClient } from '@/pkg/integrations/better-auth/auth-client'
-import { EllipsisIcon } from 'lucide-react'
+import { AuthUtil } from '@/pkg/utils/auth'
 
 interface IProps {
-  user: UserWithRole
+  userId: string
+  targetRole: string
+  currentRole: string
 }
 
 const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
-  const { user } = props
+  const { userId, currentRole, targetRole } = props
   const { mutateAsync: banUser } = useMutation(banUserMutationOptions())
   const { mutateAsync: unbanUser } = useMutation(unbanUserMutationOptions())
 
-  const session = authClient.useSession()
-
-  const isCurrentUserAdmin = session.data?.user?.role === 'admin'
-  const isSelf = session.data?.user?.id === user.id
+  const canPerformAction = AuthUtil.canPerformActionByRole(currentRole, targetRole)
 
   const handleBanUser = async () => {
-    if (isSelf) {
-      toast.error('You cannot perform this action on yourself')
-      return
-    }
-
     await banUser({
-      userId: user.id,
+      userId: userId,
       banReason: 'Banned by admin',
       banExpiresIn: 1000 * 60 * 60 * 24 * 30,
 
@@ -54,13 +47,8 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
   }
 
   const handleUnbanUser = async () => {
-    if (isSelf) {
-      toast.error('You cannot unban yourself')
-      return
-    }
-
     await unbanUser({
-      userId: user.id,
+      userId: userId,
 
       successCallback: () => {
         toast.success('User unbanned successfully')
@@ -85,11 +73,11 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem disabled={isSelf} onClick={handleBanUser}>
+        <DropdownMenuItem disabled={!canPerformAction.success} onClick={handleBanUser}>
           Ban user
         </DropdownMenuItem>
 
-        <DropdownMenuItem disabled={isSelf} onClick={handleUnbanUser}>
+        <DropdownMenuItem disabled={!canPerformAction.success} onClick={handleUnbanUser}>
           Unban user
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -1,12 +1,13 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { nextCookies } from 'better-auth/next-js'
-import { admin, openAPI } from 'better-auth/plugins'
-
+import { admin as adminPlugin, openAPI } from 'better-auth/plugins'
 import { Redis } from 'ioredis'
 
 import { envServer } from '@/config/env'
 import { db } from '@/pkg/libraries/drizzle'
+
+import { accessControl, admin, super_admin, user } from './permissions'
 
 const redis = new Redis()
 
@@ -15,7 +16,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  plugins: [nextCookies(), openAPI(), admin()],
+  plugins: [nextCookies(), openAPI(), adminPlugin({ ac: accessControl, roles: { super_admin, admin, user } })],
   baseURL: envServer.BETTER_AUTH_URL,
   allowedOrigins: [envServer.BETTER_AUTH_URL],
   secondaryStorage:

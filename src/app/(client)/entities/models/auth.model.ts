@@ -6,6 +6,13 @@ export interface IRegisterCredentials extends ICallbackResult {
   password: string
   callbackURL?: string
 }
+
+export enum Role {
+  SUPER_ADMIN = 'super_admin',
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
 export interface IRegister extends ICallbackResult {
   credentials: IRegisterCredentials
 }

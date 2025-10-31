@@ -45,15 +45,15 @@ const UserRoleSelector: FC<Readonly<IProps>> = (props) => {
 
       <SelectContent>
         <SelectGroup>
-          <SelectItem disabled={!hasPermission.roles.includes(Role.SUPER_ADMIN)} value='super_admin'>
+          <SelectItem disabled={!hasPermission.roles?.includes(Role.SUPER_ADMIN)} value='super_admin'>
             Super Admin
           </SelectItem>
 
-          <SelectItem disabled={!hasPermission.roles.includes(Role.ADMIN)} value='admin'>
+          <SelectItem disabled={!hasPermission.roles?.includes(Role.ADMIN)} value='admin'>
             Admin
           </SelectItem>
 
-          <SelectItem disabled={!hasPermission.roles.includes(Role.USER)} value='user'>
+          <SelectItem disabled={!hasPermission.roles?.includes(Role.USER)} value='user'>
             User
           </SelectItem>
         </SelectGroup>

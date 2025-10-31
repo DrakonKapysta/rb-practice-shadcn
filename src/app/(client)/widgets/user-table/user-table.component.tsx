@@ -1,12 +1,12 @@
 'use client'
 
 import { FC, useState } from 'react'
-import { toast } from 'sonner'
 
 import { useQuery } from '@tanstack/react-query'
 
 import { adminUsersQueryOptions } from '@/app/(client)/entities/api'
 import { Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/app/(client)/shared/ui'
+import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 
 import { EditableUserFieldComponent, UserActionsComponent, UserRoleSelector, UserTablePagination } from './elements'
 
@@ -16,6 +16,8 @@ const UserTable: FC<Readonly<IProps>> = () => {
   const [page, setPage] = useState(1)
 
   const [pageSize, setPageSize] = useState(10)
+
+  const session = authClient.useSession()
 
   const {
     data: result,
@@ -68,7 +70,11 @@ const UserTable: FC<Readonly<IProps>> = () => {
                 <TableCell>{user.email}</TableCell>
 
                 <TableCell>
-                  <UserRoleSelector userId={user.id} defaultValue={user.role || 'unknown'} />
+                  <UserRoleSelector
+                    userId={user.id}
+                    role={user.role || 'unknown'}
+                    currentRole={session.data?.user?.role || 'unknown'}
+                  />
                 </TableCell>
 
                 <TableCell>{user.emailVerified ? 'Yes' : 'No'}</TableCell>
@@ -84,7 +90,11 @@ const UserTable: FC<Readonly<IProps>> = () => {
                 <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
 
                 <TableCell>
-                  <UserActionsComponent user={user} />
+                  <UserActionsComponent
+                    userId={user.id}
+                    currentRole={session.data?.user?.role || 'unknown'}
+                    targetRole={user.role || 'unknown'}
+                  />
                 </TableCell>
               </TableRow>
             ))}

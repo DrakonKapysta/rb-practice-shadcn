@@ -1,4 +1,10 @@
-import { IAdminUsersQuery, IBannUserQuery, ISetRoleQuery, IUnbanUserQuery } from '@/app/(client)/entities/models'
+import {
+  IAdminUsersQuery,
+  IBannUserQuery,
+  IRevokeSessionQuery,
+  ISetRoleQuery,
+  IUnbanUserQuery,
+} from '@/app/(client)/entities/models'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { loggerUtil } from '@/pkg/utils/logger'
 
@@ -124,6 +130,34 @@ export async function setRole(data: ISetRoleQuery) {
     }
   } catch (error) {
     loggerUtil({ text: 'Error setting role', value: error })
+
+    throw error
+  }
+}
+
+export async function revokeSession(data: IRevokeSessionQuery) {
+  try {
+    const response = await authClient.admin.revokeUserSession(
+      {
+        sessionToken: data.sessionToken,
+      },
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, data: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error revoking session', value: error })
 
     throw error
   }

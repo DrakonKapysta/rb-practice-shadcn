@@ -5,6 +5,7 @@ import createMiddleware from 'next-intl/middleware'
 import { routing } from '@/pkg/libraries/locale/routing'
 
 import { auth } from './pkg/integrations/better-auth'
+import { AuthUtil } from './pkg/utils/auth'
 
 const authRoutes = ['/login', '/register', '/auth', '/error']
 
@@ -51,7 +52,7 @@ export async function proxy(req: NextRequest) {
       headers: req.headers,
     })
 
-    if (!session || session.user?.role !== 'admin') {
+    if (!session || !AuthUtil.hasAccessToAdminPanel(session.user?.role)) {
       return NextResponse.redirect(new URL('/', req.url), {
         headers: i18nRes.headers,
       })

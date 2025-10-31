@@ -7,6 +7,7 @@ import { LanguageSwitcherComponent } from '@/app/(client)/features/language-swit
 import { Button } from '@/app/(client)/shared/ui'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { Link, useRouter } from '@/pkg/libraries/locale'
+import { AuthUtil } from '@/pkg/utils/auth'
 
 interface IProps {}
 
@@ -37,7 +38,7 @@ const HeaderActionsComponent: FC<Readonly<IProps>> = () => {
     <div className='flex items-center gap-2'>
       <LanguageSwitcherComponent />
 
-      {session && session.user?.role === 'admin' && (
+      {session && AuthUtil.hasAccessToAdminPanel(session.user?.role) && (
         <Link href='/admin-dashboard'>
           <Button variant='outline'>Admin</Button>
         </Link>

@@ -1,5 +1,5 @@
 'use client'
-import { UserWithRole } from 'better-auth/plugins'
+import { EllipsisIcon } from 'lucide-react'
 import { FC } from 'react'
 import { toast } from 'sonner'
 
@@ -15,18 +15,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/app/(client)/shared/ui'
-import { authClient } from '@/pkg/integrations/better-auth/auth-client'
+import { AuthUtil } from '@/pkg/utils/auth'
 
 interface IProps {
-  user: UserWithRole
+  userId: string
+  targetRole: string
+  currentRole: string
 }
 
 const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
-  const { user } = props
+  const { userId, currentRole, targetRole } = props
   const { mutateAsync: banUser } = useMutation(banUserMutationOptions())
   const { mutateAsync: unbanUser } = useMutation(unbanUserMutationOptions())
 
-  const session = authClient.useSession()
+  const canPerformAction = AuthUtil.canPerformActionByRole(currentRole, targetRole)
 
   const handleBanUser = async () => {
     if (session.data?.user?.role === 'admin' && session.data?.user?.id === user.id) {
@@ -35,13 +37,14 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
     }
 
     await banUser({
-      userId: user.id,
+      userId: userId,
       banReason: 'Banned by admin',
       banExpiresIn: 1000 * 60 * 60 * 24 * 30,
 
       successCallback: () => {
         toast.success('User banned successfully')
       },
+
       errorCallback: (error) => {
         toast.error(error.error.message || 'Failed to fetch users')
       },
@@ -55,11 +58,12 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
     }
 
     await unbanUser({
-      userId: user.id,
+      userId: userId,
 
       successCallback: () => {
         toast.success('User unbanned successfully')
       },
+
       errorCallback: (error) => {
         toast.error(error.error.message || 'Failed to fetch users')
       },
@@ -69,7 +73,9 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline'>Open menu</Button>
+        <Button variant='outline'>
+          <EllipsisIcon className='size-4' />
+        </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align='end'>
@@ -77,9 +83,13 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={handleBanUser}>Ban user</DropdownMenuItem>
+        <DropdownMenuItem disabled={!canPerformAction.success} onClick={handleBanUser}>
+          Ban user
+        </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={handleUnbanUser}>Unban user</DropdownMenuItem>
+        <DropdownMenuItem disabled={!canPerformAction.success} onClick={handleUnbanUser}>
+          Unban user
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

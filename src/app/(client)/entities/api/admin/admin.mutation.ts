@@ -1,10 +1,16 @@
 import { mutationOptions } from '@tanstack/react-query'
 
-import { EAdminQueryKey, IBannUserQuery, ISetRoleQuery, IUnbanUserQuery } from '@/app/(client)/entities/models'
+import {
+  EAdminQueryKey,
+  IBannUserQuery,
+  IRevokeSessionQuery,
+  ISetRoleQuery,
+  IUnbanUserQuery,
+} from '@/app/(client)/entities/models'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
 
-import { banUser, setRole, unbanUser } from './admin.api'
+import { banUser, revokeSession, setRole, unbanUser } from './admin.api'
 
 const queryClient = getQueryClient()
 
@@ -46,6 +52,20 @@ export const setRoleMutationOptions = () => {
 
     onError: (error) => {
       loggerUtil({ text: 'SetRoleMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const revokeSessionMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: IRevokeSessionQuery) => revokeSession(data),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [EAdminQueryKey.ADMIN_USERS] })
+    },
+
+    onError: (error) => {
+      loggerUtil({ text: 'RevokeSessionMutationOptions', value: error.message, level: 'error' })
     },
   })
 }

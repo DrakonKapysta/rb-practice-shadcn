@@ -31,11 +31,6 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
   const canPerformAction = AuthUtil.canPerformActionByRole(currentRole, targetRole)
 
   const handleBanUser = async () => {
-    if (session.data?.user?.role === 'admin' && session.data?.user?.id === user.id) {
-      toast.error('You cannot ban yourself')
-      return
-    }
-
     await banUser({
       userId: userId,
       banReason: 'Banned by admin',
@@ -52,11 +47,6 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
   }
 
   const handleUnbanUser = async () => {
-    if (session.data?.user?.role === 'admin' && session.data?.user?.id === user.id) {
-      toast.error('You cannot unban yourself')
-      return
-    }
-
     await unbanUser({
       userId: userId,
 

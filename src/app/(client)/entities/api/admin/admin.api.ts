@@ -1,10 +1,12 @@
 import {
   IAdminUsersQuery,
   IBannUserQuery,
+  IImpersonateUserQuery,
   IRevokeSessionQuery,
   ISetRoleQuery,
   IUnbanUserQuery,
 } from '@/app/(client)/entities/models'
+import { ICallbackResult } from '@/app/(client)/shared/interfaces'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { loggerUtil } from '@/pkg/utils/logger'
 
@@ -158,6 +160,59 @@ export async function revokeSession(data: IRevokeSessionQuery) {
     return { success: true, data: response.data }
   } catch (error) {
     loggerUtil({ text: 'Error revoking session', value: error })
+
+    throw error
+  }
+}
+
+export async function impersonateUser(data: IImpersonateUserQuery) {
+  try {
+    const response = await authClient.admin.impersonateUser(
+      { userId: data.userId },
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, data: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error impersonating user', value: error })
+
+    throw error
+  }
+}
+
+export async function stopImpersonating(data: ICallbackResult) {
+  try {
+    const response = await authClient.admin.stopImpersonating(
+      {},
+
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, data: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error stopping impersonating', value: error })
 
     throw error
   }

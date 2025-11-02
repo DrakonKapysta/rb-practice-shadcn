@@ -29,3 +29,7 @@ export interface ISetRoleQuery extends ICallbackResult {
   userId: string
   role: 'admin' | 'user'
 }
+
+export interface IImpersonateUserQuery extends ICallbackResult {
+  userId: string
+}

@@ -1,5 +1,7 @@
 import { ILogin, ILoginResponse, IRegister, IRegisterResponse } from '@/app/(client)/entities/models'
+import { ICallbackResult, IResult } from '@/app/(client)/shared/interfaces'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
+import { loggerUtil } from '@/pkg/utils/logger'
 
 export async function credentialsLogin(data: ILogin): Promise<ILoginResponse> {
   try {
@@ -26,7 +28,9 @@ export async function credentialsLogin(data: ILogin): Promise<ILoginResponse> {
 
     return { success: true }
   } catch (error) {
-    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
+    loggerUtil({ text: 'Error logging in', value: error })
+
+    throw error
   }
 }
 
@@ -56,6 +60,46 @@ export async function credentialsRegister(registerData: IRegister): Promise<IReg
 
     return { success: true }
   } catch (error) {
-    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
+    loggerUtil({ text: 'Error registering user', value: error })
+
+    throw error
+  }
+}
+
+export async function logout(data: ICallbackResult): Promise<IResult<boolean>> {
+  try {
+    const response = await authClient.signOut(
+      {},
+
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+
+        onRequest: () => {
+          data.requestCallback?.()
+        },
+      },
+    )
+
+    if (response.error) {
+      return {
+        success: false,
+        error: {
+          message: response.error.message || 'Failed to logout',
+          statusCode: Number(response.error.code) || 500,
+        },
+      }
+    }
+
+    return { success: true, result: true }
+  } catch (error) {
+    loggerUtil({ text: 'Error logging out', value: error })
+
+    throw error
   }
 }

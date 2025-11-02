@@ -3,14 +3,16 @@ import { mutationOptions } from '@tanstack/react-query'
 import {
   EAdminQueryKey,
   IBannUserQuery,
+  IImpersonateUserQuery,
   IRevokeSessionQuery,
   ISetRoleQuery,
   IUnbanUserQuery,
 } from '@/app/(client)/entities/models'
+import { ICallbackResult } from '@/app/(client)/shared/interfaces'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
 
-import { banUser, revokeSession, setRole, unbanUser } from './admin.api'
+import { banUser, impersonateUser, revokeSession, setRole, stopImpersonating, unbanUser } from './admin.api'
 
 const queryClient = getQueryClient()
 
@@ -66,6 +68,26 @@ export const revokeSessionMutationOptions = () => {
 
     onError: (error) => {
       loggerUtil({ text: 'RevokeSessionMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const impersonateUserMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: IImpersonateUserQuery) => impersonateUser(data),
+
+    onError: (error) => {
+      loggerUtil({ text: 'ImpersonateUserMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const stopImpersonatingMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: ICallbackResult) => stopImpersonating(data),
+
+    onError: (error) => {
+      loggerUtil({ text: 'StopImpersonatingMutationOptions', value: error.message, level: 'error' })
     },
   })
 }

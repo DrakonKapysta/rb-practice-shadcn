@@ -1,11 +1,16 @@
 'use client'
+import { SessionQueryParams } from 'better-auth'
 import { EllipsisIcon } from 'lucide-react'
 import { FC } from 'react'
 import { toast } from 'sonner'
 
 import { useMutation } from '@tanstack/react-query'
 
-import { banUserMutationOptions, unbanUserMutationOptions } from '@/app/(client)/entities/api'
+import {
+  banUserMutationOptions,
+  impersonateUserMutationOptions,
+  unbanUserMutationOptions,
+} from '@/app/(client)/entities/api'
 import {
   Button,
   DropdownMenu,
@@ -15,20 +20,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/app/(client)/shared/ui'
+import { useRouter } from '@/pkg/libraries/locale'
 import { AuthUtil } from '@/pkg/utils/auth'
 
 interface IProps {
   userId: string
   targetRole: string
   currentRole: string
+  refetch?: (queryParams?: { query?: SessionQueryParams }) => void
 }
 
 const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
-  const { userId, currentRole, targetRole } = props
+  const { userId, currentRole, targetRole, refetch } = props
+
   const { mutateAsync: banUser } = useMutation(banUserMutationOptions())
   const { mutateAsync: unbanUser } = useMutation(unbanUserMutationOptions())
+  const { mutateAsync: impersonateUser } = useMutation(impersonateUserMutationOptions())
 
   const canPerformAction = AuthUtil.canPerformActionByRole(currentRole, targetRole)
+
+  const router = useRouter()
 
   const handleBanUser = async () => {
     await banUser({
@@ -60,6 +71,24 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
     })
   }
 
+  const handleImpersonateUser = async () => {
+    await impersonateUser({
+      userId: userId,
+
+      successCallback: () => {
+        toast.success('User impersonated successfully')
+
+        router.push('/')
+
+        refetch?.()
+      },
+
+      errorCallback: (error) => {
+        toast.error(error.error.message || 'Failed to impersonate user')
+      },
+    })
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -79,6 +108,10 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
 
         <DropdownMenuItem disabled={!canPerformAction.success} onClick={handleUnbanUser}>
           Unban user
+        </DropdownMenuItem>
+
+        <DropdownMenuItem disabled={!canPerformAction.success} onClick={handleImpersonateUser}>
+          Impersonate user
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -133,6 +133,7 @@
   },
   "header": {
     "language": "Мова",
-    "logout": "Вийти"
+    "logout": "Вийти",
+    "stopImpersonating": "Зупинити імітацію"
   }
 }

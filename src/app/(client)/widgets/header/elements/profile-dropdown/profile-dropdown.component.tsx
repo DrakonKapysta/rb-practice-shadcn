@@ -1,7 +1,6 @@
 'use client'
 
-import { CreditCard, FileText, Laptop, Settings, Table, User } from 'lucide-react'
-import Image from 'next/image'
+import { Laptop, Table, User } from 'lucide-react'
 import * as React from 'react'
 
 import {
@@ -14,13 +13,13 @@ import {
 } from '@/app/(client)/shared/ui'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { Link } from '@/pkg/libraries/locale'
+import { AuthUtil } from '@/pkg/utils/auth'
 import { cn } from '@/pkg/utils/ui'
 
 import { Profile } from './profile-dropdown.interface'
 
 import { LogoutButtonComponent } from '../logout-button'
 import { ProfileTriggerButtonComponent } from '../profile-trigger-button'
-import { AuthUtil } from '@/pkg/utils/auth'
 
 interface ProfileDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   data?: Profile
@@ -81,7 +80,7 @@ export default function ProfileDropdownComponent({ className, ...props }: Profil
 
               <DropdownMenuItem asChild>
                 <Link
-                  href='/devices'
+                  href='/profile/sessions'
                   className='group flex cursor-pointer items-center rounded-xl border border-transparent p-3 transition-all duration-200 hover:border-zinc-200/50 hover:bg-zinc-100/80 hover:shadow-sm dark:hover:border-zinc-700/50 dark:hover:bg-zinc-800/60'
                 >
                   <div className='flex flex-1 items-center gap-2'>

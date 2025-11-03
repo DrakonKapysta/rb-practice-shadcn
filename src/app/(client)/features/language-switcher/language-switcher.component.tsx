@@ -1,13 +1,13 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
+import { FC } from 'react'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/(client)/shared/ui/select'
 import { routing, usePathname, useRouter } from '@/pkg/libraries/locale'
+import { cn } from '@/pkg/utils/ui'
 
 import { LANGUAGE_SWITCHER_KEYS_LABELS } from './language-switcher.constants'
-import { FC } from 'react'
-import { cn } from '@/pkg/utils/ui'
 
 interface IProps {
   className?: string

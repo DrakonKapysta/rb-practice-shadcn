@@ -22,4 +22,14 @@ export class AuthUtil {
   static isAdmin(role: string | undefined | null) {
     return role === Role.SUPER_ADMIN || role === Role.ADMIN || false
   }
+
+  static detectDeviceType(userAgent: string = ''): 'desktop' | 'mobile' | 'tablet' | 'unknown' {
+    const ua = userAgent.toLowerCase()
+
+    if (/mobile|iphone|ipod|android.*mobile|windows phone/.test(ua)) return 'mobile'
+    if (/ipad|tablet|android(?!.*mobile)/.test(ua)) return 'tablet'
+    if (/mac|win|linux|x11/.test(ua)) return 'desktop'
+
+    return 'unknown'
+  }
 }

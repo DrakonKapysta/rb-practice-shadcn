@@ -1,6 +1,7 @@
-import { Button } from '@/app/(client)/shared/ui'
 import Image from 'next/image'
 import { forwardRef } from 'react'
+
+import { Button } from '@/app/(client)/shared/ui'
 
 interface IProps {
   name: string

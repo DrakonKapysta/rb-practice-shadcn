@@ -1,7 +1,7 @@
 'use client'
 
 import { format } from 'date-fns'
-import { Briefcase, CalendarIcon, Globe, GraduationCap, Mail, MapPin, Phone, User } from 'lucide-react'
+import { CalendarIcon, Mail, MapPin, Phone, User } from 'lucide-react'
 import * as React from 'react'
 
 import {
@@ -19,9 +19,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/app/(client)/shared/ui'
+import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 
-export default function AccountBasicInfo01() {
+export default function AccountBasicInfoComponent() {
   const [birthDate, setBirthDate] = React.useState<Date>()
+
+  const { data: session } = authClient.useSession()
+
+  if (!session) return null
 
   return (
     <div className='mx-auto max-w-5xl p-6'>
@@ -45,14 +50,21 @@ export default function AccountBasicInfo01() {
                     <User className='text-muted-foreground h-4 w-4' />
                     First Name
                   </Label>
-                  <Input id='firstName' placeholder='Emma' defaultValue='Emma' />
+                  <Input id='firstName' placeholder='Emma' />
                 </div>
                 <div className='space-y-2'>
                   <Label htmlFor='lastName' className='flex items-center gap-2'>
                     <User className='text-muted-foreground h-4 w-4' />
                     Last Name
                   </Label>
-                  <Input id='lastName' placeholder='Roberts' defaultValue='Roberts' />
+                  <Input id='lastName' placeholder='Roberts' />
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='firstName' className='flex items-center gap-2'>
+                    <User className='text-muted-foreground h-4 w-4' />
+                    Username
+                  </Label>
+                  <Input id='firstName' placeholder='Emma' defaultValue={session?.user?.name} />
                 </div>
               </div>
             </div>
@@ -60,13 +72,13 @@ export default function AccountBasicInfo01() {
             {/* Professional Information */}
             <div>
               <h3 className='mb-4 text-sm font-medium'>Professional Information</h3>
-              <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-                <div className='space-y-2'>
+              <div className='flex items-end gap-6'>
+                <div className='flex flex-col gap-2'>
                   <Label htmlFor='gender' className='flex items-center gap-2'>
                     <User className='text-muted-foreground h-4 w-4' />
                     Gender
                   </Label>
-                  <Select defaultValue='female'>
+                  <Select defaultValue='prefer-not-to-say'>
                     <SelectTrigger id='gender'>
                       <SelectValue placeholder='Select Gender' />
                     </SelectTrigger>
@@ -79,7 +91,7 @@ export default function AccountBasicInfo01() {
                   </Select>
                 </div>
 
-                <div className='space-y-2'>
+                <div className='flex flex-col gap-2'>
                   <Label className='flex items-center gap-2'>
                     <CalendarIcon className='text-muted-foreground h-4 w-4' />
                     Birth Date
@@ -96,45 +108,6 @@ export default function AccountBasicInfo01() {
                     </PopoverContent>
                   </Popover>
                 </div>
-
-                <div className='space-y-2'>
-                  <Label htmlFor='profession' className='flex items-center gap-2'>
-                    <Briefcase className='text-muted-foreground h-4 w-4' />
-                    Profession
-                  </Label>
-                  <Select defaultValue='ui-ux'>
-                    <SelectTrigger id='profession'>
-                      <SelectValue placeholder='Select Profession' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='ui-ux'>UI/UX Designer</SelectItem>
-                      <SelectItem value='frontend'>Frontend Developer</SelectItem>
-                      <SelectItem value='backend'>Backend Developer</SelectItem>
-                      <SelectItem value='fullstack'>Fullstack Developer</SelectItem>
-                      <SelectItem value='product-manager'>Product Manager</SelectItem>
-                      <SelectItem value='data-scientist'>Data Scientist</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className='space-y-2'>
-                  <Label htmlFor='education' className='flex items-center gap-2'>
-                    <GraduationCap className='text-muted-foreground h-4 w-4' />
-                    Education
-                  </Label>
-                  <Select defaultValue='university'>
-                    <SelectTrigger id='education'>
-                      <SelectValue placeholder='Select Level' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='high-school'>High School</SelectItem>
-                      <SelectItem value='college'>College</SelectItem>
-                      <SelectItem value='university'>University</SelectItem>
-                      <SelectItem value='masters'>Master&apos;s Degree</SelectItem>
-                      <SelectItem value='phd'>Ph.D.</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
               </div>
             </div>
 
@@ -147,71 +120,22 @@ export default function AccountBasicInfo01() {
                     <Mail className='text-muted-foreground h-4 w-4' />
                     Email Address
                   </Label>
-                  <Input id='email' type='email' placeholder='emma@mail.com' defaultValue='emma@mail.com' />
+                  <Input id='email' type='email' placeholder='emma@mail.com' defaultValue={session?.user?.email} />
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='confirmEmail' className='flex items-center gap-2'>
-                    <Mail className='text-muted-foreground h-4 w-4' />
-                    Confirm Email
-                  </Label>
-                  <Input id='confirmEmail' type='email' placeholder='emma@mail.com' defaultValue='emma@mail.com' />
-                </div>
+
                 <div className='space-y-2'>
                   <Label htmlFor='phone' className='flex items-center gap-2'>
                     <Phone className='text-muted-foreground h-4 w-4' />
                     Phone Number
                   </Label>
-                  <Input id='phone' placeholder='+1 (555) 123-4567' defaultValue='+1 (555) 123-4567' />
+                  <Input id='phone' placeholder='+1 (555) 123-4567' />
                 </div>
                 <div className='space-y-2'>
                   <Label htmlFor='location' className='flex items-center gap-2'>
                     <MapPin className='text-muted-foreground h-4 w-4' />
                     Location
                   </Label>
-                  <Input id='location' placeholder='City, Country' defaultValue='Florida, USA' />
-                </div>
-              </div>
-            </div>
-
-            {/* Additional Information */}
-            <div>
-              <h3 className='mb-4 text-sm font-medium'>Additional Information</h3>
-              <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-                <div className='space-y-2'>
-                  <Label htmlFor='language' className='flex items-center gap-2'>
-                    <Globe className='text-muted-foreground h-4 w-4' />
-                    Preferred Language
-                  </Label>
-                  <Select defaultValue='english'>
-                    <SelectTrigger id='language'>
-                      <SelectValue placeholder='Select Language' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='english'>English</SelectItem>
-                      <SelectItem value='spanish'>Spanish</SelectItem>
-                      <SelectItem value='french'>French</SelectItem>
-                      <SelectItem value='german'>German</SelectItem>
-                      <SelectItem value='chinese'>Chinese</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='timezone' className='flex items-center gap-2'>
-                    <Globe className='text-muted-foreground h-4 w-4' />
-                    Timezone
-                  </Label>
-                  <Select defaultValue='est'>
-                    <SelectTrigger id='timezone'>
-                      <SelectValue placeholder='Select Timezone' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='est'>Eastern Time (ET)</SelectItem>
-                      <SelectItem value='cst'>Central Time (CT)</SelectItem>
-                      <SelectItem value='mst'>Mountain Time (MT)</SelectItem>
-                      <SelectItem value='pst'>Pacific Time (PT)</SelectItem>
-                      <SelectItem value='utc'>UTC</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Input id='location' placeholder='City, Country' />
                 </div>
               </div>
             </div>

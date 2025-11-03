@@ -1,1 +1,1 @@
-export * from './account-basic-info.component'
+export { default as AccountBasicInfoComponent } from './account-basic-info.component'

@@ -1,6 +1,6 @@
 'use client'
 
-import { Laptop, Table, User } from 'lucide-react'
+import { Table, User } from 'lucide-react'
 import * as React from 'react'
 
 import {

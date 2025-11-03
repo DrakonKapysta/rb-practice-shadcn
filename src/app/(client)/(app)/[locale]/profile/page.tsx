@@ -2,8 +2,8 @@ import { setRequestLocale } from 'next-intl/server'
 import { FC } from 'react'
 
 import { AccountBasicInfoComponent } from '@/app/(client)/features/account-basic-info'
-import { ContainerComponent, Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/(client)/shared/ui'
 import { AccountSessionsComponent } from '@/app/(client)/features/account-sessions'
+import { ContainerComponent, Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/(client)/shared/ui'
 
 interface IProps extends PageProps<'/[locale]/profile'> {}
 

@@ -23,6 +23,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
+  NotFoundComponent,
   Separator,
   SessionInfoComponent,
   Spinner,
@@ -64,7 +65,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
 
         refetch()
 
-        router.replace('/login')
+        router.push('/login')
 
         router.refresh()
       },
@@ -98,7 +99,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
 
         refetch()
 
-        router.replace('/login')
+        router.push('/login')
 
         router.refresh()
       },
@@ -109,6 +110,14 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
     })
 
     setRevokingSession(null)
+  }
+
+  if (!currentSession?.session) {
+    return (
+      <div className='flex h-full items-center justify-center'>
+        <NotFoundComponent title='No active sessions' description='You have no active sessions' buttonText='Go back' />
+      </div>
+    )
   }
 
   return (
@@ -138,6 +147,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
             userAgent={currentSession?.session.userAgent}
             ipAddress={currentSession?.session.ipAddress}
             updatedAt={currentSession?.session.updatedAt}
+            onRevoke={() => handleRevokeSession(currentSession?.session.token ?? '')}
             isCurrentSession={true}
           />
         )}

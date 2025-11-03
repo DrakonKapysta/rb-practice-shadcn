@@ -2,7 +2,6 @@ import {
   IAdminUsersQuery,
   IBannUserQuery,
   IImpersonateUserQuery,
-  IRevokeSessionQuery,
   ISetRoleQuery,
   IUnbanUserQuery,
 } from '@/app/(client)/entities/models'
@@ -132,34 +131,6 @@ export async function setRole(data: ISetRoleQuery) {
     }
   } catch (error) {
     loggerUtil({ text: 'Error setting role', value: error })
-
-    throw error
-  }
-}
-
-export async function revokeSession(data: IRevokeSessionQuery) {
-  try {
-    const response = await authClient.admin.revokeUserSession(
-      {
-        sessionToken: data.sessionToken,
-      },
-      {
-        onSuccess: () => {
-          data.successCallback?.()
-        },
-        onError: (error) => {
-          data.errorCallback?.(error)
-        },
-      },
-    )
-
-    if (response.error) {
-      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
-    }
-
-    return { success: true, data: response.data }
-  } catch (error) {
-    loggerUtil({ text: 'Error revoking session', value: error })
 
     throw error
   }

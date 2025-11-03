@@ -21,10 +21,6 @@ export interface IUnbanUserQuery extends ICallbackResult {
   userId: string
 }
 
-export interface IRevokeSessionQuery extends ICallbackResult {
-  sessionToken: string
-}
-
 export interface ISetRoleQuery extends ICallbackResult {
   userId: string
   role: 'admin' | 'user'

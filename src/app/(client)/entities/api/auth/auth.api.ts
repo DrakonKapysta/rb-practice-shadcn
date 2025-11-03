@@ -1,4 +1,10 @@
-import { ILogin, ILoginResponse, IRegister, IRegisterResponse } from '@/app/(client)/entities/models'
+import {
+  ILogin,
+  ILoginResponse,
+  IRegister,
+  IRegisterResponse,
+  IRevokeSessionQuery,
+} from '@/app/(client)/entities/models'
 import { ICallbackResult, IResult } from '@/app/(client)/shared/interfaces'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { loggerUtil } from '@/pkg/utils/logger'
@@ -121,6 +127,90 @@ export async function listSessions() {
     return { success: true, result: response.data }
   } catch (error) {
     loggerUtil({ text: 'Error listing sessions', value: error })
+
+    throw error
+  }
+}
+
+export async function revokeSession(data: IRevokeSessionQuery) {
+  try {
+    const response = await authClient.revokeSession(
+      {
+        token: data.sessionToken,
+      },
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, data: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error revoking session', value: error })
+
+    throw error
+  }
+}
+
+export async function revokeAllSessions(data: ICallbackResult) {
+  try {
+    const response = await authClient.revokeSessions(
+      {},
+
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, data: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error revoking all sessions', value: error })
+
+    throw error
+  }
+}
+
+export async function revokeOtherSessions(data: ICallbackResult) {
+  try {
+    const response = await authClient.revokeOtherSessions(
+      {},
+
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, data: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error revoking other sessions', value: error })
 
     throw error
   }

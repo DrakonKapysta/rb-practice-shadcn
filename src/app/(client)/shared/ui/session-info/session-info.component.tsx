@@ -1,4 +1,4 @@
-import { Clock, Computer, Globe, MapPin, X } from 'lucide-react'
+import { Clock, Computer, Globe, MapPin } from 'lucide-react'
 import { FC } from 'react'
 
 import {

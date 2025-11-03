@@ -2,7 +2,6 @@ import {
   IAdminUsersQuery,
   IBannUserQuery,
   IImpersonateUserQuery,
-  IRevokeSessionQuery,
   ISetRoleQuery,
   IUnbanUserQuery,
 } from '@/app/(client)/entities/models'

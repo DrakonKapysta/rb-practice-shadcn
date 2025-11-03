@@ -2,6 +2,7 @@ import { mutationOptions } from '@tanstack/react-query'
 
 import { EAuthQueryKey, ILogin, IRegister, IRevokeSessionQuery } from '@/app/(client)/entities/models'
 import { ICallbackResult } from '@/app/(client)/shared/interfaces'
+import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
 
 import {
@@ -12,7 +13,6 @@ import {
   revokeOtherSessions,
   revokeSession,
 } from './auth.api'
-import { getQueryClient } from '@/pkg/libraries/rest-api'
 
 const queryClient = getQueryClient()
 

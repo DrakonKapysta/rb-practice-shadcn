@@ -1,35 +1,37 @@
 'use client'
 
 import { ShieldCheck } from 'lucide-react'
+import { FC, useState } from 'react'
+import { toast } from 'sonner'
 
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogDescription,
-  AlertDialogTitle,
-  AlertDialogHeader,
-  Button,
-  Separator,
-  SessionInfoComponent,
-  Spinner,
-  AlertDialogTrigger,
-} from '@/app/(client)/shared/ui'
-import { Card } from '@/app/(client)/shared/ui/card'
-import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { useMutation, useQuery } from '@tanstack/react-query'
+
 import {
   authRevokeAllSessionsMutationOptions,
   authRevokeOtherSessionsMutationOptions,
   authRevokeSessionMutationOptions,
   authSessionListQueryOptions,
 } from '@/app/(client)/entities/api'
-import { getDeviceIcon } from './account-sessions.service'
-import { toast } from 'sonner'
-import { FC, useState } from 'react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  Button,
+  Separator,
+  SessionInfoComponent,
+  Spinner,
+} from '@/app/(client)/shared/ui'
+import { Card } from '@/app/(client)/shared/ui/card'
+import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { useRouter } from '@/pkg/libraries/locale'
+
+import { getDeviceIcon } from './account-sessions.service'
 
 interface IProps {}
 
@@ -45,13 +47,9 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
 
   const { mutateAsync: revokeSession } = useMutation(authRevokeSessionMutationOptions())
 
-  const { mutateAsync: revokeAllSessions, isPending: isRevokingAllSessions } = useMutation(
-    authRevokeAllSessionsMutationOptions(),
-  )
+  const { mutateAsync: revokeAllSessions } = useMutation(authRevokeAllSessionsMutationOptions())
 
-  const { mutateAsync: revokeOtherSessions, isPending: isRevokingOtherSessions } = useMutation(
-    authRevokeOtherSessionsMutationOptions(),
-  )
+  const { mutateAsync: revokeOtherSessions } = useMutation(authRevokeOtherSessionsMutationOptions())
 
   const [revokingSession, setRevokingSession] = useState<string | null>(null)
 
@@ -97,6 +95,12 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
 
       successCallback: () => {
         toast.success('Session revoked successfully')
+
+        refetch()
+
+        router.replace('/login')
+
+        router.refresh()
       },
 
       errorCallback: (error) => {

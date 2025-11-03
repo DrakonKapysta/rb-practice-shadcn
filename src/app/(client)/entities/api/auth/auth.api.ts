@@ -103,3 +103,25 @@ export async function logout(data: ICallbackResult): Promise<IResult<boolean>> {
     throw error
   }
 }
+
+export async function listSessions() {
+  try {
+    const response = await authClient.listSessions()
+
+    if (response.error) {
+      return {
+        success: false,
+        error: {
+          message: response.error.message || 'Failed to list sessions',
+          statusCode: Number(response.error.code) || 500,
+        },
+      }
+    }
+
+    return { success: true, result: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error listing sessions', value: error })
+
+    throw error
+  }
+}

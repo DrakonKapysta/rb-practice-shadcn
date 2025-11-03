@@ -1,5 +1,8 @@
 import { ICallbackResult, IResult } from '@/app/(client)/shared/interfaces'
 
+export enum EAuthQueryKey {
+  AUTH_SESSIONS = 'auth-sessions',
+}
 export interface IRegisterCredentials extends ICallbackResult {
   name: string
   email: string

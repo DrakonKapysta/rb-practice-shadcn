@@ -136,7 +136,8 @@ declare const messages: {
   },
   "header": {
     "language": "Мова",
-    "logout": "Вийти"
+    "logout": "Вийти",
+    "stopImpersonating": "Зупинити імітацію"
   }
 };
 export default messages;

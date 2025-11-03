@@ -35,7 +35,7 @@ const CharacterListComponent: FC<Readonly<IProps>> = () => {
   }
 
   return (
-    <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+    <div className='grid grid-cols-1 gap-4 px-2 md:grid-cols-2 lg:grid-cols-3'>
       {isLoading ? (
         <div className='col-span-full flex h-[calc(100svh-10rem)] items-center justify-center'>
           <Spinner className='h-16 w-16' />

@@ -94,6 +94,7 @@ const UserTable: FC<Readonly<IProps>> = () => {
                     userId={user.id}
                     currentRole={session.data?.user?.role || 'unknown'}
                     targetRole={user.role || 'unknown'}
+                    refetch={session.refetch}
                   />
                 </TableCell>
               </TableRow>

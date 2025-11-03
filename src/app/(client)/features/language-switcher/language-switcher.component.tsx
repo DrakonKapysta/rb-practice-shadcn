@@ -1,13 +1,21 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
+import { FC } from 'react'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/(client)/shared/ui/select'
 import { routing, usePathname, useRouter } from '@/pkg/libraries/locale'
+import { cn } from '@/pkg/utils/ui'
 
 import { LANGUAGE_SWITCHER_KEYS_LABELS } from './language-switcher.constants'
 
-const LanguageSwitcherComponent = () => {
+interface IProps {
+  className?: string
+}
+
+const LanguageSwitcherComponent: FC<Readonly<IProps>> = (props) => {
+  const { className } = props
+
   const t = useTranslations('header')
 
   const locale = useLocale()
@@ -24,7 +32,7 @@ const LanguageSwitcherComponent = () => {
 
   return (
     <Select value={locale} onValueChange={handleLanguageChange}>
-      <SelectTrigger className='w-fit capitalize' aria-label={t('language')}>
+      <SelectTrigger className={cn('w-fit capitalize', className)} aria-label={t('language')}>
         <SelectValue>
           {LANGUAGE_SWITCHER_KEYS_LABELS[(locale as keyof typeof LANGUAGE_SWITCHER_KEYS_LABELS) || 'en']}
         </SelectValue>

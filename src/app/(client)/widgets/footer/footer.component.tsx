@@ -2,6 +2,7 @@ import { type FC } from 'react'
 
 import { Button, Input } from '@/app/(client)/shared/ui'
 import { Link } from '@/pkg/libraries/locale'
+import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
 
 interface IProps {}
 
@@ -93,6 +94,8 @@ const FooterComponent: FC<Readonly<IProps>> = async () => {
                   Subscribe
                 </Button>
               </div>
+
+              <LanguageSwitcherComponent className='w-full' />
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ export class AuthUtil {
     }
   }
 
-  static hasAccessToAdminPanel(role: string | undefined | null) {
+  static isAdmin(role: string | undefined | null) {
     return role === Role.SUPER_ADMIN || role === Role.ADMIN || false
   }
 }

@@ -52,7 +52,7 @@ export async function proxy(req: NextRequest) {
       headers: req.headers,
     })
 
-    if (!session || !AuthUtil.hasAccessToAdminPanel(session.user?.role)) {
+    if (!session || !AuthUtil.isAdmin(session.user?.role)) {
       return NextResponse.redirect(new URL('/', req.url), {
         headers: i18nRes.headers,
       })

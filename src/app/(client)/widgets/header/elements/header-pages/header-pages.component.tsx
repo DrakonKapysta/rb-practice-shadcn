@@ -17,7 +17,7 @@ const HeaderPagesComponent: FC<Readonly<IProps>> = (props) => {
 
   return (
     <div className={cn('flex items-center gap-2', className)} {...rest}>
-      {session && AuthUtil.hasAccessToAdminPanel(session.user?.role) && (
+      {session && AuthUtil.isAdmin(session.user?.role) && (
         <Link href='/admin-dashboard'>
           <Button variant='outline'>Users Table</Button>
         </Link>

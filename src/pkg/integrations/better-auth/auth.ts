@@ -17,7 +17,7 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [nextCookies(), openAPI(), adminPlugin({ ac: accessControl, roles: { super_admin, admin, user } })],
-  baseURL: envServer.BETTER_AUTH_URL,
+  baseURL: typeof window !== 'undefined' ? window.location.origin : envServer.BETTER_AUTH_URL,
   allowedOrigins: [envServer.BETTER_AUTH_URL],
   secondaryStorage:
     envServer.NODE_ENV === 'development'

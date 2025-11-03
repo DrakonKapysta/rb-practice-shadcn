@@ -6,8 +6,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { routing, usePathname, useRouter } from '@/pkg/libraries/locale'
 
 import { LANGUAGE_SWITCHER_KEYS_LABELS } from './language-switcher.constants'
+import { FC } from 'react'
+import { cn } from '@/pkg/utils/ui'
 
-const LanguageSwitcherComponent = () => {
+interface IProps {
+  className?: string
+}
+
+const LanguageSwitcherComponent: FC<Readonly<IProps>> = (props) => {
+  const { className } = props
+
   const t = useTranslations('header')
 
   const locale = useLocale()
@@ -24,7 +32,7 @@ const LanguageSwitcherComponent = () => {
 
   return (
     <Select value={locale} onValueChange={handleLanguageChange}>
-      <SelectTrigger className='w-fit capitalize' aria-label={t('language')}>
+      <SelectTrigger className={cn('w-fit capitalize', className)} aria-label={t('language')}>
         <SelectValue>
           {LANGUAGE_SWITCHER_KEYS_LABELS[(locale as keyof typeof LANGUAGE_SWITCHER_KEYS_LABELS) || 'en']}
         </SelectValue>

@@ -4,7 +4,7 @@ import { nextCookies } from 'better-auth/next-js'
 import { admin as adminPlugin, openAPI } from 'better-auth/plugins'
 import { Redis } from 'ioredis'
 
-import { envServer } from '@/config/env'
+import { envClient, envServer } from '@/config/env'
 import { db } from '@/pkg/libraries/drizzle'
 
 import { accessControl, admin, super_admin, user } from './permissions'
@@ -17,8 +17,7 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [nextCookies(), openAPI(), adminPlugin({ ac: accessControl, roles: { super_admin, admin, user } })],
-  baseURL: typeof window !== 'undefined' ? window.location.origin : envServer.BETTER_AUTH_URL,
-  allowedOrigins: [envServer.BETTER_AUTH_URL],
+  baseURL: envClient.NEXT_PUBLIC_CLIENT_WEB_URL,
   secondaryStorage:
     envServer.NODE_ENV === 'development'
       ? {

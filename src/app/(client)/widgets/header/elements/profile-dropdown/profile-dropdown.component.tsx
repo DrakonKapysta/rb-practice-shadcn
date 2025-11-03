@@ -78,21 +78,6 @@ export default function ProfileDropdownComponent({ className, ...props }: Profil
                 </Link>
               </DropdownMenuItem>
 
-              <DropdownMenuItem asChild>
-                <Link
-                  href='/profile/sessions'
-                  className='group flex cursor-pointer items-center rounded-xl border border-transparent p-3 transition-all duration-200 hover:border-zinc-200/50 hover:bg-zinc-100/80 hover:shadow-sm dark:hover:border-zinc-700/50 dark:hover:bg-zinc-800/60'
-                >
-                  <div className='flex flex-1 items-center gap-2'>
-                    <Laptop />
-
-                    <span className='text-sm leading-tight font-medium tracking-tight whitespace-nowrap text-zinc-900 transition-colors group-hover:text-zinc-950 dark:text-zinc-100 dark:group-hover:text-zinc-50'>
-                      Devices
-                    </span>
-                  </div>
-                </Link>
-              </DropdownMenuItem>
-
               {AuthUtil.isAdmin(session?.user?.role) && (
                 <DropdownMenuItem asChild>
                   <Link

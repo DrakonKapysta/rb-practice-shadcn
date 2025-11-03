@@ -41,7 +41,6 @@ export default function AccountBasicInfoComponent() {
         </div>
 
         <form className='space-y-8'>
-          {/* Basic Details Section */}
           <div className='space-y-6'>
             <div>
               <h3 className='mb-4 text-sm font-medium'>Basic Details</h3>
@@ -76,11 +75,10 @@ export default function AccountBasicInfoComponent() {
               </div>
             </div>
 
-            {/* Professional Information */}
             <div>
               <h3 className='mb-4 text-sm font-medium'>Professional Information</h3>
 
-              <div className='flex items-end gap-6'>
+              <div className='flex flex-col gap-6 sm:flex-row sm:items-end'>
                 <div className='flex flex-col gap-2'>
                   <Label htmlFor='gender' className='flex items-center gap-2'>
                     <User className='text-muted-foreground h-4 w-4' />
@@ -127,7 +125,6 @@ export default function AccountBasicInfoComponent() {
               </div>
             </div>
 
-            {/* Contact Information */}
             <div>
               <h3 className='mb-4 text-sm font-medium'>Contact Information</h3>
 

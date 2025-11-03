@@ -13,7 +13,7 @@ export default function AccountSessionsComponent() {
     <div className='mx-auto max-w-5xl p-6'>
       <Card className='bg-card border p-8'>
         <div className='border-b pb-6'>
-          <div className='flex items-center gap-3'>
+          <div className='flex flex-col items-center gap-3 sm:flex-row'>
             <div className='bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg'>
               <ShieldCheck className='text-primary h-6 w-6' />
             </div>
@@ -39,8 +39,8 @@ export default function AccountSessionsComponent() {
         )}
 
         <div className='bg-muted/50 mt-6 rounded-lg border p-4'>
-          <div className='flex items-start gap-3'>
-            <ShieldCheck className='mt-0.5 h-5 w-5 text-blue-500' />
+          <div className='flex flex-col items-start gap-3 sm:flex-row'>
+            <ShieldCheck className='mt-0.5 h-5 w-5 shrink-0 text-blue-500' />
 
             <div>
               <h4 className='mb-1 text-sm font-medium'>Security Tip</h4>

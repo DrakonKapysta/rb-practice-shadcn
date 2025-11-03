@@ -17,8 +17,10 @@ export default function AccountSessionsComponent() {
             <div className='bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg'>
               <ShieldCheck className='text-primary h-6 w-6' />
             </div>
+
             <div>
               <h2 className='text-2xl font-semibold tracking-tight'>Active Sessions</h2>
+
               <p className='text-muted-foreground mt-1 text-sm'>
                 Manage and monitor devices that have access to your account
               </p>
@@ -39,8 +41,10 @@ export default function AccountSessionsComponent() {
         <div className='bg-muted/50 mt-6 rounded-lg border p-4'>
           <div className='flex items-start gap-3'>
             <ShieldCheck className='mt-0.5 h-5 w-5 text-blue-500' />
+
             <div>
               <h4 className='mb-1 text-sm font-medium'>Security Tip</h4>
+
               <p className='text-muted-foreground text-sm'>
                 If you notice any suspicious activity, immediately remove the session and change your account password.
                 Enable two-factor authentication for additional security.

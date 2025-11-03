@@ -44,7 +44,7 @@ export default function ProfileDropdownComponent({ className, ...props }: Profil
       )}
       {...props}
     >
-      <DropdownMenu onOpenChange={setIsOpen} open={isOpen}>
+      <DropdownMenu onOpenChange={setIsOpen} modal={false} open={isOpen}>
         <div className='group relative'>
           <DropdownMenuTrigger asChild>
             <ProfileTriggerButtonComponent

@@ -65,7 +65,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
 
         refetch()
 
-        router.push('/login')
+        router.push('/admin-dashboard')
 
         router.refresh()
       },
@@ -99,7 +99,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
 
         refetch()
 
-        router.push('/login')
+        router.push('/admin-dashboard')
 
         router.refresh()
       },

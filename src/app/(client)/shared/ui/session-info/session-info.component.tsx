@@ -79,16 +79,20 @@ const SessionInfoComponent: FC<IProps> = (props) => {
             Revoke
           </Button>
         </AlertDialogTrigger>
+
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure you want to revoke this session?</AlertDialogTitle>
+
             <AlertDialogDescription>
               This will revoke the session and remove it from your account. You will need to login again to access your
               account.
             </AlertDialogDescription>
           </AlertDialogHeader>
+
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
+
             <AlertDialogAction onClick={onRevoke}>Revoke</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

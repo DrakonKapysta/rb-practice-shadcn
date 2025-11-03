@@ -28,10 +28,11 @@ interface IProps {
   targetRole: string
   currentRole: string
   refetch?: (queryParams?: { query?: SessionQueryParams }) => void
+  isImpersonating?: boolean
 }
 
 const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
-  const { userId, currentRole, targetRole, refetch } = props
+  const { userId, currentRole, targetRole, refetch, isImpersonating } = props
 
   const { mutateAsync: banUser } = useMutation(banUserMutationOptions())
   const { mutateAsync: unbanUser } = useMutation(unbanUserMutationOptions())
@@ -110,7 +111,7 @@ const UserActionsComponent: FC<Readonly<IProps>> = (props) => {
           Unban user
         </DropdownMenuItem>
 
-        <DropdownMenuItem disabled={!canPerformAction.success} onClick={handleImpersonateUser}>
+        <DropdownMenuItem disabled={!canPerformAction.success || isImpersonating} onClick={handleImpersonateUser}>
           Impersonate user
         </DropdownMenuItem>
       </DropdownMenuContent>

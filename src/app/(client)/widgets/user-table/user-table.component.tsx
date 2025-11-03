@@ -95,6 +95,7 @@ const UserTable: FC<Readonly<IProps>> = () => {
                     currentRole={session.data?.user?.role || 'unknown'}
                     targetRole={user.role || 'unknown'}
                     refetch={session.refetch}
+                    isImpersonating={!!session.data?.session?.impersonatedBy}
                   />
                 </TableCell>
               </TableRow>

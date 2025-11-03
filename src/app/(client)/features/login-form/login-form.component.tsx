@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Spinner
 import { Button } from '@/app/(client)/shared/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/(client)/shared/ui/card'
 import { Field, FieldDescription, FieldGroup } from '@/app/(client)/shared/ui/field'
-import { Input } from '@/app/(client)/shared/ui/input/input'
+import { Input } from '@/app/(client)/shared/ui/input/input.component'
 import { Link, useRouter } from '@/pkg/libraries/locale'
 import { cn } from '@/pkg/utils/ui'
 

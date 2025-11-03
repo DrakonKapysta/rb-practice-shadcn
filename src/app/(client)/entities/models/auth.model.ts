@@ -33,3 +33,7 @@ export interface ILogin extends ICallbackResult {
 }
 
 export interface ILoginResponse extends IResult<void> {}
+
+export interface IRevokeSessionQuery extends ICallbackResult {
+  sessionToken: string
+}

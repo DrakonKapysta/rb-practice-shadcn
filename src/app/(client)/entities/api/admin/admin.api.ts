@@ -137,34 +137,6 @@ export async function setRole(data: ISetRoleQuery) {
   }
 }
 
-export async function revokeSession(data: IRevokeSessionQuery) {
-  try {
-    const response = await authClient.admin.revokeUserSession(
-      {
-        sessionToken: data.sessionToken,
-      },
-      {
-        onSuccess: () => {
-          data.successCallback?.()
-        },
-        onError: (error) => {
-          data.errorCallback?.(error)
-        },
-      },
-    )
-
-    if (response.error) {
-      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
-    }
-
-    return { success: true, data: response.data }
-  } catch (error) {
-    loggerUtil({ text: 'Error revoking session', value: error })
-
-    throw error
-  }
-}
-
 export async function impersonateUser(data: IImpersonateUserQuery) {
   try {
     const response = await authClient.admin.impersonateUser(

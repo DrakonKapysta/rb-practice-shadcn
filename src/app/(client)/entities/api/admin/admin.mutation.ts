@@ -4,7 +4,6 @@ import {
   EAdminQueryKey,
   IBannUserQuery,
   IImpersonateUserQuery,
-  IRevokeSessionQuery,
   ISetRoleQuery,
   IUnbanUserQuery,
 } from '@/app/(client)/entities/models'
@@ -12,7 +11,7 @@ import { ICallbackResult } from '@/app/(client)/shared/interfaces'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
 
-import { banUser, impersonateUser, revokeSession, setRole, stopImpersonating, unbanUser } from './admin.api'
+import { banUser, impersonateUser, setRole, stopImpersonating, unbanUser } from './admin.api'
 
 const queryClient = getQueryClient()
 
@@ -54,20 +53,6 @@ export const setRoleMutationOptions = () => {
 
     onError: (error) => {
       loggerUtil({ text: 'SetRoleMutationOptions', value: error.message, level: 'error' })
-    },
-  })
-}
-
-export const revokeSessionMutationOptions = () => {
-  return mutationOptions({
-    mutationFn: (data: IRevokeSessionQuery) => revokeSession(data),
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [EAdminQueryKey.ADMIN_USERS] })
-    },
-
-    onError: (error) => {
-      loggerUtil({ text: 'RevokeSessionMutationOptions', value: error.message, level: 'error' })
     },
   })
 }

@@ -4,13 +4,13 @@ import { nextCookies } from 'better-auth/next-js'
 import { admin as adminPlugin, openAPI } from 'better-auth/plugins'
 import { Redis } from 'ioredis'
 
-import { envClient, envServer } from '@/config/env'
-import { db } from '@/pkg/libraries/drizzle'
+import { envServer } from '@/config/env'
+import { account, db, session, user, verification } from '@/pkg/libraries/drizzle'
 
 import { fields } from './fields'
-import { accessControl, admin, super_admin, user } from './permissions'
+import { accessControl, admin, super_admin, user as userPermission } from './permissions'
 
-const redis = new Redis()
+const redis = envServer.NODE_ENV === 'development' ? new Redis() : undefined
 
 export const auth = betterAuth({
   user: {
@@ -21,23 +21,37 @@ export const auth = betterAuth({
       enabled: true,
     },
   },
-  database: drizzleAdapter(db, { provider: 'pg' }),
+  database: drizzleAdapter(db, {
+    provider: 'pg',
+    schema: {
+      user,
+      account,
+      verification,
+      session,
+    },
+  }),
   emailAndPassword: {
     enabled: true,
   },
-  plugins: [nextCookies(), openAPI(), adminPlugin({ ac: accessControl, roles: { super_admin, admin, user } })],
+  plugins: [
+    nextCookies(),
+    openAPI(),
+    adminPlugin({ ac: accessControl, roles: { super_admin, admin, userPermission } }),
+  ],
   secondaryStorage:
     envServer.NODE_ENV === 'development'
       ? {
           get: async (key: string) => {
-            return await redis.get(key)
+            return await redis?.get(key)
           },
+
           set: async (key: string, value: string, ttl) => {
-            if (ttl) await redis.set(key, value, 'EX', ttl)
-            else await redis.set(key, value)
+            if (ttl) await redis?.set(key, value, 'EX', ttl)
+            else await redis?.set(key, value)
           },
+
           delete: async (key: string) => {
-            await redis.del(key)
+            await redis?.del(key)
           },
         }
       : undefined,

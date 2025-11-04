@@ -29,6 +29,13 @@
       "when": 1762268249325,
       "tag": "0003_user_birth_date_type_change",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1762276729064,
+      "tag": "0004_add_session_table",
+      "breakpoints": true
     }
   ]
 }

@@ -26,7 +26,6 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [nextCookies(), openAPI(), adminPlugin({ ac: accessControl, roles: { super_admin, admin, user } })],
-  baseURL: envClient.NEXT_PUBLIC_CLIENT_WEB_URL,
   secondaryStorage:
     envServer.NODE_ENV === 'development'
       ? {

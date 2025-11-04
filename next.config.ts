@@ -17,8 +17,6 @@ const nextConfig: NextConfig = {
 
   reactCompiler: true,
 
-  allowedDevOrigins: ['*.local-origin.dev', '192.168.0.112:3000', 'localhost:3000'],
-
   poweredByHeader: false,
   cacheMaxMemorySize: 100 * 1024 * 1024,
 

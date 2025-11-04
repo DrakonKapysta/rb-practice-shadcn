@@ -1,6 +1,6 @@
 import { mutationOptions } from '@tanstack/react-query'
 
-import { EAuthQueryKey, ILogin, IRegister, IRevokeSessionQuery } from '@/app/(client)/entities/models'
+import { EAuthQueryKey, ILogin, IRegister, IRevokeSessionQuery, IUpdateUser } from '@/app/(client)/entities/models'
 import { ICallbackResult } from '@/app/(client)/shared/interfaces'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
@@ -12,6 +12,7 @@ import {
   revokeAllSessions,
   revokeOtherSessions,
   revokeSession,
+  updateUser,
 } from './auth.api'
 
 const queryClient = getQueryClient()
@@ -39,6 +40,20 @@ export const registerMutationOptions = () => {
 export const logoutMutationOptions = () => {
   return mutationOptions({
     mutationFn: (data: ICallbackResult) => logout(data),
+
+    onError: (error) => {
+      loggerUtil({ text: 'LogoutMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const updateUserMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: IUpdateUser) => updateUser(data),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [EAuthQueryKey.AUTH_SESSIONS] })
+    },
 
     onError: (error) => {
       loggerUtil({ text: 'LogoutMutationOptions', value: error.message, level: 'error' })

@@ -1,9 +1,12 @@
+import { format } from 'date-fns'
+
 import {
   ILogin,
   ILoginResponse,
   IRegister,
   IRegisterResponse,
   IRevokeSessionQuery,
+  IUpdateUser,
 } from '@/app/(client)/entities/models'
 import { ICallbackResult, IResult } from '@/app/(client)/shared/interfaces'
 import { authClient } from '@/pkg/integrations/better-auth/auth-client'
@@ -47,7 +50,7 @@ export async function credentialsRegister(registerData: IRegister): Promise<IReg
         name: registerData.credentials.name,
         email: registerData.credentials.email,
         password: registerData.credentials.password,
-      },
+      } as Parameters<typeof authClient.signUp.email>[0],
 
       {
         onSuccess: () => {
@@ -106,6 +109,39 @@ export async function logout(data: ICallbackResult): Promise<IResult<boolean>> {
   } catch (error) {
     loggerUtil({ text: 'Error logging out', value: error })
 
+    throw error
+  }
+}
+
+export async function updateUser(data: IUpdateUser) {
+  try {
+    const response = await authClient.updateUser(
+      {
+        name: data.name ?? undefined,
+        surname: data.surname ?? undefined,
+        phoneNumber: data.phoneNumber ?? undefined,
+        address: data.address ?? undefined,
+        country: data.country ?? undefined,
+        birthDate: data.birthDate ? new Date(format(data.birthDate, 'yyyy-MM-dd')) : undefined,
+        gender: data.gender ?? undefined,
+      },
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, result: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error updating user', value: error })
     throw error
   }
 }

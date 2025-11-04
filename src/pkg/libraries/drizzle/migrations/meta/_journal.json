@@ -15,6 +15,20 @@
       "when": 1761694368628,
       "tag": "0001_salty_james_howlett",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1762256527417,
+      "tag": "0002_user_add_new_fields",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1762268249325,
+      "tag": "0003_user_birth_date_type_change",
+      "breakpoints": true
     }
   ]
 }

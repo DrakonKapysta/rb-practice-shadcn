@@ -7,11 +7,20 @@ import { Redis } from 'ioredis'
 import { envClient, envServer } from '@/config/env'
 import { db } from '@/pkg/libraries/drizzle'
 
+import { fields } from './fields'
 import { accessControl, admin, super_admin, user } from './permissions'
 
 const redis = new Redis()
 
 export const auth = betterAuth({
+  user: {
+    additionalFields: {
+      ...fields,
+    },
+    changeEmail: {
+      enabled: true,
+    },
+  },
   database: drizzleAdapter(db, { provider: 'pg' }),
   emailAndPassword: {
     enabled: true,

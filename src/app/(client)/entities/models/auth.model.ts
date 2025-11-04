@@ -37,3 +37,13 @@ export interface ILoginResponse extends IResult<void> {}
 export interface IRevokeSessionQuery extends ICallbackResult {
   sessionToken: string
 }
+
+export interface IUpdateUser extends ICallbackResult {
+  name?: string
+  surname?: string
+  phoneNumber?: string
+  address?: string
+  country?: string
+  birthDate?: Date
+  gender?: string
+}

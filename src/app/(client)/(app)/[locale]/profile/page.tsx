@@ -13,19 +13,19 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   setRequestLocale(locale)
 
   return (
-    <ContainerComponent variant='section' className='max-w-7xl'>
-      <Tabs defaultValue='basic-info'>
+    <ContainerComponent variant='section' className='0 max-w-7xl flex-1'>
+      <Tabs defaultValue='basic-info' className='flex flex-1 overflow-hidden'>
         <TabsList className='bg-primary-foreground mx-auto'>
           <TabsTrigger value='basic-info'>Basic Info</TabsTrigger>
 
           <TabsTrigger value='security'>Devices</TabsTrigger>
         </TabsList>
 
-        <TabsContent value='basic-info'>
+        <TabsContent value='basic-info' className='flex flex-1'>
           <AccountBasicInfoComponent />
         </TabsContent>
 
-        <TabsContent value='security'>
+        <TabsContent value='security' className='flex flex-1'>
           <AccountSessionsComponent />
         </TabsContent>
       </Tabs>

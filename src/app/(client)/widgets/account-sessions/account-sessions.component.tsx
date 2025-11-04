@@ -88,7 +88,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
     })
   }
 
-  const handleRevokeSession = async (sessionToken: string) => {
+  const handleRevokeSession = async (sessionToken: string, isCurrentSession?: boolean) => {
     setRevokingSession(sessionToken)
 
     await revokeSession({
@@ -99,7 +99,9 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
 
         refetch()
 
-        router.push('/admin-dashboard')
+        if (isCurrentSession) {
+          router.push('/admin-dashboard')
+        }
 
         router.refresh()
       },
@@ -147,7 +149,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
             userAgent={currentSession?.session.userAgent}
             ipAddress={currentSession?.session.ipAddress}
             updatedAt={currentSession?.session.updatedAt}
-            onRevoke={() => handleRevokeSession(currentSession?.session.token ?? '')}
+            onRevoke={() => handleRevokeSession(currentSession?.session.token ?? '', true)}
             isCurrentSession={true}
           />
         )}

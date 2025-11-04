@@ -313,10 +313,6 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
             </div>
 
             <div className='flex justify-end gap-3 border-t pt-6'>
-              <Button type='button' variant='outline'>
-                Cancel
-              </Button>
-
               <Button type='submit'>Save Changes</Button>
             </div>
           </form>

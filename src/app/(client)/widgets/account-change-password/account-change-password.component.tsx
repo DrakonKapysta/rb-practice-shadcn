@@ -25,6 +25,7 @@ import {
 
 import { PASSWORD_REQUIREMENTS } from './account-change-password.constant'
 import { AccountChangePasswordSchema, IAccountChangePassword } from './account-change-password.interface'
+import { useTranslations } from 'next-intl'
 
 interface IProps {}
 
@@ -38,6 +39,8 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
     },
     resolver: zodResolver(AccountChangePasswordSchema),
   })
+
+  const t = useTranslations('profile.accountChangePassword')
 
   const { mutateAsync: changePassword, isPending: isChangingPassword } = useMutation(
     authChangePasswordMutationOptions(),
@@ -75,9 +78,9 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
             </div>
 
             <div>
-              <h2 className='text-2xl font-semibold tracking-tight'>Change Password</h2>
+              <h2 className='text-2xl font-semibold tracking-tight'>{t('title')}</h2>
 
-              <p className='text-muted-foreground mt-1 text-sm'>Update your password to keep your account secure</p>
+              <p className='text-muted-foreground mt-1 text-sm'>{t('description')}</p>
             </div>
           </div>
         </div>
@@ -92,7 +95,7 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
                     name='currentPassword'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Current Password</FormLabel>
+                        <FormLabel>{t('currentPassword')}</FormLabel>
 
                         <FormControl>
                           <PasswordField {...field} id='current-password' />
@@ -108,7 +111,7 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
                     name='newPassword'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>New Password</FormLabel>
+                        <FormLabel>{t('newPassword')}</FormLabel>
 
                         <FormControl>
                           <PasswordField id='new-password' {...field} />
@@ -124,7 +127,7 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
                     name='confirmPassword'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Confirm Password</FormLabel>
+                        <FormLabel>{t('confirmPassword')}</FormLabel>
 
                         <FormControl>
                           <PasswordField id='confirm-password' {...field} canShowPassword={false} />
@@ -140,7 +143,7 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
                     name='revokeOtherSessions'
                     render={({ field }) => (
                       <FormItem className='flex gap-2'>
-                        <FormLabel>Revoke Other Sessions</FormLabel>
+                        <FormLabel>{t('revokeOtherSessions')}</FormLabel>
 
                         <FormControl>
                           <Checkbox checked={field.value} onCheckedChange={field.onChange} id='revoke-other-sessions' />
@@ -152,7 +155,7 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
 
                 <div className='mt-8 flex gap-3'>
                   <Button type='submit' className='flex-1' disabled={isChangingPassword}>
-                    Update Password
+                    {t('updatePassword')}
                   </Button>
                 </div>
               </form>
@@ -163,12 +166,10 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
             <div>
               <h3 className='mb-4 flex items-center gap-2 font-semibold'>
                 <Shield className='text-muted-foreground h-5 w-5' />
-                Password Recommendations
+                {t('passwordRecommendations')}
               </h3>
 
-              <p className='text-muted-foreground mb-6 text-sm'>
-                Your password should meet the following recommendations for enhanced security:
-              </p>
+              <p className='text-muted-foreground mb-6 text-sm'>{t('passwordRecommendationsDescription')}</p>
 
               <ul className='space-y-3'>
                 {PASSWORD_REQUIREMENTS.map((req, index) => {
@@ -183,7 +184,7 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
                       )}
 
                       <span className={`text-sm ${meetsRequirement ? 'text-foreground' : 'text-muted-foreground'}`}>
-                        {req.label}
+                        {t(`passwordRecommendationsItems.${req.id}`)}
                       </span>
                     </li>
                   )
@@ -192,31 +193,31 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
             </div>
 
             <div className='bg-muted/50 rounded-lg border p-4'>
-              <h4 className='mb-2 text-sm font-medium'>Security Best Practices</h4>
+              <h4 className='mb-2 text-sm font-medium'>{t('securityBestPractices')}</h4>
 
               <ul className='text-muted-foreground space-y-2 text-sm'>
                 <li className='flex items-start gap-2'>
                   <span className='mt-1'>•</span>
 
-                  <span>Change your password regularly (every 90 days)</span>
+                  <span>{t('securityBestPracticesItems.changeRegularly')}</span>
                 </li>
 
                 <li className='flex items-start gap-2'>
                   <span className='mt-1'>•</span>
 
-                  <span>Never share your password with anyone</span>
+                  <span>{t('securityBestPracticesItems.neverShare')}</span>
                 </li>
 
                 <li className='flex items-start gap-2'>
                   <span className='mt-1'>•</span>
 
-                  <span>Use a unique password for each account</span>
+                  <span>{t('securityBestPracticesItems.uniquePassword')}</span>
                 </li>
 
                 <li className='flex items-start gap-2'>
                   <span className='mt-1'>•</span>
 
-                  <span>Consider using a password manager</span>
+                  <span>{t('securityBestPracticesItems.passwordManager')}</span>
                 </li>
               </ul>
             </div>

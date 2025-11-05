@@ -1,14 +1,40 @@
 'use client'
 
 import { CheckCircle2, Shield, XCircle } from 'lucide-react'
-import { Button, Card, PasswordField } from '@/app/(client)/shared/ui'
+import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import {
+  Button,
+  Card,
+  FieldGroup,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  PasswordField,
+} from '@/app/(client)/shared/ui'
+
 import { PASSWORD_REQUIREMENTS } from './account-change-password.constant'
-import { FC, useState } from 'react'
+import { AccountChangePasswordSchema, IAccountChangePassword } from './account-change-password.interface'
 
 interface IProps {}
 
 const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
-  const [newPassword, setNewPassword] = useState('')
+  const form = useForm<IAccountChangePassword>({
+    defaultValues: {
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
+    resolver: zodResolver(AccountChangePasswordSchema),
+  })
+
+  const onSubmit = async (data: IAccountChangePassword) => {}
 
   return (
     <div className='mx-auto max-w-5xl p-6'>
@@ -29,35 +55,81 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
 
         <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
           <div>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <PasswordField id='current-password' />
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <FieldGroup>
+                  <FormField
+                    control={form.control}
+                    name='currentPassword'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Current Password</FormLabel>
 
-              <PasswordField id='new-password' onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
+                        <FormControl>
+                          <PasswordField {...field} id='current-password' />
+                        </FormControl>
 
-              <PasswordField id='confirm-password' />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <div className='mt-8 flex gap-3'>
-                <Button type='submit' className='flex-1'>
-                  Update Password
-                </Button>
-              </div>
-            </form>
+                  <FormField
+                    control={form.control}
+                    name='newPassword'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>New Password</FormLabel>
+
+                        <FormControl>
+                          <PasswordField id='new-password' {...field} />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name='confirmPassword'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Confirm Password</FormLabel>
+
+                        <FormControl>
+                          <PasswordField id='confirm-password' {...field} canShowPassword={false} />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </FieldGroup>
+
+                <div className='mt-8 flex gap-3'>
+                  <Button type='submit' className='flex-1'>
+                    Update Password
+                  </Button>
+                </div>
+              </form>
+            </Form>
           </div>
 
           <div className='space-y-6'>
             <div>
               <h3 className='mb-4 flex items-center gap-2 font-semibold'>
                 <Shield className='text-muted-foreground h-5 w-5' />
-                Password Requirements
+                Password Recommendations
               </h3>
 
               <p className='text-muted-foreground mb-6 text-sm'>
-                Your password must meet the following criteria for enhanced security:
+                Your password should meet the following recommendations for enhanced security:
               </p>
 
               <ul className='space-y-3'>
                 {PASSWORD_REQUIREMENTS.map((req, index) => {
-                  const meetsRequirement = req.regex.test(newPassword)
+                  const meetsRequirement = req.regex.test(form.watch('newPassword'))
 
                   return (
                     <li key={index} className='flex items-start gap-3'>

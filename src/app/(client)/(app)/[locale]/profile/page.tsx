@@ -3,8 +3,8 @@ import { FC } from 'react'
 
 import { ContainerComponent, Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/(client)/shared/ui'
 import { AccountBasicInfoComponent } from '@/app/(client)/widgets/account-basic-info'
-import { AccountSessionsComponent } from '@/app/(client)/widgets/account-sessions'
 import { AccountChangePasswordComponent } from '@/app/(client)/widgets/account-change-password'
+import { AccountSessionsComponent } from '@/app/(client)/widgets/account-sessions'
 
 interface IProps extends PageProps<'/[locale]/profile'> {}
 

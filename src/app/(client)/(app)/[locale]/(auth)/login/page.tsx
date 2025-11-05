@@ -54,7 +54,7 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   setRequestLocale(locale)
 
   return (
-    <ContainerComponent variant='section' className='flex-1 items-center justify-center'>
+    <ContainerComponent variant='section' className='flex-1 items-center justify-center px-2'>
       <LoginFormComponent />
     </ContainerComponent>
   )

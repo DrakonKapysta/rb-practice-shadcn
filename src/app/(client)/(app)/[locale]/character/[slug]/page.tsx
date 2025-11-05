@@ -1,7 +1,6 @@
 'use cache'
 
 import type { Metadata } from 'next'
-
 import { cacheLife } from 'next/cache'
 import { setRequestLocale } from 'next-intl/server'
 import { FC } from 'react'
@@ -10,8 +9,8 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { characterByIdQueryOptions, getCharacterById, getCharacters } from '@/app/(client)/entities/api'
 import { CharacterModule } from '@/app/(client)/modules/character'
-import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { routing } from '@/pkg/libraries/locale'
+import { getQueryClient } from '@/pkg/libraries/rest-api'
 
 interface IProps extends PageProps<'/[locale]/character/[slug]'> {}
 
@@ -68,8 +67,7 @@ export const generateMetadata = async (props: IProps): Promise<Metadata> => {
         languages: Object.fromEntries(routing.locales.map((loc) => [loc, `${siteUrl}/${loc}/character/${slug}`])),
       },
     }
-  } catch (error) {
-    // Fallback metadata if character not found
+  } catch (_) {
     return {
       title: 'Character Not Found',
       description: 'The character you are looking for does not exist.',

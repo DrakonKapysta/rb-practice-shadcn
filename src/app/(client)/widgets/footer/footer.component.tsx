@@ -1,9 +1,9 @@
+import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
 import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
 import { Button, Input } from '@/app/(client)/shared/ui'
 import { Link } from '@/pkg/libraries/locale'
-import { useTranslations } from 'next-intl'
 
 interface IProps {}
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { CheckCircle2, Shield, XCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -25,7 +26,6 @@ import {
 
 import { PASSWORD_REQUIREMENTS } from './account-change-password.constant'
 import { AccountChangePasswordSchema, IAccountChangePassword } from './account-change-password.interface'
-import { useTranslations } from 'next-intl'
 
 interface IProps {}
 

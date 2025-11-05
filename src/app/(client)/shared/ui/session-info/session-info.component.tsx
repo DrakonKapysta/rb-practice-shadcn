@@ -1,4 +1,5 @@
 import { Clock, Computer, Globe, MapPin } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import {
@@ -14,7 +15,6 @@ import {
   Badge,
   Button,
 } from '@/app/(client)/shared/ui'
-import { useTranslations } from 'next-intl'
 
 interface IProps {
   icon?: React.ReactNode

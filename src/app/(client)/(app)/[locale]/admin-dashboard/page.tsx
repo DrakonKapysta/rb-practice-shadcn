@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-
 import { setRequestLocale } from 'next-intl/server'
 import { FC } from 'react'
 
@@ -7,8 +6,8 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { adminUsersQueryOptions } from '@/app/(client)/entities/api'
 import { AdminModule } from '@/app/(client)/modules/admin'
-import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { routing } from '@/pkg/libraries/locale'
+import { getQueryClient } from '@/pkg/libraries/rest-api'
 
 interface IProps extends PageProps<'/[locale]/admin-dashboard'> {}
 

@@ -2,6 +2,7 @@
 
 import { format } from 'date-fns'
 import { CalendarIcon, Mail, MapPin, Phone, User } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -35,7 +36,6 @@ import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 
 import { AccountBasicInfoSchema, IAccountBasicInfo } from './account-basic-info.interface'
 import { AccountBasicInfoService } from './accout-basic-info.service'
-import { useTranslations } from 'next-intl'
 
 interface IProps {}
 

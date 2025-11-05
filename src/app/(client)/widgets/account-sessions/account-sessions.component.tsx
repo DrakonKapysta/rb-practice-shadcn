@@ -1,6 +1,7 @@
 'use client'
 
 import { ShieldCheck } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { FC, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -32,7 +33,6 @@ import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { useRouter } from '@/pkg/libraries/locale'
 
 import { getDeviceIcon } from './account-sessions.service'
-import { useTranslations } from 'next-intl'
 
 interface IProps {}
 

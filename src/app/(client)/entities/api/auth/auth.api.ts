@@ -1,6 +1,8 @@
 import { format } from 'date-fns'
 
 import {
+  IChangeEmail,
+  IChangePassword,
   ILogin,
   ILoginResponse,
   IRegister,
@@ -247,6 +249,69 @@ export async function revokeOtherSessions(data: ICallbackResult) {
     return { success: true, data: response.data }
   } catch (error) {
     loggerUtil({ text: 'Error revoking other sessions', value: error })
+
+    throw error
+  }
+}
+
+export async function changeEmail(data: IChangeEmail) {
+  try {
+    const response = await authClient.changeEmail(
+      {
+        newEmail: data.email,
+        callbackURL: data.callbackURL,
+      },
+
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, data: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error changing email', value: error })
+
+    throw error
+  }
+}
+
+export async function changePassword(data: IChangePassword) {
+  try {
+    const response = await authClient.changePassword(
+      {
+        newPassword: data.newPassword,
+        currentPassword: data.password,
+        revokeOtherSessions: data.revokeOtherSessions,
+      },
+
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, data: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error changing password', value: error })
 
     throw error
   }

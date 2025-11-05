@@ -15,7 +15,7 @@ interface IProps {}
 const UserTable: FC<Readonly<IProps>> = () => {
   const [page, setPage] = useState(1)
 
-  const [pageSize, setPageSize] = useState(10)
+  const [pageSize, _] = useState(10)
 
   const session = authClient.useSession()
 

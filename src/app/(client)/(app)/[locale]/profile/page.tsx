@@ -3,6 +3,7 @@ import { FC } from 'react'
 
 import { ContainerComponent, Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/(client)/shared/ui'
 import { AccountBasicInfoComponent } from '@/app/(client)/widgets/account-basic-info'
+import { AccountChangePasswordComponent } from '@/app/(client)/widgets/account-change-password'
 import { AccountSessionsComponent } from '@/app/(client)/widgets/account-sessions'
 
 interface IProps extends PageProps<'/[locale]/profile'> {}
@@ -19,6 +20,8 @@ const Page: FC<Readonly<IProps>> = async (props) => {
           <TabsTrigger value='basic-info'>Basic Info</TabsTrigger>
 
           <TabsTrigger value='security'>Devices</TabsTrigger>
+
+          <TabsTrigger value='change-password'>Change Password</TabsTrigger>
         </TabsList>
 
         <TabsContent value='basic-info' className='flex flex-1'>
@@ -27,6 +30,10 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
         <TabsContent value='security' className='flex flex-1'>
           <AccountSessionsComponent />
+        </TabsContent>
+
+        <TabsContent value='change-password' className='flex flex-1'>
+          <AccountChangePasswordComponent />
         </TabsContent>
       </Tabs>
     </ContainerComponent>

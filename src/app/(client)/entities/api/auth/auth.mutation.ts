@@ -1,11 +1,21 @@
 import { mutationOptions } from '@tanstack/react-query'
 
-import { EAuthQueryKey, ILogin, IRegister, IRevokeSessionQuery, IUpdateUser } from '@/app/(client)/entities/models'
+import {
+  EAuthQueryKey,
+  IChangeEmail,
+  IChangePassword,
+  ILogin,
+  IRegister,
+  IRevokeSessionQuery,
+  IUpdateUser,
+} from '@/app/(client)/entities/models'
 import { ICallbackResult } from '@/app/(client)/shared/interfaces'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
 
 import {
+  changeEmail,
+  changePassword,
   credentialsLogin,
   credentialsRegister,
   logout,
@@ -56,7 +66,7 @@ export const updateUserMutationOptions = () => {
     },
 
     onError: (error) => {
-      loggerUtil({ text: 'LogoutMutationOptions', value: error.message, level: 'error' })
+      loggerUtil({ text: 'UpdateUserMutationOptions', value: error.message, level: 'error' })
     },
   })
 }
@@ -99,6 +109,34 @@ export const authRevokeOtherSessionsMutationOptions = () => {
 
     onError: (error) => {
       loggerUtil({ text: 'RevokeOtherSessionsMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const authChangeEmailMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: IChangeEmail) => changeEmail(data),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [EAuthQueryKey.AUTH_SESSIONS] })
+    },
+
+    onError: (error) => {
+      loggerUtil({ text: 'ChangeEmailMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const authChangePasswordMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: IChangePassword) => changePassword(data),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [EAuthQueryKey.AUTH_SESSIONS] })
+    },
+
+    onError: (error) => {
+      loggerUtil({ text: 'ChangePasswordMutationOptions', value: error.message, level: 'error' })
     },
   })
 }

@@ -39,7 +39,7 @@ const UserTable: FC<Readonly<IProps>> = () => {
   if (!result.data?.users?.length) return <div className='text-center text-red-500'>No data found</div>
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 px-1'>
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>

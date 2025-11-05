@@ -134,7 +134,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
         </div>
 
         {isLoading ? (
-          <Spinner className='inline-block' />
+          <Spinner className='mx-auto inline-block' />
         ) : (
           <SessionInfoComponent
             icon={getDeviceIcon(currentSession?.session.userAgent)}
@@ -147,7 +147,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
         )}
 
         {isSessionsLoading ? (
-          <Spinner className='inline-block' />
+          <Spinner className='mx-auto inline-block' />
         ) : (
           <div className='flex flex-col gap-4'>
             {sessions?.result?.slice(0, sessions.result.length - 1).map((session) => (

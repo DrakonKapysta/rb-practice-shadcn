@@ -5,6 +5,7 @@ export const AccountChangePasswordSchema = z
     currentPassword: z.string().min(1, { message: 'Current password is required' }),
     newPassword: z.string().min(1, { message: 'New password is required' }),
     confirmPassword: z.string().min(1, { message: 'Confirm password is required' }),
+    revokeOtherSessions: z.boolean().optional(),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     path: ['confirmPassword'],

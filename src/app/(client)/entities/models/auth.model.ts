@@ -47,3 +47,14 @@ export interface IUpdateUser extends ICallbackResult {
   birthDate?: Date
   gender?: string
 }
+
+export interface IChangeEmail extends ICallbackResult {
+  email: string
+  callbackURL?: string
+}
+
+export interface IChangePassword extends ICallbackResult {
+  password: string
+  newPassword: string
+  revokeOtherSessions?: boolean
+}

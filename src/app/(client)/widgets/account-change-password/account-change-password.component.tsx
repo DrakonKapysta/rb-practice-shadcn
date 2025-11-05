@@ -3,12 +3,16 @@
 import { CheckCircle2, Shield, XCircle } from 'lucide-react'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 
+import { authChangePasswordMutationOptions } from '@/app/(client)/entities/api'
 import {
   Button,
   Card,
+  Checkbox,
   FieldGroup,
   Form,
   FormControl,
@@ -30,11 +34,36 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
       currentPassword: '',
       newPassword: '',
       confirmPassword: '',
+      revokeOtherSessions: false,
     },
     resolver: zodResolver(AccountChangePasswordSchema),
   })
 
-  const onSubmit = async (data: IAccountChangePassword) => {}
+  const { mutateAsync: changePassword, isPending: isChangingPassword } = useMutation(
+    authChangePasswordMutationOptions(),
+  )
+
+  const onSubmit = async (data: IAccountChangePassword) => {
+    const result = await changePassword({
+      password: data.currentPassword,
+      newPassword: data.newPassword,
+      revokeOtherSessions: true,
+
+      successCallback: () => {
+        toast.success('Password changed successfully')
+
+        form.reset()
+      },
+
+      errorCallback: (error) => {
+        toast.error(error.error.message || 'An error occurred while changing the password')
+      },
+    })
+
+    if (!result.success) {
+      return toast.error(result.error?.message || 'An error occurred while changing the password')
+    }
+  }
 
   return (
     <div className='mx-auto max-w-5xl p-6'>
@@ -105,10 +134,24 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
                       </FormItem>
                     )}
                   />
+
+                  <FormField
+                    control={form.control}
+                    name='revokeOtherSessions'
+                    render={({ field }) => (
+                      <FormItem className='flex gap-2'>
+                        <FormLabel>Revoke Other Sessions</FormLabel>
+
+                        <FormControl>
+                          <Checkbox checked={field.value} onCheckedChange={field.onChange} id='revoke-other-sessions' />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
                 </FieldGroup>
 
                 <div className='mt-8 flex gap-3'>
-                  <Button type='submit' className='flex-1'>
+                  <Button type='submit' className='flex-1' disabled={isChangingPassword}>
                     Update Password
                   </Button>
                 </div>

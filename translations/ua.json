@@ -135,5 +135,140 @@
     "language": "Мова",
     "logout": "Вийти",
     "stopImpersonating": "Зупинити імітацію"
+  },
+  "profile": {
+    "tabs": {
+      "basicInfo": "Основна інформація",
+      "devices": "Пристрої",
+      "changePassword": "Змінити пароль"
+    },
+    "accountBasicInfo": {
+      "title": "Особиста інформація",
+      "description": "Керуйте своїми особистими даними та інформацією профілю. Ця інформація буде видима для інших користувачів на платформі.",
+      "basicDetails": "Основні дані",
+      "name": "Ім'я",
+      "surname": "Прізвище",
+      "professionalInformation": "Професійна інформація",
+      "gender": "Стать",
+      "selectGender": "Виберіть стать",
+      "genderOptions": {
+        "male": "Чоловіча",
+        "female": "Жіноча",
+        "other": "Інша",
+        "preferNotToSay": "Бажаю не вказувати"
+      },
+      "birthDate": "Дата народження",
+      "selectDate": "Виберіть дату",
+      "contactInformation": "Контактна інформація",
+      "email": "Електронна пошта",
+      "phoneNumber": "Номер телефону",
+      "address": "Адреса",
+      "saveChanges": "Зберегти зміни",
+      "toast": {
+        "userUpdatedSuccessfully": "Користувача успішно оновлено",
+        "errorUpdatingUser": "Сталася помилка під час оновлення користувача"
+      },
+      "emailPlaceholder": "Електронна пошта",
+      "phoneNumberPlaceholder": "Номер телефону",
+      "addressPlaceholder": "Адреса",
+      "genderPlaceholder": "Виберіть стать",
+      "genderMale": "Чоловіча",
+      "genderFemale": "Жіноча",
+      "genderOther": "Інша",
+      "genderPreferNotToSay": "Бажаю не вказувати",
+      "birthDatePlaceholder": "Виберіть дату",
+      "namePlaceholder": "Ім'я",
+      "surnamePlaceholder": "Прізвище"
+    },
+    "accountSessions": {
+      "noActiveSessions": "Немає активних сесій",
+      "noActiveSessionsDescription": "У вас немає активних сесій",
+      "activeSessions": "Активні сесії",
+      "activeSessionsDescription": "Керуйте та моніторьте пристрої, які мають доступ до вашого облікового запису",
+      "cancelAlertDialog": "Скасувати",
+      "goBack": "Повернутися",
+      "title": "Активні сесії",
+      "description": "Керуйте та моніторьте пристрої, які мають доступ до вашого облікового запису",
+      "revokeOtherSessions": "Скасувати інші сесії",
+      "revokeOtherSessionsTitle": "Ви впевнені, що хочете скасувати інші сесії?",
+      "revokeOtherSessionsDescription": "Це скасує інші сесії та видалить їх з вашого облікового запису. Вам потрібно буде знову увійти, щоб отримати доступ до свого облікового запису.",
+      "revokeAllSessions": "Скасувати всі сесії",
+      "revokeAllSessionsTitle": "Ви впевнені, що хочете скасувати всі сесії?",
+      "revokeAllSessionsDescription": "Це скасує всі сесії та видалить їх з вашого облікового запису. Вам потрібно буде знову увійти, щоб отримати доступ до свого облікового запису.",
+      "securityTip": "Порада безпеки",
+      "securityTipDescription": "Якщо ви помітите будь-яку підозрілу активність, негайно скасуйте сесію та змініть пароль свого облікового запису. Увімкніть двофакторну аутентифікацію для додаткової безпеки.",
+      "toast": {
+        "allSessionsRevokedSuccessfully": "Всі сесії успішно скасовано",
+        "otherSessionsRevokedSuccessfully": "Інші сесії успішно скасовано",
+        "sessionRevokedSuccessfully": "Сесію успішно скасовано"
+      },
+      "session": "Сесія",
+      "currentSession": "Поточна сесія",
+      "lastLogin": "Останній вхід",
+      "agent": "Агент",
+      "ipAddress": "IP адреса",
+      "revoke": "Скасувати",
+      "revokeSessionTitle": "Ви впевнені, що хочете скасувати цю сесію?",
+      "revokeSessionDescription": "Це скасує сесію та видалить її з вашого облікового запису. Вам потрібно буде знову увійти, щоб отримати доступ до свого облікового запису."
+    },
+    "accountChangePassword": {
+      "title": "Змінити пароль",
+      "description": "Оновіть свій пароль, щоб забезпечити безпеку облікового запису",
+      "currentPassword": "Поточний пароль",
+      "newPassword": "Новий пароль",
+      "confirmPassword": "Підтвердити пароль",
+      "revokeOtherSessions": "Скасувати інші сесії",
+      "updatePassword": "Оновити пароль",
+      "passwordRecommendations": "Рекомендації щодо пароля",
+      "passwordRecommendationsDescription": "Ваш пароль повинен відповідати наступним рекомендаціям для підвищення безпеки:",
+      "passwordRecommendationsItems": {
+        "minLength": "Принаймні 8 символів",
+        "uppercase": "Одна велика літера (A-Z)",
+        "lowercase": "Одна мала літера (a-z)",
+        "number": "Одна цифра (0-9)",
+        "specialCharacter": "Один спеціальний символ (!@#$%^&*)"
+      },
+      "securityBestPractices": "Найкращі практики безпеки",
+      "securityBestPracticesItems": {
+        "changeRegularly": "Регулярно змінюйте пароль (кожні 90 днів)",
+        "neverShare": "Ніколи не діліться своїм паролем з кимось",
+        "uniquePassword": "Використовуйте унікальний пароль для кожного облікового запису",
+        "passwordManager": "Розгляньте можливість використання менеджера паролів"
+      },
+      "toast": {
+        "passwordChangedSuccessfully": "Пароль успішно змінено",
+        "errorChangingPassword": "Сталася помилка під час зміни пароля"
+      }
+    }
+  },
+  "footer": {
+    "logo": "Логотип",
+    "description": "Створюємо чудові досвіди з shadcn/ui",
+    "quickLinks": {
+      "title": "Швидкі посилання",
+      "home": "Головна",
+      "about": "Про нас",
+      "services": "Послуги",
+      "contact": "Контакти"
+    },
+    "resources": {
+      "title": "Ресурси",
+      "documentation": "Документація",
+      "helpCenter": "Центр допомоги",
+      "privacyPolicy": "Політика конфіденційності",
+      "termsOfService": "Умови використання"
+    },
+    "stayUpdated": {
+      "title": "Залишайтеся в курсі",
+      "description": "Підпишіться на нашу розсилку, щоб отримувати останні оновлення.",
+      "emailPlaceholder": "Введіть вашу електронну пошту",
+      "subscribe": "Підписатися"
+    },
+    "copyright": "© 2025 Ваш бренд. Всі права захищені.",
+    "social": {
+      "twitter": "Twitter",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
   }
 }

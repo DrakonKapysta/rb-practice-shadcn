@@ -35,10 +35,13 @@ import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 
 import { AccountBasicInfoSchema, IAccountBasicInfo } from './account-basic-info.interface'
 import { AccountBasicInfoService } from './accout-basic-info.service'
+import { useTranslations } from 'next-intl'
 
 interface IProps {}
 
 const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations('profile')
+
   const { data: session, refetch } = authClient.useSession()
 
   const [isLoading, setIsLoading] = useState(true)
@@ -109,19 +112,16 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
     <div className='mx-auto max-w-5xl p-6'>
       <Card className='bg-card border p-8'>
         <div className='border-b pb-6'>
-          <h2 className='text-2xl font-semibold tracking-tight'>Personal Information</h2>
+          <h2 className='text-2xl font-semibold tracking-tight'>{t('accountBasicInfo.title')}</h2>
 
-          <p className='text-muted-foreground mt-2 text-sm'>
-            Manage your personal details and profile information. This information will be visible to other users on the
-            platform.
-          </p>
+          <p className='text-muted-foreground mt-2 text-sm'>{t('accountBasicInfo.description')}</p>
         </div>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='space-y-6'>
               <div>
-                <h3 className='mb-4 text-sm font-medium'>Basic Details</h3>
+                <h3 className='mb-4 text-sm font-medium'>{t('accountBasicInfo.basicDetails')}</h3>
 
                 <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
                   <div className='space-y-2'>
@@ -132,7 +132,7 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
                         <FormItem>
                           <FormLabel className='flex items-center gap-2'>
                             <User className='text-muted-foreground h-4 w-4' />
-                            Name
+                            {t('accountBasicInfo.name')}
                           </FormLabel>
 
                           <FormControl>
@@ -153,7 +153,7 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
                         <FormItem>
                           <FormLabel className='flex items-center gap-2'>
                             <User className='text-muted-foreground h-4 w-4' />
-                            Surname
+                            {t('accountBasicInfo.surname')}
                           </FormLabel>
 
                           <FormControl>
@@ -169,7 +169,7 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
               </div>
 
               <div>
-                <h3 className='mb-4 text-sm font-medium'>Professional Information</h3>
+                <h3 className='mb-4 text-sm font-medium'>{t('accountBasicInfo.professionalInformation')}</h3>
 
                 <div className='flex flex-col gap-6 sm:flex-row sm:items-end'>
                   <div className='flex flex-col gap-2'>
@@ -180,23 +180,25 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
                         <FormItem>
                           <FormLabel className='flex items-center gap-2'>
                             <User className='text-muted-foreground h-4 w-4' />
-                            Gender
+                            {t('accountBasicInfo.gender')}
                           </FormLabel>
 
                           <FormControl>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <SelectTrigger id='gender'>
-                                <SelectValue placeholder='Select Gender' />
+                                <SelectValue placeholder={t('accountBasicInfo.genderPlaceholder')} />
                               </SelectTrigger>
 
                               <SelectContent>
-                                <SelectItem value='male'>Male</SelectItem>
+                                <SelectItem value='male'>{t('accountBasicInfo.genderMale')}</SelectItem>
 
-                                <SelectItem value='female'>Female</SelectItem>
+                                <SelectItem value='female'>{t('accountBasicInfo.genderFemale')}</SelectItem>
 
-                                <SelectItem value='other'>Other</SelectItem>
+                                <SelectItem value='other'>{t('accountBasicInfo.genderOther')}</SelectItem>
 
-                                <SelectItem value='prefer-not-to-say'>Prefer not to say</SelectItem>
+                                <SelectItem value='prefer-not-to-say'>
+                                  {t('accountBasicInfo.genderPreferNotToSay')}
+                                </SelectItem>
                               </SelectContent>
                             </Select>
                           </FormControl>
@@ -215,7 +217,7 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
                         <FormItem>
                           <FormLabel className='flex items-center gap-2'>
                             <CalendarIcon className='text-muted-foreground h-4 w-4' />
-                            Birth Date
+                            {t('accountBasicInfo.birthDate')}
                           </FormLabel>
 
                           <FormControl>
@@ -224,7 +226,9 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
                                 <Button variant='outline' className='w-full justify-start text-left font-normal'>
                                   <CalendarIcon className='mr-2 h-4 w-4' />
 
-                                  {field.value ? format(field.value, 'MMM dd, yyyy') : 'Select a date'}
+                                  {field.value
+                                    ? format(field.value, 'MMM dd, yyyy')
+                                    : t('accountBasicInfo.birthDatePlaceholder')}
                                 </Button>
                               </PopoverTrigger>
 
@@ -243,21 +247,21 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
               </div>
 
               <div>
-                <h3 className='mb-4 text-sm font-medium'>Contact Information</h3>
+                <h3 className='mb-4 text-sm font-medium'>{t('accountBasicInfo.contactInformation')}</h3>
 
                 <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
                   <div className='space-y-2'>
                     <FormItem>
                       <FormLabel className='flex items-center gap-2'>
                         <Mail className='text-muted-foreground h-4 w-4' />
-                        Email
+                        {t('accountBasicInfo.email')}
                       </FormLabel>
 
                       <FormControl>
                         <Input
                           id='email'
                           type='email'
-                          placeholder='emma@mail.com'
+                          placeholder={t('accountBasicInfo.emailPlaceholder')}
                           disabled
                           defaultValue={session?.user?.email}
                         />
@@ -275,11 +279,16 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
                         <FormItem>
                           <FormLabel className='flex items-center gap-2'>
                             <Phone className='text-muted-foreground h-4 w-4' />
-                            Phone Number
+                            {t('accountBasicInfo.phoneNumber')}
                           </FormLabel>
 
                           <FormControl>
-                            <Input id='phoneNumber' type='tel' placeholder='+1 (555) 123-4567' {...field} />
+                            <Input
+                              id='phoneNumber'
+                              type='tel'
+                              placeholder={t('accountBasicInfo.phoneNumberPlaceholder')}
+                              {...field}
+                            />
                           </FormControl>
 
                           <FormMessage />
@@ -296,11 +305,11 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
                         <FormItem>
                           <FormLabel className='flex items-center gap-2'>
                             <MapPin className='text-muted-foreground h-4 w-4' />
-                            Address
+                            {t('accountBasicInfo.address')}
                           </FormLabel>
 
                           <FormControl>
-                            <Input id='address' placeholder='123 Main St, Anytown, USA' {...field} />
+                            <Input id='address' placeholder={t('accountBasicInfo.addressPlaceholder')} {...field} />
                           </FormControl>
 
                           <FormMessage />
@@ -313,7 +322,7 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
             </div>
 
             <div className='flex justify-end gap-3 border-t pt-6'>
-              <Button type='submit'>Save Changes</Button>
+              <Button type='submit'>{t('accountBasicInfo.saveChanges')}</Button>
             </div>
           </form>
         </Form>

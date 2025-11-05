@@ -196,6 +196,7 @@
       "revokeAllSessionsTitle": "Are you absolutely sure you want to revoke all sessions?",
       "revokeAllSessionsDescription": "This will revoke all sessions and remove them from your account. You will need to login again to access your account.",
       "securityTip": "Security Tip",
+      "unknown": "Unknown",
       "securityTipDescription": "If you notice any suspicious activity, immediately revoke the session and change your account password. Enable two-factor authentication for additional security.",
       "toast": {
         "allSessionsRevokedSuccessfully": "All sessions revoked successfully",

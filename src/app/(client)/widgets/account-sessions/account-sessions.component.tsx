@@ -23,7 +23,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-  NotFoundComponent,
   Separator,
   SessionInfoComponent,
   Spinner,
@@ -112,14 +111,6 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
     })
 
     setRevokingSession(null)
-  }
-
-  if (!currentSession?.session) {
-    return (
-      <div className='flex h-full items-center justify-center'>
-        <NotFoundComponent title='No active sessions' description='You have no active sessions' buttonText='Go back' />
-      </div>
-    )
   }
 
   return (

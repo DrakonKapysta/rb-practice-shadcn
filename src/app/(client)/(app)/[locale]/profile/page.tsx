@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { FC } from 'react'
 
 import { ContainerComponent, Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/(client)/shared/ui'
@@ -13,15 +13,17 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
   setRequestLocale(locale)
 
+  const t = await getTranslations('profile')
+
   return (
     <ContainerComponent variant='section' className='0 max-w-7xl flex-1'>
       <Tabs defaultValue='basic-info' className='flex flex-1 overflow-hidden'>
         <TabsList className='bg-primary-foreground mx-auto'>
-          <TabsTrigger value='basic-info'>Basic Info</TabsTrigger>
+          <TabsTrigger value='basic-info'>{t('tabs.basicInfo')}</TabsTrigger>
 
-          <TabsTrigger value='security'>Devices</TabsTrigger>
+          <TabsTrigger value='security'>{t('tabs.devices')}</TabsTrigger>
 
-          <TabsTrigger value='change-password'>Change Password</TabsTrigger>
+          <TabsTrigger value='change-password'>{t('tabs.changePassword')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value='basic-info' className='flex flex-1'>

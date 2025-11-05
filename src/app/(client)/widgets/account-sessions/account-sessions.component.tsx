@@ -32,6 +32,7 @@ import { authClient } from '@/pkg/integrations/better-auth/auth-client'
 import { useRouter } from '@/pkg/libraries/locale'
 
 import { getDeviceIcon } from './account-sessions.service'
+import { useTranslations } from 'next-intl'
 
 interface IProps {}
 
@@ -42,6 +43,8 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
     isRefetching: isRefetchingCurrentSessions,
     refetch,
   } = authClient.useSession()
+
+  const t = useTranslations('profile.accountSessions')
 
   const { data: sessions, isLoading: isSessionsLoading } = useQuery(authSessionListQueryOptions())
 
@@ -60,7 +63,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
   const handleRevokeAllSessions = async () => {
     await revokeAllSessions({
       successCallback: () => {
-        toast.success('All sessions revoked successfully')
+        toast.success(t('toast.allSessionsRevokedSuccessfully'))
 
         refetch()
 
@@ -78,7 +81,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
   const handleRevokeOtherSessions = async () => {
     await revokeOtherSessions({
       successCallback: () => {
-        toast.success('Other sessions revoked successfully')
+        toast.success(t('toast.otherSessionsRevokedSuccessfully'))
       },
 
       errorCallback: (error) => {
@@ -94,7 +97,7 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
       sessionToken,
 
       successCallback: () => {
-        toast.success('Session revoked successfully')
+        toast.success(t('toast.sessionRevokedSuccessfully'))
 
         refetch()
 
@@ -123,11 +126,9 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
             </div>
 
             <div>
-              <h2 className='text-2xl font-semibold tracking-tight'>Active Sessions</h2>
+              <h2 className='text-2xl font-semibold tracking-tight'>{t('activeSessions')}</h2>
 
-              <p className='text-muted-foreground mt-1 text-sm'>
-                Manage and monitor devices that have access to your account
-              </p>
+              <p className='text-muted-foreground mt-1 text-sm'>{t('activeSessionsDescription')}</p>
             </div>
           </div>
         </div>
@@ -170,24 +171,21 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant='default' size='default'>
-                Revoke Other Sessions
+                {t('revokeOtherSessions')}
               </Button>
             </AlertDialogTrigger>
 
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure you want to revoke other sessions?</AlertDialogTitle>
+                <AlertDialogTitle>{t('revokeOtherSessionsTitle')}</AlertDialogTitle>
 
-                <AlertDialogDescription>
-                  This will revoke other sessions and remove them from your account. You will need to login again to
-                  access your account.
-                </AlertDialogDescription>
+                <AlertDialogDescription>{t('revokeOtherSessionsDescription')}</AlertDialogDescription>
               </AlertDialogHeader>
 
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>{t('cancelAlertDialog')}</AlertDialogCancel>
 
-                <AlertDialogAction onClick={handleRevokeOtherSessions}>Revoke Other Sessions</AlertDialogAction>
+                <AlertDialogAction onClick={handleRevokeOtherSessions}>{t('revokeOtherSessions')}</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -195,24 +193,21 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant='outline' size='default'>
-                Revoke All Sessions
+                {t('revokeAllSessions')}
               </Button>
             </AlertDialogTrigger>
 
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure you want to revoke all sessions?</AlertDialogTitle>
+                <AlertDialogTitle>{t('revokeAllSessionsTitle')}</AlertDialogTitle>
 
-                <AlertDialogDescription>
-                  This will revoke all sessions and remove them from your account. You will need to login again to
-                  access your account.
-                </AlertDialogDescription>
+                <AlertDialogDescription>{t('revokeAllSessionsDescription')}</AlertDialogDescription>
               </AlertDialogHeader>
 
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>{t('cancelAlertDialog')}</AlertDialogCancel>
 
-                <AlertDialogAction onClick={handleRevokeAllSessions}>Revoke All Sessions</AlertDialogAction>
+                <AlertDialogAction onClick={handleRevokeAllSessions}>{t('revokeAllSessions')}</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -223,12 +218,9 @@ const AccountSessionsComponent: FC<Readonly<IProps>> = () => {
             <ShieldCheck className='mt-0.5 h-5 w-5 shrink-0 text-blue-500' />
 
             <div>
-              <h4 className='mb-1 text-sm font-medium'>Security Tip</h4>
+              <h4 className='mb-1 text-sm font-medium'>{t('securityTip')}</h4>
 
-              <p className='text-muted-foreground text-sm'>
-                If you notice any suspicious activity, immediately revoke the session and change your account password.
-                Enable two-factor authentication for additional security.
-              </p>
+              <p className='text-muted-foreground text-sm'>{t('securityTipDescription')}</p>
             </div>
           </div>
         </div>

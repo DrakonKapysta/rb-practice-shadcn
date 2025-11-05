@@ -135,5 +135,140 @@
     "language": "Language",
     "logout": "Logout",
     "stopImpersonating": "Stop Impersonating"
+  },
+  "profile": {
+    "tabs": {
+      "basicInfo": "Basic Info",
+      "devices": "Devices",
+      "changePassword": "Change Password"
+    },
+    "accountBasicInfo": {
+      "title": "Personal Information",
+      "description": "Manage your personal details and profile information. This information will be visible to other users on the platform.",
+      "basicDetails": "Basic Details",
+      "name": "Name",
+      "surname": "Surname",
+      "professionalInformation": "Professional Information",
+      "gender": "Gender",
+      "selectGender": "Select Gender",
+      "genderOptions": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "preferNotToSay": "Prefer not to say"
+      },
+      "birthDate": "Birth Date",
+      "selectDate": "Select a date",
+      "contactInformation": "Contact Information",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "address": "Address",
+      "saveChanges": "Save Changes",
+      "toast": {
+        "userUpdatedSuccessfully": "User updated successfully",
+        "errorUpdatingUser": "An error occurred while updating the user"
+      },
+      "emailPlaceholder": "Email",
+      "phoneNumberPlaceholder": "Phone Number",
+      "addressPlaceholder": "Address",
+      "namePlaceholder": "Name",
+      "surnamePlaceholder": "Surname",
+      "genderPlaceholder": "Select Gender",
+      "genderMale": "Male",
+      "genderFemale": "Female",
+      "genderOther": "Other",
+      "genderPreferNotToSay": "Prefer not to say",
+      "birthDatePlaceholder": "Select a date"
+    },
+    "accountSessions": {
+      "noActiveSessions": "No active sessions",
+      "activeSessions": "Active Sessions",
+      "activeSessionsDescription": "Manage and monitor devices that have access to your account",
+      "noActiveSessionsDescription": "You have no active sessions",
+      "cancelAlertDialog": "Cancel",
+      "goBack": "Go back",
+      "title": "Active Sessions",
+      "description": "Manage and monitor devices that have access to your account",
+      "revokeOtherSessions": "Revoke Other Sessions",
+      "revokeOtherSessionsTitle": "Are you absolutely sure you want to revoke other sessions?",
+      "revokeOtherSessionsDescription": "This will revoke other sessions and remove them from your account. You will need to login again to access your account.",
+      "revokeAllSessions": "Revoke All Sessions",
+      "revokeAllSessionsTitle": "Are you absolutely sure you want to revoke all sessions?",
+      "revokeAllSessionsDescription": "This will revoke all sessions and remove them from your account. You will need to login again to access your account.",
+      "securityTip": "Security Tip",
+      "securityTipDescription": "If you notice any suspicious activity, immediately revoke the session and change your account password. Enable two-factor authentication for additional security.",
+      "toast": {
+        "allSessionsRevokedSuccessfully": "All sessions revoked successfully",
+        "otherSessionsRevokedSuccessfully": "Other sessions revoked successfully",
+        "sessionRevokedSuccessfully": "Session revoked successfully"
+      },
+      "session": "Session",
+      "currentSession": "Current Session",
+      "lastLogin": "Last Login",
+      "agent": "Agent",
+      "ipAddress": "Ip Address",
+      "revoke": "Revoke",
+      "revokeSessionTitle": "Are you absolutely sure you want to revoke this session?",
+      "revokeSessionDescription": "This will revoke the session and remove it from your account. You will need to login again to access your account."
+    },
+    "accountChangePassword": {
+      "title": "Change Password",
+      "description": "Update your password to keep your account secure",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "revokeOtherSessions": "Revoke Other Sessions",
+      "updatePassword": "Update Password",
+      "passwordRecommendations": "Password Recommendations",
+      "passwordRecommendationsDescription": "Your password should meet the following recommendations for enhanced security:",
+      "passwordRecommendationsItems": {
+        "minLength": "At least 8 characters long",
+        "uppercase": "One uppercase letter (A-Z)",
+        "lowercase": "One lowercase letter (a-z)",
+        "number": "One number (0-9)",
+        "specialCharacter": "One special character (!@#$%^&*)"
+      },
+      "securityBestPractices": "Security Best Practices",
+      "securityBestPracticesItems": {
+        "changeRegularly": "Change your password regularly (every 90 days)",
+        "neverShare": "Never share your password with anyone",
+        "uniquePassword": "Use a unique password for each account",
+        "passwordManager": "Consider using a password manager"
+      },
+      "toast": {
+        "passwordChangedSuccessfully": "Password changed successfully",
+        "errorChangingPassword": "An error occurred while changing the password"
+      }
+    }
+  },
+  "footer": {
+    "logo": "Logo",
+    "description": "Building amazing experiences with shadcn/ui",
+    "quickLinks": {
+      "title": "Quick Links",
+      "home": "Home",
+      "about": "About",
+      "services": "Services",
+      "contact": "Contact"
+    },
+    "resources": {
+      "title": "Resources",
+      "documentation": "Documentation",
+      "helpCenter": "Help Center",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
+    },
+    "stayUpdated": {
+      "title": "Stay Updated",
+      "description": "Subscribe to our newsletter for the latest updates.",
+      "emailPlaceholder": "Enter your email",
+      "subscribe": "Subscribe"
+    },
+    "copyright": "© 2025 Your Brand. All rights reserved.",
+    "social": {
+      "twitter": "Twitter",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
   }
 }

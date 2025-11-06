@@ -8,7 +8,7 @@ import { toast } from 'sonner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
-import { loginMutationOptions } from '@/app/(client)/entities/api'
+import { googleLoginMutationOptions, loginMutationOptions } from '@/app/(client)/entities/api'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Spinner } from '@/app/(client)/shared/ui'
 import { Button } from '@/app/(client)/shared/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/(client)/shared/ui/card'
@@ -24,6 +24,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
   const { className, ...rest } = props
 
   const { mutateAsync: login, isPending } = useMutation(loginMutationOptions())
+  const { mutateAsync: googleLogin, isPending: isGoogleLoginPending } = useMutation(googleLoginMutationOptions())
 
   const [isTransition, startTransition] = useTransition()
 
@@ -52,6 +53,20 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
 
           router.refresh()
         })
+      },
+
+      errorCallback: (error: ErrorContext) => {
+        toast.error(error.error.message || t('errors.generic'))
+      },
+    })
+  }
+
+  const handleGoogleLogin = async () => {
+    await googleLogin({
+      successCallback: () => {
+        router.push('/')
+
+        router.refresh()
       },
 
       errorCallback: (error: ErrorContext) => {
@@ -112,7 +127,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
                     {isLoginProcessing ? <Spinner /> : t('loginButton')}
                   </Button>
 
-                  <Button variant='outline' type='button' disabled={true}>
+                  <Button variant='outline' type='button' disabled={isGoogleLoginPending} onClick={handleGoogleLogin}>
                     {t('googleLoginButton')}
                   </Button>
 

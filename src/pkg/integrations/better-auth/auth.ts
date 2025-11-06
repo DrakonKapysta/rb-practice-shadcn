@@ -30,6 +30,13 @@ export const auth = betterAuth({
       session,
     },
   }),
+  socialProviders: {
+    google: {
+      prompt: 'select_account',
+      clientId: envServer.GOOGLE_CLIENT_ID ?? '',
+      clientSecret: envServer.GOOGLE_CLIENT_SECRET ?? '',
+    },
+  },
   emailAndPassword: {
     enabled: true,
   },

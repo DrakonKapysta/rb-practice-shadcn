@@ -18,6 +18,7 @@ import {
   changePassword,
   credentialsLogin,
   credentialsRegister,
+  googleLogin,
   logout,
   revokeAllSessions,
   revokeOtherSessions,
@@ -33,6 +34,16 @@ export const loginMutationOptions = () => {
 
     onError: (error) => {
       loggerUtil({ text: 'LoginMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const googleLoginMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: ICallbackResult) => googleLogin(data),
+
+    onError: (error) => {
+      loggerUtil({ text: 'GoogleLoginMutationOptions', value: error.message, level: 'error' })
     },
   })
 }

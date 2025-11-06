@@ -45,6 +45,31 @@ export async function credentialsLogin(data: ILogin): Promise<ILoginResponse> {
   }
 }
 
+export async function googleLogin(data: ICallbackResult) {
+  try {
+    const response = await authClient.signIn.social(
+      { provider: 'google' },
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, result: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error logging in with Google', value: error })
+  }
+}
+
 export async function credentialsRegister(registerData: IRegister): Promise<IRegisterResponse> {
   try {
     await authClient.signUp.email(

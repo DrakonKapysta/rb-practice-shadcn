@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
-import { CharacterCommentFieldComponent } from './elements/character-comment-field'
-import { CharacterCommentFormComponent } from './elements/character-comment-form'
+import { CharacterCommentFieldComponent, CharacterCommentFormComponent } from './elements'
 
 interface IProps {
   characterId: number

@@ -5,6 +5,7 @@ import { FC } from 'react'
 import { ContainerComponent, Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/(client)/shared/ui'
 import { AccountBasicInfoComponent } from '@/app/(client)/widgets/account-basic-info'
 import { AccountChangePasswordComponent } from '@/app/(client)/widgets/account-change-password'
+import { AccountEmailChangeComponent } from '@/app/(client)/widgets/account-email-change'
 import { AccountSessionsComponent } from '@/app/(client)/widgets/account-sessions'
 import { routing } from '@/pkg/libraries/locale'
 
@@ -53,14 +54,16 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   const t = await getTranslations('profile')
 
   return (
-    <ContainerComponent variant='section' className='0 max-w-7xl flex-1'>
-      <Tabs defaultValue='basic-info' className='flex flex-1 overflow-hidden'>
-        <TabsList className='bg-primary-foreground mx-auto'>
+    <ContainerComponent variant='section' className='max-w-7xl flex-1'>
+      <Tabs defaultValue='basic-info' className='overflow-hidden'>
+        <TabsList className='bg-primary-foreground scroll-x-invisible mx-auto justify-between'>
           <TabsTrigger value='basic-info'>{t('tabs.basicInfo')}</TabsTrigger>
 
           <TabsTrigger value='security'>{t('tabs.devices')}</TabsTrigger>
 
           <TabsTrigger value='change-password'>{t('tabs.changePassword')}</TabsTrigger>
+
+          <TabsTrigger value='email'>{t('tabs.email')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value='basic-info' className='flex flex-1'>
@@ -73,6 +76,10 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
         <TabsContent value='change-password' className='flex flex-1'>
           <AccountChangePasswordComponent />
+        </TabsContent>
+
+        <TabsContent value='email' className='flex flex-1'>
+          <AccountEmailChangeComponent />
         </TabsContent>
       </Tabs>
     </ContainerComponent>

@@ -140,7 +140,8 @@
     "tabs": {
       "basicInfo": "Basic Info",
       "devices": "Devices",
-      "changePassword": "Change Password"
+      "changePassword": "Change Password",
+      "email": "Email"
     },
     "accountBasicInfo": {
       "title": "Personal Information",
@@ -179,6 +180,58 @@
       "genderOther": "Other",
       "genderPreferNotToSay": "Prefer not to say",
       "birthDatePlaceholder": "Select a date"
+    },
+    "accountEmailChange": {
+      "title": "Change Email",
+      "description": "Update your email to keep your account secure",
+      "currentEmail": "Current Email",
+      "currentEmailDescription": "This is the email address associated with your account. You can change it to a new email address.",
+      "newEmail": "New Email",
+      "newEmailPlaceholder": "New Email",
+      "currentEmailPlaceholder": "Current Email",
+      "newEmailDescription": "This is the new email address you want to use for your account. You will need to confirm the new email address to update your account.",
+      "confirmEmail": "Confirm Email",
+      "updateEmail": "Update Email",
+      "validation": {
+        "emailMustBeDifferent": "New email must be different from your current email address.",
+        "emailValidAndReady": "Email address format is valid and ready to update."
+      },
+      "toast": {
+        "success": "Email changed successfully",
+        "error": "An error occurred while changing the email address. Please try again."
+      },
+      "importantInformation": {
+        "title": "Important Information",
+        "description": "Changing your email address is an important security action. Please review the following information before proceeding.",
+        "emailVerification": {
+          "title": "Email Verification",
+          "description": "You will receive a verification email at your new address. You must confirm the change before it takes effect."
+        },
+        "accountSecurity": {
+          "title": "Account Security",
+          "description": "Your account will remain secure during the email change process. All existing sessions will remain active."
+        },
+        "accessToAccount": {
+          "title": "Access to Your Account",
+          "description": "Once verified, you'll use your new email address to log in and recover your account if needed."
+        }
+      },
+      "errors": {
+        "generic": "An error occurred while changing the email address. Please try again."
+      },
+      "emailChangeProcess": {
+        "title": "Email Change Process",
+        "steps": {
+          "step1": "Enter the new email address",
+          "step2": "Submit the email change request",
+          "step3": "Check your new email inbox for a verification link",
+          "step4": "Click the verification link to confirm the change"
+        }
+      },
+      "securityReminder": {
+        "title": "Security Reminder",
+        "description": "Make sure you have access to the new email address before making this change. You won't be able to complete the verification process without access to your new inbox."
+      }
     },
     "accountSessions": {
       "noActiveSessions": "No active sessions",

@@ -135,4 +135,13 @@ html {
 }
 
 @layer utilities {
+  .scroll-x-invisible {
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  .scroll-x-invisible::-webkit-scrollbar {
+    height: 0; /* Chrome, Safari, Opera */
+  }
 }

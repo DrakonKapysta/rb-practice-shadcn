@@ -43,6 +43,7 @@ const AccountEmailChangeComponent: FC<Readonly<IProps>> = () => {
 
   const form = useForm<IAccountEmailChange>({
     defaultValues: {
+      currentEmail: session?.user?.email || '',
       newEmail: '',
     },
 
@@ -69,7 +70,7 @@ const AccountEmailChangeComponent: FC<Readonly<IProps>> = () => {
     })
   }
 
-  const currentEmail = form.getValues('currentEmail')
+  const currentEmail = session?.user?.email
   const newEmail = form.watch('newEmail')
 
   return (
@@ -103,11 +104,10 @@ const AccountEmailChangeComponent: FC<Readonly<IProps>> = () => {
 
                         <FormControl>
                           <Input
-                            {...field}
                             id='current-email'
+                            {...field}
                             placeholder={t('currentEmailPlaceholder')}
                             type='email'
-                            defaultValue={session?.user?.email}
                             disabled={true}
                           />
                         </FormControl>

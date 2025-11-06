@@ -2,7 +2,15 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { FC } from 'react'
 
-import { ContainerComponent, Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/(client)/shared/ui'
+import {
+  ContainerComponent,
+  ScrollArea,
+  ScrollBar,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/app/(client)/shared/ui'
 import { AccountBasicInfoComponent } from '@/app/(client)/widgets/account-basic-info'
 import { AccountChangePasswordComponent } from '@/app/(client)/widgets/account-change-password'
 import { AccountEmailChangeComponent } from '@/app/(client)/widgets/account-email-change'
@@ -56,15 +64,18 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   return (
     <ContainerComponent variant='section' className='max-w-7xl flex-1'>
       <Tabs defaultValue='basic-info' className='overflow-hidden'>
-        <TabsList className='bg-primary-foreground scroll-x-invisible mx-auto justify-between'>
-          <TabsTrigger value='basic-info'>{t('tabs.basicInfo')}</TabsTrigger>
+        <ScrollArea className='xs:max-w-none mx-auto w-full max-w-xs rounded-md px-2 pb-2 text-center'>
+          <TabsList className='bg-primary-foreground mx-auto'>
+            <TabsTrigger value='basic-info'>{t('tabs.basicInfo')}</TabsTrigger>
 
-          <TabsTrigger value='security'>{t('tabs.devices')}</TabsTrigger>
+            <TabsTrigger value='security'>{t('tabs.devices')}</TabsTrigger>
 
-          <TabsTrigger value='change-password'>{t('tabs.changePassword')}</TabsTrigger>
+            <TabsTrigger value='change-password'>{t('tabs.changePassword')}</TabsTrigger>
 
-          <TabsTrigger value='email'>{t('tabs.email')}</TabsTrigger>
-        </TabsList>
+            <TabsTrigger value='email'>{t('tabs.email')}</TabsTrigger>
+          </TabsList>
+          <ScrollBar className='px-2' orientation='horizontal' />
+        </ScrollArea>
 
         <TabsContent value='basic-info' className='flex flex-1'>
           <AccountBasicInfoComponent />

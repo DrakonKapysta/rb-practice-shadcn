@@ -34,7 +34,7 @@ declare const messages: {
     "password": "Password",
     "passwordPlaceholder": "Password",
     "loginButton": "Login",
-    "googleLoginButton": "Login with Google",
+    "googleLoginButton": "Continue with Google",
     "noAccount": "Don't have an account?",
     "signUp": "Sign up",
     "validation": {

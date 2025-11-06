@@ -34,7 +34,7 @@ declare const messages: {
     "password": "Пароль",
     "passwordPlaceholder": "Пароль",
     "loginButton": "Увійти",
-    "googleLoginButton": "Увійти через Google",
+    "googleLoginButton": "Продовжити з Google",
     "noAccount": "Немає облікового запису?",
     "signUp": "Зареєструватися",
     "validation": {

@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
 import { googleLoginMutationOptions, loginMutationOptions } from '@/app/(client)/entities/api'
+import { GoogleIcon } from '@/app/(client)/shared/assets'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Spinner } from '@/app/(client)/shared/ui'
 import { Button } from '@/app/(client)/shared/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/(client)/shared/ui/card'
@@ -127,8 +128,14 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
                     {isLoginProcessing ? <Spinner /> : t('loginButton')}
                   </Button>
 
-                  <Button variant='outline' type='button' disabled={isGoogleLoginPending} onClick={handleGoogleLogin}>
-                    {t('googleLoginButton')}
+                  <Button
+                    variant='outline'
+                    type='button'
+                    className='flex items-center gap-2'
+                    disabled={isGoogleLoginPending}
+                    onClick={handleGoogleLogin}
+                  >
+                    <GoogleIcon className='fill-white' /> {t('googleLoginButton')}
                   </Button>
 
                   <FieldDescription className='text-center'>

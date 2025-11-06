@@ -47,7 +47,7 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
   )
 
   const onSubmit = async (data: IAccountChangePassword) => {
-    const result = await changePassword({
+    await changePassword({
       password: data.currentPassword,
       newPassword: data.newPassword,
       revokeOtherSessions: true,
@@ -62,10 +62,6 @@ const AccountChangePasswordComponent: FC<Readonly<IProps>> = () => {
         toast.error(error.error.message || 'An error occurred while changing the password')
       },
     })
-
-    if (!result.success) {
-      return toast.error(result.error?.message || 'An error occurred while changing the password')
-    }
   }
 
   return (

@@ -34,8 +34,9 @@ declare const messages: {
     "password": "Password",
     "passwordPlaceholder": "Password",
     "loginButton": "Login",
-    "googleLoginButton": "Login with Google",
+    "googleLoginButton": "Continue with Google",
     "noAccount": "Don't have an account?",
+    "forgotPassword": "Forgot password?",
     "signUp": "Sign up",
     "validation": {
       "invalidEmail": "Invalid email address",
@@ -64,6 +65,64 @@ declare const messages: {
       "passwordMinLength": "Password must be at least 8 characters long",
       "confirmPasswordMinLength": "Password must be at least 8 characters long",
       "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
+  "forgotPassword": {
+    "title": "Reset your password",
+    "description": "Enter your email and we'll send a link to create a new password.",
+    "form": {
+      "title": "Request a password reset",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "name@example.com",
+      "helper": "Make sure you have access to this inbox. The link expires in 24 hours.",
+      "submit": "Send reset link"
+    },
+    "steps": {
+      "title": "What happens next",
+      "item1": "We'll email you a secure link to reset your password.",
+      "item2": "Open the link and choose a new, strong password.",
+      "item3": "Log in with your new credentials and get back to your account."
+    },
+    "tips": {
+      "title": "Security tips",
+      "item1": "Never share the reset link, even with people you trust.",
+      "item2": "Use a unique password you don't use anywhere else.",
+      "item3": "Update your password manager so you won't lose access."
+    },
+    "backToLogin": "Return to login",
+    "reset": {
+      "title": "Create your new password",
+      "description": "Pick a strong password that keeps your account secure.",
+      "warning": "If you close this page before submitting, the reset link might expire.",
+      "success": "Password updated successfully",
+      "errors": {
+        "generic": "An error occurred while updating the password. Please try again."
+      },
+      "form": {
+        "title": "Update password",
+        "description": "Use a password you haven't used on this site before."
+      },
+      "token": {
+        "valid": "Reset link detected. Finish the form below to complete the update.",
+        "missing": "We couldn't detect a reset token. Request a fresh email and try again."
+      },
+      "requirements": {
+        "title": "Password requirements",
+        "items": {
+          "length": "At least 8 characters long",
+          "case": "Includes both upper and lower case letters",
+          "number": "Contains at least one number",
+          "special": "Adds a special character such as !, @, or ?"
+        }
+      },
+      "reminders": {
+        "title": "Helpful reminders",
+        "items": {
+          "manager": "Update any password managers after saving the new password.",
+          "devices": "Sign out on shared devices once the password has been changed.",
+          "support": "Contact support immediately if you didn't request this reset."
+        }
+      }
     }
   },
   "characterSearch": {

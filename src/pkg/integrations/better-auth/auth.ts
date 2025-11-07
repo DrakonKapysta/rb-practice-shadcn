@@ -6,6 +6,7 @@ import { Redis } from 'ioredis'
 
 import { envServer } from '@/config/env'
 import { account, db, session, user, verification } from '@/pkg/libraries/drizzle'
+import sendEmail from '@/pkg/libraries/nodemailer/send-email'
 
 import { fields } from './fields'
 import { accessControl, admin, super_admin, user as userPermission } from './permissions'
@@ -30,8 +31,28 @@ export const auth = betterAuth({
       session,
     },
   }),
+  socialProviders: {
+    google: {
+      prompt: 'select_account',
+      clientId: envServer.GOOGLE_CLIENT_ID ?? '',
+      clientSecret: envServer.GOOGLE_CLIENT_SECRET ?? '',
+    },
+  },
   emailAndPassword: {
     enabled: true,
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail(
+        user.email,
+        'Reset your password',
+        `
+          <h2>Hello ${user.name || 'there'},</h2>
+          <p>You requested a password reset.</p>
+          <p>Click the link below to set a new password:</p>
+          <p><a href="${url}">${url}</a></p>
+          <p>If you didn’t request this, just ignore this email.</p>
+        `,
+      )
+    },
   },
   plugins: [
     nextCookies(),

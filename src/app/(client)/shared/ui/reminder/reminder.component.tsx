@@ -7,10 +7,11 @@ interface IProps {
   title?: string
   description?: string
   type?: 'info' | 'default'
+  children?: React.ReactNode
 }
 
 const ReminderComponent: FC<Readonly<IProps>> = (props) => {
-  const { title, description, type = 'default' } = props
+  const { title, description, type = 'default', children } = props
 
   return (
     <div
@@ -33,6 +34,7 @@ const ReminderComponent: FC<Readonly<IProps>> = (props) => {
           <p className={cn('text-sm', type === 'info' ? 'text-blue-800 dark:text-blue-200' : 'text-muted-foreground')}>
             {description}
           </p>
+          {children}
         </div>
       </div>
     </div>

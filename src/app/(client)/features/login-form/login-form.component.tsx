@@ -8,7 +8,8 @@ import { toast } from 'sonner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
-import { loginMutationOptions } from '@/app/(client)/entities/api'
+import { googleLoginMutationOptions, loginMutationOptions } from '@/app/(client)/entities/api'
+import { GoogleIcon } from '@/app/(client)/shared/assets'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Spinner } from '@/app/(client)/shared/ui'
 import { Button } from '@/app/(client)/shared/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/(client)/shared/ui/card'
@@ -24,6 +25,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
   const { className, ...rest } = props
 
   const { mutateAsync: login, isPending } = useMutation(loginMutationOptions())
+  const { mutateAsync: googleLogin, isPending: isGoogleLoginPending } = useMutation(googleLoginMutationOptions())
 
   const [isTransition, startTransition] = useTransition()
 
@@ -52,6 +54,20 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
 
           router.refresh()
         })
+      },
+
+      errorCallback: (error: ErrorContext) => {
+        toast.error(error.error.message || t('errors.generic'))
+      },
+    })
+  }
+
+  const handleGoogleLogin = async () => {
+    await googleLogin({
+      successCallback: () => {
+        router.push('/')
+
+        router.refresh()
       },
 
       errorCallback: (error: ErrorContext) => {
@@ -107,13 +123,28 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
                   )}
                 />
 
+                <div className='-mt-6 -mb-2 text-right'>
+                  <Link
+                    className='text-muted-foreground hover:text-foreground text-sm transition-colors'
+                    href={'/forgot-password'}
+                  >
+                    {t('forgotPassword')}
+                  </Link>
+                </div>
+
                 <Field>
                   <Button type='submit' disabled={isLoginProcessing}>
                     {isLoginProcessing ? <Spinner /> : t('loginButton')}
                   </Button>
 
-                  <Button variant='outline' type='button' disabled={true}>
-                    {t('googleLoginButton')}
+                  <Button
+                    variant='outline'
+                    type='button'
+                    className='flex items-center gap-2'
+                    disabled={isGoogleLoginPending}
+                    onClick={handleGoogleLogin}
+                  >
+                    <GoogleIcon className='fill-white' /> {t('googleLoginButton')}
                   </Button>
 
                   <FieldDescription className='text-center'>

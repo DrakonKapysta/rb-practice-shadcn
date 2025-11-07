@@ -41,7 +41,7 @@ export async function credentialsLogin(data: ILogin): Promise<ILoginResponse> {
 
     return { success: true }
   } catch (error) {
-    loggerUtil({ text: 'Error logging in', value: error })
+    loggerUtil({ text: 'Error logging in', value: error, level: 'error' })
 
     throw error
   }
@@ -68,7 +68,9 @@ export async function googleLogin(data: ICallbackResult) {
 
     return { success: true, result: response.data }
   } catch (error) {
-    loggerUtil({ text: 'Error logging in with Google', value: error })
+    loggerUtil({ text: 'Error logging in with Google', value: error, level: 'error' })
+
+    throw error
   }
 }
 
@@ -98,7 +100,7 @@ export async function credentialsRegister(registerData: IRegister): Promise<IReg
 
     return { success: true }
   } catch (error) {
-    loggerUtil({ text: 'Error registering user', value: error })
+    loggerUtil({ text: 'Error registering user', value: error, level: 'error' })
 
     throw error
   }
@@ -136,7 +138,7 @@ export async function logout(data: ICallbackResult): Promise<IResult<boolean>> {
 
     return { success: true, result: true }
   } catch (error) {
-    loggerUtil({ text: 'Error logging out', value: error })
+    loggerUtil({ text: 'Error logging out', value: error, level: 'error' })
 
     throw error
   }

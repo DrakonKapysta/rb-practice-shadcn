@@ -81,7 +81,7 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
   const onSubmit = async (data: IAccountBasicInfo) => {
     const normalizedData = AccountBasicInfoService.normalizeEmptyToNull(data)
 
-    const result = await updateUser({
+    await updateUser({
       ...normalizedData,
 
       successCallback: () => {
@@ -94,10 +94,6 @@ const AccountBasicInfoComponent: FC<Readonly<IProps>> = () => {
         toast.error(error.error.message || 'An error occurred while updating the user')
       },
     })
-
-    if (!result.success) {
-      return toast.error(result.error?.message || 'An error occurred while updating the user')
-    }
   }
 
   if (isLoading) {

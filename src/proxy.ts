@@ -7,7 +7,7 @@ import { routing } from '@/pkg/libraries/locale/routing'
 import { auth } from './pkg/integrations/better-auth'
 import { AuthUtil } from './pkg/utils/auth'
 
-const authRoutes = ['/login', '/register', '/auth', '/error']
+const authRoutes = ['/login', '/register', '/auth', '/error', '/forgot-password']
 
 const adminRoutes = ['/admin-dashboard']
 

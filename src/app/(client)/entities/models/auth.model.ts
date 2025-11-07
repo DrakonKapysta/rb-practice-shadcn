@@ -58,3 +58,13 @@ export interface IChangePassword extends ICallbackResult {
   newPassword: string
   revokeOtherSessions?: boolean
 }
+
+export interface IResetPasswordRequest extends ICallbackResult {
+  email: string
+  redirectTo?: string
+}
+
+export interface IResetPassword extends ICallbackResult {
+  token: string
+  password: string
+}

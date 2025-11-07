@@ -9,6 +9,7 @@ import { account, db, session, user, verification } from '@/pkg/libraries/drizzl
 
 import { fields } from './fields'
 import { accessControl, admin, super_admin, user as userPermission } from './permissions'
+import sendEmail from '@/pkg/libraries/nodemailer/send-email'
 
 const redis = envServer.NODE_ENV === 'development' ? new Redis() : undefined
 
@@ -39,6 +40,19 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail(
+        user.email,
+        'Reset your password',
+        `
+          <h2>Hello ${user.name || 'there'},</h2>
+          <p>You requested a password reset.</p>
+          <p>Click the link below to set a new password:</p>
+          <p><a href="${url}">${url}</a></p>
+          <p>If you didn’t request this, just ignore this email.</p>
+        `,
+      )
+    },
   },
   plugins: [
     nextCookies(),

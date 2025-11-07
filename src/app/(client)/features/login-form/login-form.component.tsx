@@ -123,6 +123,15 @@ const LoginFormComponent: FC<Readonly<IProps>> = (props) => {
                   )}
                 />
 
+                <div className='-mt-6 -mb-2 text-right'>
+                  <Link
+                    className='text-muted-foreground hover:text-foreground text-sm transition-colors'
+                    href={'/forgot-password'}
+                  >
+                    {t('forgotPassword')}
+                  </Link>
+                </div>
+
                 <Field>
                   <Button type='submit' disabled={isLoginProcessing}>
                     {isLoginProcessing ? <Spinner /> : t('loginButton')}

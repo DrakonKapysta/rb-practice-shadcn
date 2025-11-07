@@ -6,6 +6,8 @@ import {
   IChangePassword,
   ILogin,
   IRegister,
+  IResetPassword,
+  IResetPasswordRequest,
   IRevokeSessionQuery,
   IUpdateUser,
 } from '@/app/(client)/entities/models'
@@ -20,6 +22,8 @@ import {
   credentialsRegister,
   googleLogin,
   logout,
+  requestResetPassword,
+  resetPassword,
   revokeAllSessions,
   revokeOtherSessions,
   revokeSession,
@@ -64,6 +68,26 @@ export const logoutMutationOptions = () => {
 
     onError: (error) => {
       loggerUtil({ text: 'LogoutMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const requestResetPasswordMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: IResetPasswordRequest) => requestResetPassword(data),
+
+    onError: (error) => {
+      loggerUtil({ text: 'RequestResetPasswordMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const resetPasswordMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: IResetPassword) => resetPassword(data),
+
+    onError: (error) => {
+      loggerUtil({ text: 'ResetPasswordMutationOptions', value: error.message, level: 'error' })
     },
   })
 }

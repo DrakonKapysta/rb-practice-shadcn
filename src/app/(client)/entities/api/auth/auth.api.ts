@@ -7,6 +7,8 @@ import {
   ILoginResponse,
   IRegister,
   IRegisterResponse,
+  IResetPassword,
+  IResetPasswordRequest,
   IRevokeSessionQuery,
   IUpdateUser,
 } from '@/app/(client)/entities/models'
@@ -136,6 +138,66 @@ export async function logout(data: ICallbackResult): Promise<IResult<boolean>> {
   } catch (error) {
     loggerUtil({ text: 'Error logging out', value: error })
 
+    throw error
+  }
+}
+
+export async function requestResetPassword(data: IResetPasswordRequest) {
+  try {
+    const result = await authClient.requestPasswordReset(
+      {
+        email: data.email,
+        redirectTo: data.redirectTo,
+      },
+
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (result.error) {
+      return { success: false, error: { message: result.error.message, statusCode: result.error.code } }
+    }
+
+    return { success: true, result: result.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error sending reset password', value: error })
+    throw error
+  }
+}
+
+export async function resetPassword(data: IResetPassword) {
+  try {
+    const response = await authClient.resetPassword(
+      {
+        token: data.token,
+        newPassword: data.password,
+      },
+
+      {
+        onSuccess: () => {
+          data.successCallback?.()
+        },
+
+        onError: (error) => {
+          data.errorCallback?.(error)
+        },
+      },
+    )
+
+    if (response.error) {
+      return { success: false, error: { message: response.error.message, statusCode: response.error.code } }
+    }
+
+    return { success: true, result: response.data }
+  } catch (error) {
+    loggerUtil({ text: 'Error resetting password', value: error })
     throw error
   }
 }

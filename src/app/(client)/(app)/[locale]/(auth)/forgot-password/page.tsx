@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { FC, Suspense } from 'react'
 
-import { Link, routing } from '@/pkg/libraries/locale'
+import { routing } from '@/pkg/libraries/locale'
 import { ContainerComponent, Spinner } from '@/app/(client)/shared/ui'
 import { ForgotPasswordComponent } from '@/app/(client)/widgets/forgot-password'
 

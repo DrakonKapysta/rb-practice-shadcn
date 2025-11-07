@@ -7,7 +7,9 @@ import { routing } from '@/pkg/libraries/locale/routing'
 import { auth } from './pkg/integrations/better-auth'
 import { AuthUtil } from './pkg/utils/auth'
 
-const authRoutes = ['/login', '/register', '/auth', '/error', '/forgot-password']
+const authRoutes = ['/login', '/register', '/auth', '/error']
+
+const publicRoutes = ['/forgot-password']
 
 const adminRoutes = ['/admin-dashboard']
 
@@ -27,6 +29,12 @@ export async function proxy(req: NextRequest) {
   const isAuthRoute = authRoutes.includes(isLocaleProvided ? pathWithoutLocale : req.nextUrl.pathname)
 
   const isAdminRoute = adminRoutes.includes(isLocaleProvided ? pathWithoutLocale : req.nextUrl.pathname)
+
+  const isPublicRoute = publicRoutes.includes(isLocaleProvided ? pathWithoutLocale : req.nextUrl.pathname)
+
+  if (isPublicRoute) {
+    return i18nRes
+  }
 
   if (!session) {
     if (isAuthRoute) {

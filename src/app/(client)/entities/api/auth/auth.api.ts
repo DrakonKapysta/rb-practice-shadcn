@@ -167,7 +167,7 @@ export async function requestResetPassword(data: IResetPasswordRequest) {
 
     return { success: true, result: result.data }
   } catch (error) {
-    loggerUtil({ text: 'Error sending reset password', value: error })
+    loggerUtil({ text: 'Error sending reset password', value: error, level: 'error' })
     throw error
   }
 }

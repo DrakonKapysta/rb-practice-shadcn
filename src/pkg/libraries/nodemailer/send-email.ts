@@ -1,5 +1,4 @@
 import { envServer } from '@/config/env'
-import { loggerUtil } from '@/pkg/utils/logger'
 
 import mailer from './mailer'
 
@@ -12,11 +11,11 @@ const sendEmail = async (to: string, subject: string, html: string) => {
       html,
     })
 
-    loggerUtil({ text: 'Email sent', value: info })
+    console.log(info)
 
     return info
   } catch (error) {
-    loggerUtil({ text: 'Error sending email', value: error })
+    console.log(error)
 
     throw error
   }

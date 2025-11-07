@@ -24,10 +24,10 @@ import {
   PasswordField,
   ReminderComponent,
 } from '@/app/(client)/shared/ui'
+import { Link } from '@/pkg/libraries/locale'
 
 import { PASSWORD_REQUIREMENTS } from './account-change-password.constant'
 import { AccountChangePasswordSchema, IAccountChangePassword } from './account-change-password.interface'
-import { Link } from '@/pkg/libraries/locale'
 
 interface IProps {}
 

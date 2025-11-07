@@ -1,9 +1,14 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
-import { EmailFormSchema, IEmailForm } from '../../forgot-password.interface'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+
+import { requestResetPasswordMutationOptions } from '@/app/(client)/entities/api'
 import {
   Button,
   FieldGroup,
@@ -15,11 +20,9 @@ import {
   FormMessage,
   Input,
 } from '@/app/(client)/shared/ui'
-import { requestResetPasswordMutationOptions } from '@/app/(client)/entities/api'
-import { useMutation } from '@tanstack/react-query'
-import { toast } from 'sonner'
-import { useTranslations } from 'next-intl'
 import { Link } from '@/pkg/libraries/locale'
+
+import { EmailFormSchema, IEmailForm } from '../../forgot-password.interface'
 
 interface IProps {
   steps: string[]

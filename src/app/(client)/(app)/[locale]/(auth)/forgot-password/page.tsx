@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { setRequestLocale } from 'next-intl/server'
 import { FC, Suspense } from 'react'
 
-import { routing } from '@/pkg/libraries/locale'
 import { ContainerComponent, Spinner } from '@/app/(client)/shared/ui'
 import { ForgotPasswordComponent } from '@/app/(client)/widgets/forgot-password'
+import { routing } from '@/pkg/libraries/locale'
 
 interface IProps extends PageProps<'/[locale]/forgot-password'> {}
 

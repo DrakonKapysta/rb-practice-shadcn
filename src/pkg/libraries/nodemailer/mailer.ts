@@ -1,5 +1,6 @@
-import { envServer } from '@/config/env'
 import nodemailer from 'nodemailer'
+
+import { envServer } from '@/config/env'
 
 const mailer = nodemailer.createTransport({
   host: 'in-v3.mailjet.com',

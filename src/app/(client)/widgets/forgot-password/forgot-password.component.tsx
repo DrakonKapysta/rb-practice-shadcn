@@ -1,7 +1,9 @@
-import { FC } from 'react'
-import { EmailFormComponent, PasswordResetFormComponent } from './elements'
 import { getTranslations } from 'next-intl/server'
+import { FC } from 'react'
+
 import { NotFoundComponent } from '@/app/(client)/shared/ui'
+
+import { EmailFormComponent, PasswordResetFormComponent } from './elements'
 
 interface IProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>

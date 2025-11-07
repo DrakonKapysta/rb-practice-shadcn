@@ -1,6 +1,7 @@
-import { loggerUtil } from '@/pkg/utils/logger'
-import mailer from './mailer'
 import { envServer } from '@/config/env'
+import { loggerUtil } from '@/pkg/utils/logger'
+
+import mailer from './mailer'
 
 const sendEmail = async (to: string, subject: string, html: string) => {
   try {

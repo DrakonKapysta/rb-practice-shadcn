@@ -6,10 +6,10 @@ import { Redis } from 'ioredis'
 
 import { envServer } from '@/config/env'
 import { account, db, session, user, verification } from '@/pkg/libraries/drizzle'
+import sendEmail from '@/pkg/libraries/nodemailer/send-email'
 
 import { fields } from './fields'
 import { accessControl, admin, super_admin, user as userPermission } from './permissions'
-import sendEmail from '@/pkg/libraries/nodemailer/send-email'
 
 const redis = envServer.NODE_ENV === 'development' ? new Redis() : undefined
 

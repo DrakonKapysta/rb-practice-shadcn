@@ -1,10 +1,14 @@
 'use client'
 
-import { type FC } from 'react'
 import { useTranslations } from 'next-intl'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+
+import { resetPasswordMutationOptions } from '@/app/(client)/entities/api'
 import {
   Badge,
   Button,
@@ -24,11 +28,9 @@ import {
   Separator,
   Spinner,
 } from '@/app/(client)/shared/ui'
-import { PasswordResetFormSchema, type IPasswordResetForm } from '../../forgot-password.interface'
-import { useMutation } from '@tanstack/react-query'
-import { resetPasswordMutationOptions } from '@/app/(client)/entities/api'
-import { toast } from 'sonner'
 import { useRouter } from '@/pkg/libraries/locale'
+
+import { type IPasswordResetForm, PasswordResetFormSchema } from '../../forgot-password.interface'
 
 interface IProps {
   token: string | string[] | undefined

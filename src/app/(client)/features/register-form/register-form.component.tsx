@@ -1,20 +1,23 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { ErrorContext } from 'better-auth/react'
+import { CheckCircle2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { FC, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
-
 import { registerMutationOptions } from '@/app/(client)/entities/api'
+import { GoogleIcon } from '@/app/(client)/shared/assets'
 import {
+  Badge,
   Button,
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
   Field,
@@ -27,11 +30,12 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  PasswordField,
+  Separator,
   Spinner,
 } from '@/app/(client)/shared/ui'
 import { Link, useRouter } from '@/pkg/libraries/locale'
 import { cn } from '@/pkg/utils/ui'
-
 import { IRegisterForm, RegisterFormSchema } from './register-form.interface'
 
 interface IProps extends React.ComponentProps<typeof Card> {}
@@ -81,103 +85,156 @@ const RegisterFormComponent: FC<Readonly<IProps>> = (props) => {
   const isRegisterProcessing = isPending || isTransition
 
   return (
-    <Card className={cn('flex w-full max-w-sm flex-col gap-6', className)} {...rest}>
-      <CardHeader>
-        <CardTitle>{t('title')}</CardTitle>
+    <div
+      className={cn(
+        'border-border/50 bg-background/70 shadow-primary/5 ring-border/60 relative flex w-full max-w-2xl flex-col gap-6 rounded-3xl border p-1 shadow-xl ring-1 backdrop-blur',
+        className,
+      )}
+      {...rest}
+    >
+      <div className='pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-[26px]'>
+        <div className='bg-primary/10 absolute top-16 -left-20 h-56 w-56 rounded-full blur-3xl' />
+        <div className='bg-secondary/50 absolute -right-24 bottom-8 h-44 w-44 rounded-full blur-3xl' />
+      </div>
 
-        <CardDescription>{t('description')}</CardDescription>
-      </CardHeader>
+      <Card className='border-none bg-transparent shadow-none'>
+        <CardHeader className='space-y-6'>
+          <div className='flex flex-col gap-3 text-center'>
+            <Badge variant='outline' className='border-primary/30 bg-primary/10 text-primary mx-auto w-fit'>
+              {t('welcomeBadge')}
+            </Badge>
 
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FieldGroup>
-              <FormField
-                control={form.control}
-                name='name'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('name')}</FormLabel>
+            <div className='space-y-2'>
+              <CardTitle className='text-2xl font-semibold tracking-tight text-balance sm:text-3xl'>
+                {t('title')}
+              </CardTitle>
 
-                    <FormControl>
-                      <Input placeholder={t('namePlaceholder')} {...field} />
-                    </FormControl>
+              <CardDescription className='text-muted-foreground text-base'>{t('description')}</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+        <CardContent className='space-y-6'>
+          <Form {...form}>
+            <form className='space-y-6' onSubmit={form.handleSubmit(onSubmit)}>
+              <FieldGroup className='space-y-6'>
+                <div className='grid items-start gap-4 sm:grid-cols-2'>
+                  <FormField
+                    control={form.control}
+                    name='name'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className='text-foreground text-sm font-medium'>{t('name')}</FormLabel>
 
-              <FormField
-                control={form.control}
-                name='email'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('email')}</FormLabel>
+                        <FormControl>
+                          <Input className='h-11' placeholder={t('namePlaceholder')} {...field} />
+                        </FormControl>
 
-                    <FormControl>
-                      <Input placeholder={t('emailPlaceholder')} {...field} />
-                    </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                    <FieldDescription>{t('emailDescription')}</FieldDescription>
+                  <FormField
+                    control={form.control}
+                    name='email'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className='text-foreground text-sm font-medium'>{t('email')}</FormLabel>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                        <FormControl>
+                          <Input className='h-11' placeholder={t('emailPlaceholder')} {...field} />
+                        </FormControl>
 
-              <FormField
-                control={form.control}
-                name='password'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('password')}</FormLabel>
+                        <FieldDescription className='text-muted-foreground text-xs'>
+                          {t('emailDescription')}
+                        </FieldDescription>
 
-                    <FormControl>
-                      <Input type='password' placeholder={t('passwordPlaceholder')} {...field} />
-                    </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <div className='grid items-start gap-4 sm:grid-cols-2'>
+                  <FormField
+                    control={form.control}
+                    name='password'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className='text-foreground text-sm font-medium'>{t('password')}</FormLabel>
 
-              <FormField
-                control={form.control}
-                name='confirmPassword'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('confirmPassword')}</FormLabel>
+                        <FormControl>
+                          <PasswordField
+                            {...field}
+                            id='password'
+                            className='h-11'
+                            placeholder={t('passwordPlaceholder')}
+                          />
+                        </FormControl>
 
-                    <FormControl>
-                      <Input type='password' placeholder={t('confirmPasswordPlaceholder')} {...field} />
-                    </FormControl>
+                        <FieldDescription className='text-muted-foreground text-xs'>
+                          {t('passwordHelper')}
+                        </FieldDescription>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FieldGroup>
-                <Field>
-                  <Button type='submit' disabled={isRegisterProcessing}>
+                  <FormField
+                    control={form.control}
+                    name='confirmPassword'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className='text-foreground text-sm font-medium'>{t('confirmPassword')}</FormLabel>
+
+                        <FormControl>
+                          <Input
+                            className='h-11'
+                            placeholder={t('confirmPasswordPlaceholder')}
+                            type='password'
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <Field className='space-y-2'>
+                  <Button className='h-11 text-base font-semibold' type='submit' disabled={isRegisterProcessing}>
                     {isRegisterProcessing ? <Spinner /> : t('createAccountButton')}
                   </Button>
-
-                  <Button variant='outline' type='button' disabled={true}>
-                    {t('googleSignUpButton')}
-                  </Button>
-
-                  <FieldDescription className='px-6 text-center'>
-                    {t('hasAccount')} <Link href='/login'>{t('signIn')}</Link>
-                  </FieldDescription>
                 </Field>
               </FieldGroup>
-            </FieldGroup>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+            </form>
+          </Form>
+        </CardContent>
+
+        <CardFooter className='flex flex-col gap-4'>
+          <FieldDescription className='text-foreground text-center text-sm'>
+            {t('hasAccount')}{' '}
+            <Link className='text-primary hover:text-primary/80 font-semibold' href='/login'>
+              {t('signIn')}
+            </Link>
+          </FieldDescription>
+
+          <p className='text-muted-foreground text-center text-xs'>
+            {t('legal.disclaimer')}{' '}
+            <Link className='text-primary hover:text-primary/80 font-medium transition-colors' href='/terms'>
+              {t('legal.terms')}
+            </Link>{' '}
+            ·{' '}
+            <Link className='text-primary hover:text-primary/80 font-medium transition-colors' href='/privacy'>
+              {t('legal.privacy')}
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
+    </div>
   )
 }
 

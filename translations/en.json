@@ -35,6 +35,19 @@
     "noAccount": "Don't have an account?",
     "forgotPassword": "Forgot password?",
     "signUp": "Sign up",
+    "helper": "We keep your data encrypted and only use it to sign you in.",
+    "welcomeBadge": "Welcome back",
+    "dividerLabel": "or continue with",
+    "benefits": {
+      "security": "Enterprise-grade security keeps your credentials safe.",
+      "sync": "Stay in sync across devices with instant refresh.",
+      "support": "Personalized insights help you pick up where you left off."
+    },
+    "legal": {
+      "disclaimer": "By continuing, you agree to our",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    },
     "validation": {
       "invalidEmail": "Invalid email address",
       "passwordMinLength": "Password must be at least 8 characters long"
@@ -56,6 +69,20 @@
     "googleSignUpButton": "Sign up with Google",
     "hasAccount": "Already have an account?",
     "signIn": "Sign in",
+    "helper": "Password must include at least one uppercase letter, number, and symbol.",
+    "passwordHelper": "Use a unique phrase that you can easily remember but others can't guess.",
+    "welcomeBadge": "Create your account",
+    "dividerLabel": "or sign up with",
+    "benefits": {
+      "profile": "Craft a rich profile that highlights what matters to you.",
+      "security": "Multi-layer security keeps your information protected.",
+      "community": "Join a vibrant community and get personalized recommendations."
+    },
+    "legal": {
+      "disclaimer": "By continuing, you agree to our",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    },
     "validation": {
       "nameMinLength": "Name must be at least 2 characters long",
       "invalidEmail": "Invalid email address",

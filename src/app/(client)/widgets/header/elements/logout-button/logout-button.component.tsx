@@ -31,7 +31,7 @@ const LogoutButtonComponent: FC<Readonly<IProps>> = (props) => {
   const handleLogout = async () => {
     await logout({
       successCallback: () => {
-        router.push('/login')
+        router.push('/admin-dashboard')
 
         onClose()
       },

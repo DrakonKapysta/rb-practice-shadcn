@@ -1,16 +1,15 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
 import { ErrorContext } from 'better-auth/react'
-import { CheckCircle2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { FC, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+
 import { registerMutationOptions } from '@/app/(client)/entities/api'
-import { GoogleIcon } from '@/app/(client)/shared/assets'
 import {
   Badge,
   Button,
@@ -31,11 +30,11 @@ import {
   FormMessage,
   Input,
   PasswordField,
-  Separator,
   Spinner,
 } from '@/app/(client)/shared/ui'
 import { Link, useRouter } from '@/pkg/libraries/locale'
 import { cn } from '@/pkg/utils/ui'
+
 import { IRegisterForm, RegisterFormSchema } from './register-form.interface'
 
 interface IProps extends React.ComponentProps<typeof Card> {}

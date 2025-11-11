@@ -39,6 +39,10 @@ const nextConfig: NextConfig = {
   experimental: {
     turbopackFileSystemCacheForDev: true,
 
+    staleTimes: {
+      dynamic: 60,
+    },
+
     optimizeServerReact: true,
     optimizePackageImports: [
       'zod',

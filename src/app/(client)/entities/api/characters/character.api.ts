@@ -1,5 +1,6 @@
 'use server'
 
+import { cacheLife, cacheTag } from 'next/cache'
 import * as qs from 'qs-esm'
 
 import { QueryFunctionContext } from '@tanstack/react-query'
@@ -7,7 +8,6 @@ import { QueryFunctionContext } from '@tanstack/react-query'
 import { ICharacter, ICharacterFilters, ICharactersResponse } from '@/app/(client)/entities/models'
 import { restApiFetcher } from '@/pkg/libraries/rest-api'
 import { loggerUtil } from '@/pkg/utils/logger'
-import { cacheLife, cacheTag } from 'next/cache'
 
 export async function getCharacters(
   filters?: ICharacterFilters,
@@ -44,8 +44,6 @@ export async function getCharacterById(id: number, options?: QueryFunctionContex
 
   try {
     const data = await restApiFetcher.get(`character/${id}`, fetchOpts).json<ICharacter>()
-
-    loggerUtil({ text: 'Character fetched', value: data, isActiveOnProd: true })
 
     return data
   } catch (error) {

@@ -1,7 +1,8 @@
 import { isMobilePhone } from 'validator'
 import z from 'zod'
 
-export const AccountBasicInfoSchema = z.object({
+export const AccountBasicInfoFormSchema = z.object({
+  email: z.email({ message: 'Invalid email address' }).optional(),
   phoneNumber: z
     .string()
     .optional()
@@ -14,4 +15,4 @@ export const AccountBasicInfoSchema = z.object({
   name: z.string().optional(),
 })
 
-export type IAccountBasicInfo = z.infer<typeof AccountBasicInfoSchema>
+export type IAccountBasicInfoForm = z.infer<typeof AccountBasicInfoFormSchema>

@@ -1,4 +1,4 @@
-export class AccountBasicInfoService {
+export class AccountBasicInfoFormService {
   static normalizeEmptyToNull<T extends Record<string, unknown>>(obj: T): T {
     const normalized = { ...obj }
 

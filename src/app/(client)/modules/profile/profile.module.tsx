@@ -1,13 +1,13 @@
 import { useLocale, useTranslations } from 'next-intl'
 import { FC, Suspense } from 'react'
 
+import { AccountBasicInfoFormComponent } from '@/app/(client)/features/account-basic-info-form'
+import { UserSessionWrapperComponent } from '@/app/(client)/features/user-session-wrapper'
 import { ScrollArea, ScrollBar, Spinner, Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/(client)/shared/ui'
 import { AccountBasicInfoComponent } from '@/app/(client)/widgets/account-basic-info'
 import { AccountChangePasswordComponent } from '@/app/(client)/widgets/account-change-password'
 import { AccountEmailChangeComponent } from '@/app/(client)/widgets/account-email-change'
 import { AccountSessionsComponent } from '@/app/(client)/widgets/account-sessions'
-
-import { AccountBasicInfoWrapperComponent } from '@/app/(client)/widgets/account-basic-info/elements/account-basic-info-wrapper'
 
 interface IProps {}
 
@@ -34,7 +34,9 @@ const ProfileModule: FC<Readonly<IProps>> = () => {
       <TabsContent value='basic-info' className='flex flex-1'>
         <AccountBasicInfoComponent locale={locale}>
           <Suspense fallback={<Spinner className='mx-auto h-10 w-10 flex-1 items-center' />}>
-            <AccountBasicInfoWrapperComponent />
+            <UserSessionWrapperComponent>
+              {(data) => <AccountBasicInfoFormComponent defaultValues={data?.user} />}
+            </UserSessionWrapperComponent>
           </Suspense>
         </AccountBasicInfoComponent>
       </TabsContent>

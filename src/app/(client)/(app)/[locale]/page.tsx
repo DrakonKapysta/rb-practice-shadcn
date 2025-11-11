@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { setRequestLocale } from 'next-intl/server'
-import { FC } from 'react'
+import { FC, Suspense } from 'react'
 
 import { HomeModule } from '@/app/(client)/modules/home'
+import { Spinner } from '@/app/(client)/shared/ui'
 import { routing } from '@/pkg/libraries/locale'
 
 interface IProps extends PageProps<'/[locale]'> {}
@@ -54,6 +55,10 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
   setRequestLocale(locale)
 
-  return <HomeModule />
+  return (
+    <Suspense fallback={<Spinner className='mx-auto h-16 w-16 flex-1 items-center' />}>
+      <HomeModule />
+    </Suspense>
+  )
 }
 export default Page

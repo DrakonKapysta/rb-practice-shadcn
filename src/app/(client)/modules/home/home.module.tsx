@@ -1,4 +1,3 @@
-'use cache: private'
 import { cacheLife, cacheTag } from 'next/cache'
 import { type FC, Suspense } from 'react'
 
@@ -11,6 +10,7 @@ import { CharacterSearchComponent } from '@/app/(client)/widgets/character-searc
 interface IProps {}
 
 const HomeModule: FC<Readonly<IProps>> = async () => {
+  'use cache: private'
   cacheLife({ stale: 60 })
   cacheTag('home')
 

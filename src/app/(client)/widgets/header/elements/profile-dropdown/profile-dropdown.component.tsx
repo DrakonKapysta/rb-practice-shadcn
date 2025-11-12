@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/app/(client)/shared/ui'
-import { authClient } from '@/pkg/integrations/better-auth/auth-client'
+import { Session } from '@/pkg/integrations/better-auth'
 import { Link } from '@/pkg/libraries/locale'
 import { AuthUtil } from '@/pkg/utils/auth'
 import { cn } from '@/pkg/utils/ui'
@@ -24,12 +24,12 @@ import { ProfileTriggerButtonComponent } from '../profile-trigger-button'
 interface ProfileDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   data?: Profile
   showTopbar?: boolean
+  session?: Session | null
 }
 
-export default function ProfileDropdownComponent({ className, ...props }: ProfileDropdownProps) {
+const ProfileDropdownComponent: React.FC<Readonly<ProfileDropdownProps>> = (props) => {
+  const { className, session, ...rest } = props
   const [isOpen, setIsOpen] = React.useState(false)
-
-  const { data: session } = authClient.useSession()
 
   if (!session) return null
 
@@ -42,7 +42,7 @@ export default function ProfileDropdownComponent({ className, ...props }: Profil
         },
         className,
       )}
-      {...props}
+      {...rest}
     >
       <DropdownMenu onOpenChange={setIsOpen} modal={false} open={isOpen}>
         <div className='group relative'>
@@ -115,3 +115,5 @@ export default function ProfileDropdownComponent({ className, ...props }: Profil
     </div>
   )
 }
+
+export default ProfileDropdownComponent

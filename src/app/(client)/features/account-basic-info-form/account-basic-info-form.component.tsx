@@ -5,9 +5,12 @@ import { CalendarIcon, Mail, MapPin, Phone, User } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 
+import { updateUserOnServerMutationOptions } from '@/app/(client)/entities/api'
 import {
   Button,
   Calendar,
@@ -28,6 +31,7 @@ import {
   SelectValue,
 } from '@/app/(client)/shared/ui'
 import { Session } from '@/pkg/integrations/better-auth'
+import { useRouter } from '@/pkg/libraries/locale'
 
 import { AccountBasicInfoFormSchema, IAccountBasicInfoForm } from './account-basic-info-form.interface'
 import { AccountBasicInfoFormService } from './accout-basic-info-form.service'
@@ -41,9 +45,12 @@ const AccountBasicInfoFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const t = useTranslations('profile')
 
+  const { mutateAsync: updateUser, isPending } = useMutation(updateUserOnServerMutationOptions())
+
+  const router = useRouter()
+
   const form = useForm<IAccountBasicInfoForm>({
     defaultValues: {
-      email: defaultValues?.email ?? '',
       name: defaultValues?.name ?? '',
       surname: defaultValues?.surname ?? '',
       phoneNumber: defaultValues?.phoneNumber ?? '',
@@ -57,7 +64,15 @@ const AccountBasicInfoFormComponent: FC<Readonly<IProps>> = (props) => {
 
   const onSubmit = async (data: IAccountBasicInfoForm) => {
     const normalizedData = AccountBasicInfoFormService.normalizeEmptyToNull(data)
-    // console.log(normalizedData)
+    const result = await updateUser(normalizedData)
+
+    if (!result.success) {
+      return toast.error(result.error?.message || 'An error occurred while updating the user')
+    }
+
+    router.refresh()
+
+    toast.success('User updated successfully')
   }
 
   return (
@@ -144,9 +159,7 @@ const AccountBasicInfoFormComponent: FC<Readonly<IProps>> = (props) => {
 
                             <SelectItem value='other'>{t('accountBasicInfo.genderOther')}</SelectItem>
 
-                            <SelectItem value='prefer-not-to-say'>
-                              {t('accountBasicInfo.genderPreferNotToSay')}
-                            </SelectItem>
+                            <SelectItem value='preferNotToSay'>{t('accountBasicInfo.genderPreferNotToSay')}</SelectItem>
                           </SelectContent>
                         </Select>
                       </FormControl>
@@ -199,30 +212,24 @@ const AccountBasicInfoFormComponent: FC<Readonly<IProps>> = (props) => {
 
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
               <div className='space-y-2'>
-                <FormField
-                  control={form.control}
-                  name='phoneNumber'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className='flex items-center gap-2'>
-                        <Mail className='text-muted-foreground h-4 w-4' />
-                        {t('accountBasicInfo.email')}
-                      </FormLabel>
+                <FormItem>
+                  <FormLabel className='flex items-center gap-2'>
+                    <Mail className='text-muted-foreground h-4 w-4' />
+                    {t('accountBasicInfo.email')}
+                  </FormLabel>
 
-                      <FormControl>
-                        <Input
-                          id='email'
-                          type='email'
-                          placeholder={t('accountBasicInfo.emailPlaceholder')}
-                          disabled
-                          {...field}
-                        />
-                      </FormControl>
+                  <FormControl>
+                    <Input
+                      id='email'
+                      type='email'
+                      placeholder={t('accountBasicInfo.emailPlaceholder')}
+                      disabled
+                      value={defaultValues?.email}
+                    />
+                  </FormControl>
 
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormMessage />
+                </FormItem>
               </div>
 
               <div className='space-y-2'>
@@ -276,7 +283,9 @@ const AccountBasicInfoFormComponent: FC<Readonly<IProps>> = (props) => {
         </div>
 
         <div className='flex justify-end gap-3 border-t pt-6'>
-          <Button type='submit'>{t('accountBasicInfo.saveChanges')}</Button>
+          <Button disabled={isPending} type='submit'>
+            {t('accountBasicInfo.saveChanges')}
+          </Button>
         </div>
       </form>
     </Form>

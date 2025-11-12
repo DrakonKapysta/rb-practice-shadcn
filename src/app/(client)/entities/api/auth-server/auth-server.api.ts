@@ -1,8 +1,10 @@
 'use server'
 
+import { format } from 'date-fns'
 import { cacheLife, cacheTag } from 'next/cache'
 import { headers } from 'next/headers'
 
+import { IUpdateUser } from '@/app/(client)/entities/models'
 import { auth } from '@/pkg/integrations/better-auth'
 import { redirect, routing } from '@/pkg/libraries/locale'
 import { loggerUtil } from '@/pkg/utils/logger'
@@ -23,4 +25,33 @@ export async function getSession() {
   }
 
   redirect({ href: '/login', locale: routing.defaultLocale })
+}
+
+export async function updateUserOnServer(data: IUpdateUser) {
+  try {
+    const response: { status: boolean; message?: string } = await auth.api.updateUser({
+      body: {
+        name: data.name ?? undefined,
+        surname: data.surname ?? undefined,
+        phoneNumber: data.phoneNumber ?? undefined,
+        address: data.address ?? undefined,
+        country: data.country ?? undefined,
+        birthDate: data.birthDate
+          ? (new Date(format(data.birthDate, 'yyyy-MM-dd')).toISOString() as unknown as Date)
+          : undefined,
+        gender: data.gender ?? undefined,
+      },
+      headers: await headers(),
+    })
+
+    if (!response.status) {
+      return { success: false, error: { message: response.message || 'Failed to update user' } }
+    }
+
+    return { success: true, result: response.status }
+  } catch (error) {
+    loggerUtil({ text: 'AuthServerApi.updateUser', value: error, level: 'error' })
+
+    return { success: false, error: { message: 'Failed to update user' }, statusCode: 500 }
+  }
 }

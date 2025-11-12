@@ -1,6 +1,8 @@
 import { CogIcon } from 'lucide-react'
-import { FC } from 'react'
+import { FC, Suspense } from 'react'
 
+import { UserSessionWrapperComponent } from '@/app/(client)/features/user-session-wrapper'
+import { Skeleton } from '@/app/(client)/shared/ui'
 import { ProfileDropdownComponent } from '@/app/(client)/widgets/header/elements'
 import { Link } from '@/pkg/libraries/locale'
 
@@ -14,8 +16,11 @@ const HeaderComponent: FC<Readonly<IProps>> = async () => {
           <CogIcon size={48} />
         </Link>
       </div>
-
-      <ProfileDropdownComponent />
+      <Suspense fallback={<Skeleton className='h-10 w-40' />}>
+        <UserSessionWrapperComponent>
+          {(data) => <ProfileDropdownComponent session={data} />}
+        </UserSessionWrapperComponent>
+      </Suspense>
     </nav>
   )
 }

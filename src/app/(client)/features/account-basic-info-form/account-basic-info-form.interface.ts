@@ -2,7 +2,6 @@ import { isMobilePhone } from 'validator'
 import z from 'zod'
 
 export const AccountBasicInfoFormSchema = z.object({
-  email: z.email({ message: 'Invalid email address' }).optional(),
   phoneNumber: z
     .string()
     .optional()

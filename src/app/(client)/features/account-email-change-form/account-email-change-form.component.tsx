@@ -60,6 +60,10 @@ const AccountEmailChangeFormComponent: FC<Readonly<IProps>> = (props) => {
     }
 
     toast.success('Email changed successfully')
+
+    form.setValue('currentEmail', data.newEmail)
+
+    form.setValue('newEmail', '')
   }
 
   return (

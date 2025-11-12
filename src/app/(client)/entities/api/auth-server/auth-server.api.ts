@@ -65,6 +65,27 @@ export async function updateUserOnServer(data: IUpdateUser) {
   } catch (error) {
     loggerUtil({ text: 'AuthServerApi.updateUser', value: error, level: 'error' })
 
-    return { success: false, error: { message: 'Failed to update user' }, statusCode: 500 }
+    return { success: false, error: { message: (error as Error).message }, statusCode: 500 }
+  }
+}
+
+export async function changeEmailOnServer(newEmail: string) {
+  try {
+    const response: { status: boolean; message?: string } = await auth.api.changeEmail({
+      body: {
+        newEmail,
+      },
+      headers: await headers(),
+    })
+
+    if (!response.status) {
+      return { success: false, error: { message: response.message || 'Failed to change email' } }
+    }
+
+    return { success: true, result: response }
+  } catch (error) {
+    loggerUtil({ text: 'AuthServerApi.changeEmail', value: error, level: 'error' })
+
+    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
   }
 }

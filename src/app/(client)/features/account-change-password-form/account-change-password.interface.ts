@@ -1,6 +1,6 @@
 import z from 'zod'
 
-export const AccountChangePasswordSchema = z
+export const AccountChangePasswordFormSchema = z
   .object({
     currentPassword: z.string().min(1, { message: 'Current password is required' }),
     newPassword: z.string().min(1, { message: 'New password is required' }),
@@ -12,4 +12,4 @@ export const AccountChangePasswordSchema = z
     message: 'Passwords do not match',
   })
 
-export type IAccountChangePassword = z.infer<typeof AccountChangePasswordSchema>
+export type IAccountChangePasswordForm = z.infer<typeof AccountChangePasswordFormSchema>

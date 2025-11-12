@@ -33,6 +33,8 @@ const LogoutButtonComponent: FC<Readonly<IProps>> = (props) => {
       successCallback: () => {
         router.push('/admin-dashboard')
 
+        router.refresh()
+
         onClose()
       },
     })

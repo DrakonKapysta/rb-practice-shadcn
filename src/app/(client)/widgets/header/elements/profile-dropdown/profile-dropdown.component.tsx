@@ -3,6 +3,7 @@
 import { Table, User } from 'lucide-react'
 import * as React from 'react'
 
+import { clearSession } from '@/app/(client)/entities/api'
 import {
   Badge,
   DropdownMenu,
@@ -30,6 +31,12 @@ interface ProfileDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
 const ProfileDropdownComponent: React.FC<Readonly<ProfileDropdownProps>> = (props) => {
   const { className, session, ...rest } = props
   const [isOpen, setIsOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!session) {
+      clearSession()
+    }
+  }, [session])
 
   if (!session) return null
 

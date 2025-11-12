@@ -1,7 +1,7 @@
 import { mutationOptions } from '@tanstack/react-query'
 
-import { changeEmailOnServer, updateUserOnServer } from '@/app/(client)/entities/api'
-import { IUpdateUser } from '@/app/(client)/entities/models'
+import { changeEmailOnServer, changePasswordOnServer, updateUserOnServer } from '@/app/(client)/entities/api'
+import { IChangePassword, IUpdateUser } from '@/app/(client)/entities/models'
 import { loggerUtil } from '@/pkg/utils/logger'
 
 export const updateUserOnServerMutationOptions = () => {
@@ -20,6 +20,16 @@ export const changeEmailOnServerMutationOptions = () => {
 
     onError: (error) => {
       loggerUtil({ text: 'ChangeEmailOnServerMutationOptions', value: error.message, level: 'error' })
+    },
+  })
+}
+
+export const changePasswordOnServerMutationOptions = () => {
+  return mutationOptions({
+    mutationFn: (data: IChangePassword) => changePasswordOnServer(data),
+
+    onError: (error) => {
+      loggerUtil({ text: 'ChangePasswordOnServerMutationOptions', value: error.message, level: 'error' })
     },
   })
 }

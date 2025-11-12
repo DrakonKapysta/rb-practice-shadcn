@@ -5,8 +5,8 @@ import { cacheLife, cacheTag, updateTag } from 'next/cache'
 import { cookies, headers } from 'next/headers'
 import { getLocale } from 'next-intl/server'
 
-import { IUpdateUser } from '@/app/(client)/entities/models'
-import { auth } from '@/pkg/integrations/better-auth'
+import { IChangePassword, IUpdateUser } from '@/app/(client)/entities/models'
+import { auth, Session } from '@/pkg/integrations/better-auth'
 import { redirect } from '@/pkg/libraries/locale'
 import { loggerUtil } from '@/pkg/utils/logger'
 
@@ -85,6 +85,30 @@ export async function changeEmailOnServer(newEmail: string) {
     return { success: true, result: response }
   } catch (error) {
     loggerUtil({ text: 'AuthServerApi.changeEmail', value: error, level: 'error' })
+
+    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
+  }
+}
+
+export async function changePasswordOnServer(data: IChangePassword) {
+  try {
+    const response = (await auth.api.changePassword({
+      body: {
+        currentPassword: data.password,
+        newPassword: data.newPassword,
+        revokeOtherSessions: data.revokeOtherSessions,
+      },
+
+      headers: await headers(),
+    })) as { token: string | null; user: Session['user'] } | { message: string }
+
+    if ('message' in response) {
+      return { success: false, error: { message: response.message || 'Failed to change password' } }
+    }
+
+    return { success: true, result: response }
+  } catch (error) {
+    loggerUtil({ text: 'AuthServerApi.changePassword', value: error, level: 'error' })
 
     return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
   }

@@ -9,7 +9,7 @@ import { toast } from 'sonner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
-import { authChangePasswordMutationOptions } from '@/app/(client)/entities/api'
+import { changePasswordOnServerMutationOptions } from '@/app/(client)/entities/api'
 import {
   Button,
   Checkbox,
@@ -22,6 +22,7 @@ import {
   FormMessage,
   PasswordField,
 } from '@/app/(client)/shared/ui'
+import { useRouter } from '@/pkg/libraries/locale'
 
 import { PASSWORD_REQUIREMENTS } from './account-change-password.constant'
 import { AccountChangePasswordFormSchema, IAccountChangePasswordForm } from './account-change-password.interface'
@@ -32,8 +33,10 @@ const AccountChangePasswordFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('profile.accountChangePassword')
 
   const { mutateAsync: changePassword, isPending: isChangingPassword } = useMutation(
-    authChangePasswordMutationOptions(),
+    changePasswordOnServerMutationOptions(),
   )
+
+  const router = useRouter()
 
   const form = useForm<IAccountChangePasswordForm>({
     defaultValues: {
@@ -46,21 +49,23 @@ const AccountChangePasswordFormComponent: FC<Readonly<IProps>> = () => {
   })
 
   const onSubmit = async (data: IAccountChangePasswordForm) => {
-    await changePassword({
+    const result = await changePassword({
       password: data.currentPassword,
+
       newPassword: data.newPassword,
-      revokeOtherSessions: true,
 
-      successCallback: () => {
-        toast.success('Password changed successfully')
-
-        form.reset()
-      },
-
-      errorCallback: (error) => {
-        toast.error(error.error.message || 'An error occurred while changing the password')
-      },
+      revokeOtherSessions: data.revokeOtherSessions,
     })
+
+    if (!result?.success || result.error) {
+      return toast.error(result?.error?.message || 'Failed to change password')
+    }
+
+    toast.success('Password changed successfully')
+
+    router.refresh()
+
+    form.reset()
   }
 
   return (

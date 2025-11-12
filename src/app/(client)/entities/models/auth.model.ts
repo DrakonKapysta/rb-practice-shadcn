@@ -56,7 +56,7 @@ export interface IChangeEmail extends ICallbackResult {
 export interface IChangePassword extends ICallbackResult {
   password: string
   newPassword: string
-  revokeOtherSessions?: boolean
+  revokeOtherSessions: boolean
 }
 
 export interface IResetPasswordRequest extends ICallbackResult {

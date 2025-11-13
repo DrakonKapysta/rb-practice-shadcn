@@ -343,7 +343,8 @@ declare const messages: {
       "toast": {
         "allSessionsRevokedSuccessfully": "Всі сесії успішно скасовано",
         "otherSessionsRevokedSuccessfully": "Інші сесії успішно скасовано",
-        "sessionRevokedSuccessfully": "Сесію успішно скасовано"
+        "sessionRevokedSuccessfully": "Сесію успішно скасовано",
+        "sessionRevokeFailed": "Не вдалося скасувати сесію"
       },
       "session": "Сесія",
       "currentSession": "Поточна сесія",

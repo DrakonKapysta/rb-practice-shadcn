@@ -113,3 +113,78 @@ export async function changePasswordOnServer(data: IChangePassword) {
     return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
   }
 }
+
+export async function listSessionsOnServer() {
+  try {
+    const response = await auth.api.listSessions({
+      headers: await headers(),
+    })
+
+    if ('message' in response) {
+      return { success: false, error: { message: response.message || 'Failed to list sessions' } }
+    }
+
+    return { success: true, result: response }
+  } catch (error) {
+    loggerUtil({ text: 'AuthServerApi.listSessions', value: error, level: 'error' })
+
+    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
+  }
+}
+
+export async function revokeSessionOnServer(sessionToken: string) {
+  try {
+    const response = await auth.api.revokeSession({
+      body: {
+        token: sessionToken,
+      },
+      headers: await headers(),
+    })
+
+    if ('message' in response && typeof response.message === 'string') {
+      return { success: false, error: { message: response.message || 'Failed to revoke session' } }
+    }
+
+    return { success: true, result: response }
+  } catch (error) {
+    loggerUtil({ text: 'AuthServerApi.revokeSession', value: error, level: 'error' })
+
+    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
+  }
+}
+
+export async function revokeAllSessionsOnServer() {
+  try {
+    const response = await auth.api.revokeSessions({
+      headers: await headers(),
+    })
+
+    if ('message' in response && typeof response.message === 'string') {
+      return { success: false, error: { message: response.message || 'Failed to revoke all sessions' } }
+    }
+
+    return { success: true, result: response }
+  } catch (error) {
+    loggerUtil({ text: 'AuthServerApi.revokeAllSessions', value: error, level: 'error' })
+
+    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
+  }
+}
+
+export async function revokeOtherSessionsOnServer() {
+  try {
+    const response = await auth.api.revokeOtherSessions({
+      headers: await headers(),
+    })
+
+    if ('message' in response && typeof response.message === 'string') {
+      return { success: false, error: { message: response.message || 'Failed to revoke other sessions' } }
+    }
+
+    return { success: true, result: response }
+  } catch (error) {
+    loggerUtil({ text: 'AuthServerApi.revokeOtherSessions', value: error, level: 'error' })
+
+    return { success: false, error: { message: (error as Error).message, statusCode: 500 } }
+  }
+}

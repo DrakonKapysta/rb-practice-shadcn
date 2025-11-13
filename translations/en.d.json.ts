@@ -343,7 +343,8 @@ declare const messages: {
       "toast": {
         "allSessionsRevokedSuccessfully": "All sessions revoked successfully",
         "otherSessionsRevokedSuccessfully": "Other sessions revoked successfully",
-        "sessionRevokedSuccessfully": "Session revoked successfully"
+        "sessionRevokedSuccessfully": "Session revoked successfully",
+        "sessionRevokeFailed": "Failed to revoke session"
       },
       "session": "Session",
       "currentSession": "Current Session",
